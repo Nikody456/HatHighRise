@@ -12,19 +12,11 @@ namespace Statistics
     {
         public enum eType { FLAT, PERCENT }
 
-        private Stats _stats;
-
         public eStat Stat { get; private set; }
         public eType Type { get; private set; }
         public float Value { get; private set; }
 
         /*********INIT******************************************************************************************************/
-
-        public Modifier(eStat statAffected, eType type, float value, Stats stats)
-        {
-            _stats = stats;
-            InitHelper(statAffected, type, value);
-        }
 
         /** Can be used by a static object like a pick up to carry an unstarted modifier*/
         public Modifier(eStat statAffected, eType type, float value)
@@ -44,21 +36,6 @@ namespace Statistics
 
         /*********PUBLIC******************************************************************************************************/
 
-        /** If a static object created this, need to assign an Owner for the callback when it expires */
-        public void AssignOwner(Stats stat) {_stats = stat;}
-
-
-
-
-        /*********PRIVATE******************************************************************************************************/
-
-        void RemoveSelf()
-        {
-            if (_stats)
-                _stats.RemoveModifier(this);
-            else
-                Debug.LogWarning($"A modifier::{Stat}::{Type} expired without proper removal ");
-        }
 
     }
 }

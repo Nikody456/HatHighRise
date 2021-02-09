@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Hat One
   m_EditorClassIdentifier: 
   _name: Hat One
+  _img: {fileID: 0}
   _stat: 0
   _type: 0
+  _value: 100

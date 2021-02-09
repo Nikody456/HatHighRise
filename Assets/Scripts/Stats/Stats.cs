@@ -104,7 +104,6 @@ namespace Statistics
         {
             GetListForModifier(modifier.Stat).Add(modifier);
             ///xfer the modifier to us and reset
-            modifier.AssignOwner(this);
 
             HandleModifierExpections(modifier, true);
         }

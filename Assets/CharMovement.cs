@@ -33,6 +33,7 @@ public class CharMovement : MonoBehaviour
         {
             currentSpeed = sprintSpeed;
             sprintParticles.Play();
+
         }
         else
         {
@@ -46,13 +47,19 @@ public class CharMovement : MonoBehaviour
         {
             moveVector = new Vector2(moveVector.x, -1);
             jumps = 0;
+            if (Input.GetKeyDown("space"))
+            {
+                moveVector.y = jumpSpeed;
+                jumps++;
+                sprintParticles.Emit(20);
+            }
         }
         else
         {
             moveVector.y -= gravity;
         }
 
-        if (Input.GetKeyDown("space") && jumps < jumpLimit)
+        if (Input.GetKeyDown("space") && jumps < jumpLimit && jumps > 1)
         {
             moveVector.y = jumpSpeed;
             jumps++;

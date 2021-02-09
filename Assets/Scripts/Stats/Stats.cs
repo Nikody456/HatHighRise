@@ -6,6 +6,10 @@ namespace Statistics
 {
     public class Stats : MonoBehaviour
     {
+
+        ///TMP way to inject stats:
+        [SerializeField] StartingStats _startingStats;
+
         #region Modifiers
         private Transform _modiferChild;
 
@@ -42,7 +46,7 @@ namespace Statistics
         #region Getters
         public int CurrentHealth => _currentHealth;
         public int CurrentMoveSpeed => _currentMoveSpeed;
-
+        public float CurrentJumpSpeed => _currentJump;
 
         public int GetCurrentAttack()
         {
@@ -57,6 +61,14 @@ namespace Statistics
 
         #endregion
 
+
+        private void Awake()
+        {
+            ///TEMP?
+            if (_startingStats)
+                Initalize(null, _startingStats, true);
+            
+        }
 
         /*********INIT******************************************************************************************************/
 

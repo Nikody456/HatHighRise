@@ -11,7 +11,7 @@ namespace Statistics
     {
 
         #region meters
-        [Range(1, 1000)]
+        [Range(1, 100)]
         [SerializeField] int _hpMax = default;
         public int hpMAX => _hpMax;
 
@@ -19,7 +19,7 @@ namespace Statistics
 
         #region actual 
 
-        [Range(1, 2.5f)]
+        [Range(1, 25f)]
         [SerializeField] float _baseJump = default;
         public float BaseJump => _baseJump;
 

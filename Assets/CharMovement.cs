@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Statistics;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharMovement : MonoBehaviour
 {
+    [SerializeField] Stats playerStats;
+
     [SerializeField] float currentSpeed;
 
     public float baseSpeed;

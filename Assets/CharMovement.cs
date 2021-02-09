@@ -10,13 +10,12 @@ public class CharMovement : MonoBehaviour
 
     [SerializeField] float currentSpeed;
 
-    public float baseSpeed;
-    public float sprintSpeed;
+    public float sprintSpeed; ///TODO STEVE: Move this into Stats 
     [SerializeField] ParticleSystem sprintParticles;
 
-    [SerializeField] float jumpSpeed;
-    [SerializeField] float gravity;
-    [SerializeField] float friction;
+    [SerializeField] float gravity; ///TODO ??: Move into its own GAMECONSTANTS static class thats non-monobehavior
+    [SerializeField] float friction;///TODO ??: Move into its own GAMECONSTANTS static class thats non-monobehavior
+
     [SerializeField] int jumpLimit = 1; //Additional jump powerup?
     private int jumps;
 
@@ -34,13 +33,13 @@ public class CharMovement : MonoBehaviour
     {
         if (Input.GetKey("left shift") && controller.isGrounded)
         {
-            currentSpeed = sprintSpeed;
+            currentSpeed = playerStats.CurrentMoveSpeed * sprintSpeed;
             sprintParticles.Play();
 
         }
         else
         {
-            currentSpeed = baseSpeed;
+            currentSpeed = playerStats.CurrentMoveSpeed;
             sprintParticles.Stop();
         }
 
@@ -52,7 +51,7 @@ public class CharMovement : MonoBehaviour
             jumps = 0;
             if (Input.GetKeyDown("space"))
             {
-                moveVector.y = jumpSpeed;
+                moveVector.y = playerStats.CurrentJumpSpeed;
                 jumps++;
                 sprintParticles.Emit(20);
             }
@@ -64,7 +63,7 @@ public class CharMovement : MonoBehaviour
 
         if (Input.GetKeyDown("space") && jumps < jumpLimit && jumps > 1)
         {
-            moveVector.y = jumpSpeed;
+            moveVector.y = playerStats.CurrentJumpSpeed;
             jumps++;
             sprintParticles.Emit(20);
         }

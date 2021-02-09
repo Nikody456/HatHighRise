@@ -9,19 +9,19 @@ public class HatData : ScriptableObject
 
     public string Name => _name;
     [Header("Info")]
-    [SerializeField] string _name;
+    [SerializeField] string _name = default;
 
     public Sprite Image => _img;
-    [SerializeField] Sprite _img;
+    [SerializeField] Sprite _img = default;
   
     public eStat Stat => _stat;
     [Header("Statistics")]
-    [SerializeField] eStat _stat;
+    [SerializeField] eStat _stat = default;
     
     public Modifier.eType Type => _type;
-    [SerializeField] Modifier.eType _type;
+    [SerializeField] Modifier.eType _type = default;
 
     public float Value => _value;
-    [SerializeField] float _value;
+    [SerializeField] float _value = default;
 
 }

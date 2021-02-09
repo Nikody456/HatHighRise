@@ -5,7 +5,7 @@ using Statistics;
 
 public class Hat : MonoBehaviour
 {
-    [SerializeField] HatData _hatData;
+    [SerializeField] HatData _hatData = default;
 
     public Modifier Modifier { get; private set; }
 

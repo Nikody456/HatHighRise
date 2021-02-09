@@ -8,7 +8,7 @@ namespace Statistics
     {
 
         ///TMP way to inject stats:
-        [SerializeField] StartingStats _startingStats;
+        [SerializeField] StartingStats _startingStats = default;
 
         #region Modifiers
         private Transform _modiferChild;
@@ -84,6 +84,7 @@ namespace Statistics
             _currentJump = initalStats.BaseJump < MAXJUMP ? initalStats.BaseJump : MAXJUMP;
             _currentAttack = initalStats.attack < MAXATTACK ? initalStats.attack : MAXATTACK;
             _currentDefense = initalStats.defense < MAXDEFENSE ? initalStats.defense : MAXDEFENSE;
+            _currentMoveSpeed = (int)initalStats.BaseMove;
 
             _currentHealth = _healthMAX;
 

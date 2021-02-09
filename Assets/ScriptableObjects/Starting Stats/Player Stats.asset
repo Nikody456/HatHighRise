@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hpMax: 100
   _baseJump: 20
+  _baseMove: 10
   _attack: 10
   _defense: 5

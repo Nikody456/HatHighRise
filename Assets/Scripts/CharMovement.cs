@@ -9,7 +9,7 @@ public class CharMovement : MonoBehaviour
 {
     private Stats _playerStats;
 
-    private float _currentSpeed;
+    private float _currentSpeed =1; ///Steve set to be able to move
 
     public float sprintSpeed; ///TODO STEVE: Move this into Stats 
     [SerializeField] ParticleSystem sprintParticles =default;

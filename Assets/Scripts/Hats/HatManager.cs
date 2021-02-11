@@ -11,4 +11,10 @@ public class HatManager : MonoBehaviour
     {
 
     }
+
+
+    public void OnPutDownHat(Hat hat)
+    {
+
+    }
 }

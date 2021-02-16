@@ -27,14 +27,15 @@ namespace Statistics
         public static int MAXJUMP { get; private set; } = 150;
         public static int MAXATTACK { get; private set; } = 120;
         public static int MAXDEFENSE { get; private set; } = 120;
+        public static int MAXRAWDAMAGE { get; private set; } = 999;
         #endregion
 
         #region Properties
-        private int _currentHealth;
-        private int _currentMoveSpeed;
-        private float _currentJump;  ///James wants a push to hold jump mechanic 
-        private int _currentAttack;
-        private int _currentDefense;
+        private int _currentHealth; ///Need to apply some modifiers properly here or _healthMAX
+        private int _baseMoveSpeed;
+        private float _baseJump;  ///James wants a push to hold jump mechanic 
+        private int _baseAttack;
+        private int _baseDefense;
         #endregion
 
 
@@ -44,20 +45,12 @@ namespace Statistics
         #endregion
 
         #region Getters
-        public int CurrentHealth => _currentHealth;
-        public int CurrentMoveSpeed => _currentMoveSpeed;
-        public float CurrentJumpSpeed => _currentJump;
+        public int CurrentHealth => GetCurrentStat(eStat.HPMAX);
+        public int CurrentMoveSpeed => GetCurrentStat(eStat.MOVESPEED);
+        public float CurrentJumpSpeed => GetCurrentStat(eStat.JUMP);
+        public int CurrentAttack => GetCurrentStat(eStat.ATTACK);
+        public int CurrentDefense => GetCurrentStat(eStat.DEFENSE);
 
-        public int GetCurrentAttack()
-        {
-            var retVal = CalculateModifier(eStat.ATTACK);
-            return retVal < MAXATTACK ? retVal : MAXATTACK;
-        }
-        public int GetCurrentDefense() ///Will eventually be used by UI im sure
-        {
-            var retVal = CalculateModifier(eStat.DEFENSE);
-            return retVal < MAXDEFENSE ? retVal : MAXDEFENSE;
-        }
 
         #endregion
 
@@ -66,13 +59,13 @@ namespace Statistics
         {
             ///TEMP?
             if (_startingStats)
-                Initalize(null, _startingStats, true);
+                Initalize( _startingStats, true);
             
         }
 
         /*********INIT******************************************************************************************************/
 
-        public void Initalize(GameObject soldier, StartingStats initalStats, bool isPlayer)
+        public void Initalize(StartingStats initalStats, bool isPlayer)
         {
             //Soldier = soldier;
             ///Grab our Initial dynamic meter stats
@@ -81,10 +74,10 @@ namespace Statistics
 
 
             ///Grab our initial static stats
-            _currentJump = initalStats.BaseJump < MAXJUMP ? initalStats.BaseJump : MAXJUMP;
-            _currentAttack = initalStats.attack < MAXATTACK ? initalStats.attack : MAXATTACK;
-            _currentDefense = initalStats.defense < MAXDEFENSE ? initalStats.defense : MAXDEFENSE;
-            _currentMoveSpeed = (int)initalStats.BaseMove;
+            _baseJump = initalStats.BaseJump < MAXJUMP ? initalStats.BaseJump : MAXJUMP;
+            _baseAttack = initalStats.attack < MAXATTACK ? initalStats.attack : MAXATTACK;
+            _baseDefense = initalStats.defense < MAXDEFENSE ? initalStats.defense : MAXDEFENSE;
+            _baseMoveSpeed = (int)initalStats.BaseMove;
 
             _currentHealth = _healthMAX;
 
@@ -134,8 +127,17 @@ namespace Statistics
             myList.Remove(modifier);
             HandleModifierExpections(modifier, false);
         }
-        
+
         /***********PRIVATE HELPERS**************************************************************************************************/
+
+
+
+        private int GetCurrentStat(eStat stat)
+        {
+            var retVal = CalculateModifier(stat);
+            int max = GetStatLimit(stat);
+            return retVal < max ? retVal : max;
+        }
 
         private int ModifyHealth(int rawDamage)
         {
@@ -159,7 +161,7 @@ namespace Statistics
         private int CalculateDefense(int rawDamage)
         {
             float retVal = rawDamage; ///A negative Number 
-            float defenseBlock = (retVal / 2) * ((float)GetCurrentDefense() / 100);
+            float defenseBlock = (retVal / 2) * ((float)CurrentDefense / 100);
 
             retVal -= defenseBlock;
 
@@ -235,15 +237,55 @@ namespace Statistics
                     }
                 case eStat.ATTACK:
                     {
-                        return _currentAttack;
+                        return _baseAttack;
                     }
                 case eStat.DEFENSE:
                     {
-                        return _currentDefense;
+                        return _baseDefense;
                     }
                 case eStat.RAWDAMAGE:
                     {
-                        return 0;
+                        return 0; ///TODO?
+                    }
+                case eStat.MOVESPEED:
+                    {
+                        return _baseMoveSpeed;
+                    }
+                case eStat.JUMP:
+                    {
+                        return _baseJump;
+                    }
+            }
+            return 0;
+        }
+        private int GetStatLimit(eStat stat)
+        {
+            switch (stat)
+            {
+                case eStat.HPMAX:
+                    {
+                        return MAXHP;
+                    }
+                case eStat.ATTACK:
+                    {
+                        return MAXATTACK;
+                    }
+                case eStat.DEFENSE:
+                    {
+                        return MAXDEFENSE;
+                    }
+                case eStat.RAWDAMAGE:
+                    {
+                        ///????
+                        return MAXRAWDAMAGE;
+                    }
+                case eStat.MOVESPEED:
+                    {
+                        return MAXMOVESPEED;
+                    }
+                case eStat.JUMP:
+                    {
+                        return MAXJUMP;
                     }
             }
             return 0;
@@ -268,6 +310,14 @@ namespace Statistics
                 case eStat.RAWDAMAGE:
                     {
                         return _damageModifiers;
+                    }
+                case eStat.MOVESPEED:
+                    {
+                        return _moveSpeedModifiers;
+                    }
+                case eStat.JUMP:
+                    {
+                        return _jumpModifiers;
                     }
             }
             return null;

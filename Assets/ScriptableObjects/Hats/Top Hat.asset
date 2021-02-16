@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea1370964fe3cde489655d8883a13978, type: 3}
-  m_Name: Hat One
+  m_Name: Top Hat
   m_EditorClassIdentifier: 
-  _name: Hat One
-  _img: {fileID: 21300000, guid: acc4b28d3924f3045a8e57b23e22ca55, type: 3}
-  _stat: 0
+  _name: Top Hat
+  _colliderSize: {x: 0.5, y: 0.5}
+  _img: {fileID: 21300000, guid: ea7a16c767aa9124eb72b8008a50b0e8, type: 3}
+  _stat: 1
   _type: 0
-  _value: 100
+  _value: 2

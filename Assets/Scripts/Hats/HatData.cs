@@ -11,6 +11,10 @@ public class HatData : ScriptableObject
     [Header("Info")]
     [SerializeField] string _name = default;
 
+    public Vector2 ColliderSize => _colliderSize;
+    [Header("Specifications")]
+    [SerializeField] Vector2 _colliderSize = new Vector2(0.5f, 0.5f);
+
     public Sprite Image => _img;
     [SerializeField] Sprite _img = default;
   

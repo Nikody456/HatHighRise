@@ -9,7 +9,7 @@ public class CharMovement : MonoBehaviour
 {
     private Stats _playerStats;
 
-    private float _currentSpeed =1; ///Steve set to be able to move
+    public float _currentSpeed =1; ///Steve set to be able to move
 
     public float sprintSpeed; ///TODO STEVE: Move this into Stats 
     [SerializeField] ParticleSystem sprintParticles =default;
@@ -67,6 +67,7 @@ public class CharMovement : MonoBehaviour
 
     void Update()
     {
+        _currentSpeed = _playerStats.CurrentMoveSpeed;
         moveVector = new Vector2(Mathf.Lerp(moveVector.x, input * _currentSpeed, friction * Time.deltaTime), moveVector.y);
 
 

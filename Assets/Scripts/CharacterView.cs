@@ -31,12 +31,12 @@ public class CharacterView : MonoBehaviour
 
     public void PickUpHat(Hat hat)
     {
-
+        _hatManager.OnPickUpHat(hat);
     }
 
     public void PutDownHat(Hat hat)
     {
-
+        _hatManager.OnPutDownHat(hat);
     }
 
     /*********Animations******************************************************************************************************/

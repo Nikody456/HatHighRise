@@ -8,13 +8,42 @@ public class HatManager : MonoBehaviour
 
     private float _characterHeight = 0.5f;
     private float _yOffset = 0.25f;
-
+    private Transform _hatStack;
+    private Vector2 _lastOffsetVector;
     [SerializeField] SpriteRenderer _characterSpriteHACK;
+    
+    
+    /***********INIT**************************************************************************************************/
+
+
+    private void Awake()
+    {
+        _hatStack = new GameObject().transform;
+        _hatStack.parent = this.transform;
+        _hatStack.localPosition = Vector3.zero;
+        _hatStack.name = "Hat Stack";
+    }
+
+    private void Start()
+    {
+        _lastOffsetVector = GetCharacterAnimOffset();
+    }
+
+    /***********TICK**************************************************************************************************/
+    private void LateUpdate()
+    {
+        Vector2 v2 = GetCharacterAnimOffset();
+        ApplyHatStackPositions(v2);
+    }
+
+
+
+    /***********PUBLIC**************************************************************************************************/
 
     public void OnPickUpHat(Hat hat)
     {
         //Debug.Log("I am picking up a hat");
-        hat.transform.parent = this.transform;
+        hat.transform.parent = _hatStack;
         hat.transform.localPosition = new Vector3(0, GetHeight(_hats.Count), 0);
         hat.SetOrderInSortingLayer(_hats.Count);
         _hats.Add(hat);
@@ -29,56 +58,42 @@ public class HatManager : MonoBehaviour
     }
 
 
-    private void Update()
+    /***********PRIVATE HELPERS**************************************************************************************************/
+
+    private Vector2 GetCharacterAnimOffset()
     {
+        Vector2 pos = Vector2.zero;
         var sprite = _characterSpriteHACK.sprite;
-        //Texture2D characterFrameSprite = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
         Color[] pixels = sprite.texture.GetPixels(
-                    (int)sprite.textureRect.x,
-                    (int)sprite.textureRect.y,
-                    (int)sprite.textureRect.width,
-                    (int)sprite.textureRect.height);
+                   (int)sprite.textureRect.x,
+                   (int)sprite.textureRect.y,
+                   (int)sprite.textureRect.width,
+                   (int)sprite.textureRect.height);
 
-
-        string blackIndexs = "";
-        int indexLast = 0;
         for (int i = 0; i < pixels.Length; ++i)
         {
-
             if (pixels[i] == Color.black)
             {
-                blackIndexs += i + " , ";
-                indexLast = i;
+                //print($"First BlackPixel Seen is at Horizontal:  {indexLast / (int)sprite.textureRect.width} and yHeight:{indexLast / (int)sprite.textureRect.height}");
+                int x = i / (int)sprite.textureRect.width;
+                int y = i / (int)sprite.textureRect.height;
 
-                print($"First BlackPixel Seen is at Horizontal:  {indexLast / (int)sprite.textureRect.width} and yHeight:{indexLast / (int)sprite.textureRect.height}");
-                return;
+                return new Vector2(x, y);
             }
         }
 
-        print(blackIndexs);
-        print($"Division: {indexLast / (int)sprite.textureRect.width} vs {indexLast / (int)sprite.textureRect.height}");
-        print($"Mod: {indexLast % (int)sprite.textureRect.width} vs {indexLast % (int)sprite.textureRect.height}");
-
-      //  print($" {pixels.Length} Pixel are : {(int)sprite.textureRect.width} , {(int)sprite.textureRect.height}");
-
-
-        //characterFrameSprite.SetPixels(pixels);
-        // characterFrameSprite.Apply();
-
-
-        //Vector3 size = new Vector3(32, 32, 32);
-        //int x = Mathf.FloorToInt(transform.position.x / size.x * characterFrameSprite.width);
-        //int z = Mathf.FloorToInt(transform.position.z / size.z * characterFrameSprite.height);
-        //Vector3 pos = transform.position;
-        // pos.y = characterFrameSprite.GetPixel(x, z).grayscale * size.y;
-        // transform.position = pos;
-
-        // print($"Wtf isthis : {characterFrameSprite.GetPixel(x, z).grayscale * size.y}");
+        return pos;
 
     }
 
-    /***********PRIVATE HELPERS**************************************************************************************************/
+    private void ApplyHatStackPositions(Vector2 v2)
+    {
+        Vector2 differenceSinceLastFrame = (_lastOffsetVector - v2) / GameConstants.PIXELS_PER_UNIT;
+        _hatStack.transform.position += new Vector3(differenceSinceLastFrame.x, differenceSinceLastFrame.y, 0);
+        _lastOffsetVector = v2;
+    }
 
+  
 
     private float GetHeight(int index)
     {

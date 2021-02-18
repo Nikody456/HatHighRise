@@ -6,8 +6,6 @@ using System;
 
 namespace Statistics 
 {
-    public enum eStat { HPMAX, MOVESPEED, JUMP, ATTACK, DEFENSE, RAWDAMAGE }
-
     public class Modifier 
     {
         public enum eType { FLAT, PERCENT }

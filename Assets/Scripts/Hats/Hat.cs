@@ -70,7 +70,7 @@ public class Hat : MonoBehaviour
     private void TogglePhysics()
     {
         ///CANT SET UNTIL WE FIX LEVEL COLLIDERS to be 2D:
-       // _collider.isTrigger = IsPickedUp;
+        _collider.isTrigger = !IsPickedUp;
        // _rb.isKinematic = IsPickedUp;
         
     }

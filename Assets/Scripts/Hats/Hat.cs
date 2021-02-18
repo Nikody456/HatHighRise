@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Statistics;
 
-[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class Hat : MonoBehaviour
@@ -27,7 +27,7 @@ public class Hat : MonoBehaviour
         _spriteRenderer.sortingLayerName = "Hats";
         _collider = this.GetComponent<Collider2D>();
         _rb = this.GetComponent<Rigidbody2D>();
-        TogglePhysics();
+        EnforcePhysics();
         SetUpModifier();
     }
 
@@ -50,7 +50,7 @@ public class Hat : MonoBehaviour
         /// tell the characterView to wear this
         view.PickUpHat(this);
         IsPickedUp = true;
-        TogglePhysics();
+        Destroy(_rb);
     }
 
 
@@ -60,18 +60,19 @@ public class Hat : MonoBehaviour
         /// tell the characterView to remove this
         view.PutDownHat(this);
         IsPickedUp = false;
-        TogglePhysics();
+        EnforcePhysics();
     }
 
 
     public void SetOrderInSortingLayer(int order){ _spriteRenderer.sortingOrder = order; }
     /***************************************************************************************************************/
 
-    private void TogglePhysics()
+    private void EnforcePhysics()
     {
         ///CANT SET UNTIL WE FIX LEVEL COLLIDERS to be 2D:
-        _collider.isTrigger = !IsPickedUp;
-       // _rb.isKinematic = IsPickedUp;
+        _collider.isTrigger = false;
+        if(_rb)
+            _rb.isKinematic = false;
         
     }
 }

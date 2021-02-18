@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Statistics;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Stats))]
 public class CharMovement : MonoBehaviour
 {
@@ -20,9 +20,9 @@ public class CharMovement : MonoBehaviour
     [SerializeField] int jumpLimit = 1; //Additional jump powerup?
     private int _jumps;
 
-    [SerializeField] Vector2 moveVector = default; //the direction the player is moving
-    [SerializeField] Vector2 speedClamp = default; //limit the speed of the player
-    private CharacterController _controller;
+    [SerializeField] float moveDirection = default; //the direction the player is moving
+    [SerializeField] LayerMask groundedMask = default;
+    private Rigidbody2D _controller;
 
     public float input;
 
@@ -31,17 +31,16 @@ public class CharMovement : MonoBehaviour
 
         _playerStats = GetComponent<Stats>();
 
-        _controller = GetComponent<CharacterController>();
-        moveVector = new Vector2(0, -speedClamp.y);
+        _controller = GetComponent<Rigidbody2D>();
+        moveDirection = 0;
     }
 
     public void TrySprint()
     {
-        if (_controller.isGrounded)
+        if (isGrounded())
         {
             _currentSpeed = _playerStats.CurrentMoveSpeed * sprintSpeed;
             sprintParticles.Play();
-
         }
         else
         {
@@ -50,14 +49,31 @@ public class CharMovement : MonoBehaviour
         }
     }
 
+    public void StopSprint()
+    {
+        _currentSpeed = _playerStats.CurrentMoveSpeed;
+        sprintParticles.Stop();
+    }
+
     public void TryJump()
     {
-        if (_jumps < jumpLimit)
+
+        if(_jumps == 0 && isGrounded())
         {
-            moveVector.y = _playerStats.CurrentJumpSpeed;
-            _jumps++;
-            sprintParticles.Emit(20);
+            DoJump();
         }
+        else if (_jumps > 0 && _jumps < jumpLimit)
+        {
+            DoJump();
+        }
+
+    }
+
+    private void DoJump()
+    {
+        _controller.velocity = new Vector2(_controller.velocity.x, _playerStats.CurrentJumpSpeed);
+        sprintParticles.Emit(20);
+        _jumps++;
     }
 
     public void SetInput(float newInput)
@@ -65,28 +81,54 @@ public class CharMovement : MonoBehaviour
         input = newInput;
     }
 
-    void Update()
+    bool isGrounded()
     {
-        _currentSpeed = _playerStats.CurrentMoveSpeed;
-        moveVector = new Vector2(Mathf.Lerp(moveVector.x, input * _currentSpeed, friction * Time.deltaTime), moveVector.y);
+        Vector2 boxPosition = new Vector2(transform.position.x, transform.position.y - transform.localScale.y / 2 - .065f);
+        Collider2D[] collisions = Physics2D.OverlapBoxAll(boxPosition, new Vector2(transform.GetComponent<BoxCollider2D>().size.x - .125f, .125f), 0,groundedMask);
 
+        Transform parent = null;
 
-        if(_controller.isGrounded && _jumps == 0)
+        for(int i = 0; i < collisions.Length; i++)
         {
-            moveVector = new Vector2(moveVector.x, -1);
+            if(collisions[i].tag == "Platform")
+            {
+                parent = collisions[i].transform;
+            }
         }
 
-        if (_controller.isGrounded)
+        transform.parent = parent;
+
+        if(collisions.Length > 0)
         {
-            _jumps = 0;
+            //Debug.Log("grounded");
+            return true;
         }
         else
         {
-            moveVector.y -= gravity;
+            //Debug.Log("not grounded");
+            return false;
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Draw a semitransparent blue cube at the transforms position
+        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y - transform.localScale.y/2 - .0625f, 0), new Vector3(transform.GetComponent<BoxCollider2D>().size.x - .125f, .125f, 1));
+    }
+
+    void Update()
+    {
+
+        _currentSpeed = _playerStats.CurrentMoveSpeed;
+        moveDirection = Mathf.Lerp(moveDirection, input * _currentSpeed, friction * Time.deltaTime);
+
+        if (isGrounded() && _controller.velocity.y <= 0)
+        {
+            _jumps = 0;
         }
 
-        moveVector = new Vector2(Mathf.Clamp(moveVector.x, -speedClamp.x, speedClamp.x), Mathf.Clamp(moveVector.y, -speedClamp.y, speedClamp.y));
-        _controller.Move(moveVector * Time.deltaTime);
+        _controller.velocity = new Vector2(moveDirection, _controller.velocity.y);
 
     }
 }

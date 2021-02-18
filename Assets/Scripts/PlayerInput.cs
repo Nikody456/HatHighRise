@@ -26,6 +26,11 @@ public class PlayerInput : MonoBehaviour
             character.TrySprint();
         }
 
+        if (Input.GetKeyUp("left shift"))
+        {
+            character.StopSprint();
+        }
+
         character.SetInput(Input.GetAxis("Horizontal"));
 
     }

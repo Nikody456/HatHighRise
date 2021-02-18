@@ -27,6 +27,9 @@ namespace Statistics
         [SerializeField] float _baseMove = default;
         public float BaseMove => _baseMove;
 
+        [Range(1, 15f)]
+        [SerializeField] float _baseSprint = default;
+        public float BaseSprint => _baseSprint;
         [Range(1, 120)]
         [SerializeField] int _attack = default;
         public int attack => _attack;

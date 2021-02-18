@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Statistics
 {
+    public enum eStat { HPMAX, MOVESPEED, SPRINT, JUMP, ATTACK, DEFENSE, RAWDAMAGE }
+
+
     public class Stats : MonoBehaviour
     {
 
@@ -15,6 +18,7 @@ namespace Statistics
 
         private List<Modifier> _healthModifiers = new List<Modifier>();
         private List<Modifier> _moveSpeedModifiers = new List<Modifier>();
+        private List<Modifier> _sprintSpeedModifiers = new List<Modifier>();
         private List<Modifier> _jumpModifiers = new List<Modifier>();
         private List<Modifier> _attackModifiers = new List<Modifier>();
         private List<Modifier> _defenseModifiers = new List<Modifier>();
@@ -24,6 +28,7 @@ namespace Statistics
         #region MaxStats
         public static int MAXHP { get; private set; } = 1000;
         public static int MAXMOVESPEED { get; private set; } = 150;
+        public static int MAXSPRINT { get; private set; } = 150;
         public static int MAXJUMP { get; private set; } = 150;
         public static int MAXATTACK { get; private set; } = 120;
         public static int MAXDEFENSE { get; private set; } = 120;
@@ -32,7 +37,8 @@ namespace Statistics
 
         #region Properties
         private int _currentHealth; ///Need to apply some modifiers properly here or _healthMAX
-        private int _baseMoveSpeed;
+        private float _baseMoveSpeed;
+        private float _baseSprintSpeed;
         private float _baseJump;  ///James wants a push to hold jump mechanic 
         private int _baseAttack;
         private int _baseDefense;
@@ -45,11 +51,12 @@ namespace Statistics
         #endregion
 
         #region Getters
-        public int CurrentHealth => GetCurrentStat(eStat.HPMAX);
-        public int CurrentMoveSpeed => GetCurrentStat(eStat.MOVESPEED);
+        public int CurrentHealth =>(int) GetCurrentStat(eStat.HPMAX);
+        public float CurrentMoveSpeed => GetCurrentStat(eStat.MOVESPEED);
+        public float CurrentSprintSpeed => GetCurrentStat(eStat.SPRINT);
         public float CurrentJumpSpeed => GetCurrentStat(eStat.JUMP);
-        public int CurrentAttack => GetCurrentStat(eStat.ATTACK);
-        public int CurrentDefense => GetCurrentStat(eStat.DEFENSE);
+        public int CurrentAttack => (int)GetCurrentStat(eStat.ATTACK);
+        public int CurrentDefense => (int)GetCurrentStat(eStat.DEFENSE);
 
 
         #endregion
@@ -132,10 +139,10 @@ namespace Statistics
 
 
 
-        private int GetCurrentStat(eStat stat)
+        private float GetCurrentStat(eStat stat)
         {
-            var retVal = CalculateModifier(stat);
-            int max = GetStatLimit(stat);
+            float retVal = CalculateModifier(stat);
+            float max = GetStatLimit(stat);
             return retVal < max ? retVal : max;
         }
 
@@ -171,7 +178,7 @@ namespace Statistics
 
             return (int)retVal;
         }
-        private int CalculateModifier(eStat stat)
+        private float CalculateModifier(eStat stat)
         {
             float retVal = FindBaseStat(stat);
             foreach (var mod in GetListForModifier(stat))
@@ -251,6 +258,10 @@ namespace Statistics
                     {
                         return _baseMoveSpeed;
                     }
+                case eStat.SPRINT:
+                    {
+                        return _baseSprintSpeed;
+                    }
                 case eStat.JUMP:
                     {
                         return _baseJump;
@@ -283,6 +294,10 @@ namespace Statistics
                     {
                         return MAXMOVESPEED;
                     }
+                case eStat.SPRINT:
+                    {
+                        return MAXSPRINT;
+                    }
                 case eStat.JUMP:
                     {
                         return MAXJUMP;
@@ -314,6 +329,10 @@ namespace Statistics
                 case eStat.MOVESPEED:
                     {
                         return _moveSpeedModifiers;
+                    }
+                case eStat.SPRINT:
+                    {
+                        return _sprintSpeedModifiers;
                     }
                 case eStat.JUMP:
                     {

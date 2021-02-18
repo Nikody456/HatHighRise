@@ -12,14 +12,13 @@ public class CharacterCollider : MonoBehaviour
     [SerializeField] CharacterView _characterView = default;
     [SerializeField] Stats _characterStats = default;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         //Debug.Log($"{this.gameObject.name} Trigger2D with {collision.gameObject.name} ");
-        Hat hat = collision.GetComponent<Hat>();
+        Hat hat = collision.gameObject.GetComponent<Hat>();
         if(hat)
         {
             hat.OnPickup(_characterStats, _characterView);
         }
     }
-
 }

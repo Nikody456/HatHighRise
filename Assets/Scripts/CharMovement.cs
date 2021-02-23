@@ -5,8 +5,10 @@ using Statistics;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Stats))]
+[RequireComponent(typeof(CharacterView))]
 public class CharMovement : MonoBehaviour
 {
+    private CharacterView _view;
     private Stats _playerStats;
 
     public float _currentSpeed =1; ///Steve set to be able to move
@@ -30,7 +32,7 @@ public class CharMovement : MonoBehaviour
     {
 
         _playerStats = GetComponent<Stats>();
-
+        _view = GetComponent<CharacterView>();
         _controller = GetComponent<Rigidbody2D>();
         moveDirection = 0;
     }
@@ -129,6 +131,6 @@ public class CharMovement : MonoBehaviour
         }
 
         _controller.velocity = new Vector2(moveDirection, _controller.velocity.y);
-
+        _view.SetMoveSpeed(_controller.velocity.magnitude);
     }
 }

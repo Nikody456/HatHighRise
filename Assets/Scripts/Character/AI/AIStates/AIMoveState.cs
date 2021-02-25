@@ -8,10 +8,13 @@ namespace AI
     public class AIMoveState : AIState
     {
         AIInput _ai;
+        /*************************************************************************************************************/
+
         public AIMoveState(AIInput ai)
         {
             _ai = ai;
         }
+        /*************************************************************************************************************/
 
         public override bool CanExit(eAIStates nextState)
         {
@@ -25,6 +28,7 @@ namespace AI
         {
 
         }
+        /*************************************************************************************************************/
 
         public override void Execute(Transform target)
         {
@@ -33,8 +37,7 @@ namespace AI
                 _ai.SetMovement(PickADirection(target.position));
             }
         }
-
-
+        /*************************************************************************************************************/
 
         protected virtual bool CheckExitConditions(Transform target)
         {

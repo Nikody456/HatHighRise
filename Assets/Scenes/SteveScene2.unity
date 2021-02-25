@@ -380,6 +380,8 @@ MonoBehaviour:
   sprintParticles: {fileID: 1520815789}
   gravity: 0.5
   friction: 10
+  airFriction: 0
+  coyoteTime: 0
   jumpLimit: 10
   moveDirection: 0
   groundedMask:
@@ -697,7 +699,9 @@ MonoBehaviour:
   sprintParticles: {fileID: 1112814530}
   gravity: 0.5
   friction: 10
-  jumpLimit: 10
+  airFriction: 0
+  coyoteTime: 0
+  jumpLimit: 2
   moveDirection: 0
   groundedMask:
     serializedVersion: 2

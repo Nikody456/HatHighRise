@@ -135,12 +135,12 @@ public class CharMovement : MonoBehaviour
 
         if(collisions.Length > 0)
         {
-            Debug.Log("grounded");
+            //Debug.Log("grounded");
             return true;
         }
         else
         {
-            Debug.Log("not grounded");
+            //Debug.Log("not grounded");
             return false;
         }
     }

@@ -380,6 +380,8 @@ MonoBehaviour:
   sprintParticles: {fileID: 1520815789}
   gravity: 0.5
   friction: 10
+  airFriction: 0
+  coyoteTime: 0
   jumpLimit: 10
   moveDirection: 0
   groundedMask:
@@ -409,7 +411,7 @@ Animator:
   m_GameObject: {fileID: 659496467}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 58f92211e399feb44b16565f79c036b4, type: 2}
+  m_Controller: {fileID: 9100000, guid: dbc48732590b23a41ba7eb2004e5e2a4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -457,7 +459,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7157958308137782638, guid: 4d9f108fb1649554fbfbb4be3b87e8d3,
+  m_Sprite: {fileID: 7218312749309048875, guid: e6956b733eab24c41a5168dec00bb830,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -697,7 +699,9 @@ MonoBehaviour:
   sprintParticles: {fileID: 1112814530}
   gravity: 0.5
   friction: 10
-  jumpLimit: 10
+  airFriction: 0
+  coyoteTime: 0
+  jumpLimit: 2
   moveDirection: 0
   groundedMask:
     serializedVersion: 2

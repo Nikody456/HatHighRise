@@ -8,10 +8,13 @@ namespace AI
     public class AIAttackState : AIState
     {
         AIInput _ai;
+        /*************************************************************************************************************/
+
         public AIAttackState(AIInput ai)
         {
             _ai = ai;
         }
+        /*************************************************************************************************************/
 
         public override bool CanExit(eAIStates nextState)
         {
@@ -25,20 +28,21 @@ namespace AI
         {
 
         }
+        /*************************************************************************************************************/
 
         public override void Execute(Transform target)
         {
             if (!CheckExitConditions(target))
             {
-                ///TODO
-                _ai.SetMovement(0);
+                DoAttack();
             }
         }
 
-
+        /*************************************************************************************************************/
 
         protected virtual bool CheckExitConditions(Transform target)
         {
+            ///Obv refactor this
             if (Vector3.Distance(_ai.transform.position, target.position) > _ai.DetectionRange)
             {
                 _ai.SetState(eAIStates.IDLE);
@@ -53,5 +57,11 @@ namespace AI
             return false;
         }
 
+
+        protected virtual void DoAttack()
+        {
+            ///TODO
+            _ai.SetMovement(0);
+        }
     }
 }

@@ -76,7 +76,7 @@ public class HatManager : MonoBehaviour
             {
                 int x = i / (int)sprite.textureRect.width;
                 int y = i / (int)sprite.textureRect.height;
-                print($"First BlackPixel Seen is at Horizontal:  {x} and yHeight:{y}");
+                //print($"First BlackPixel Seen is at Horizontal:  {x} and yHeight:{y}");
 
                 return new Vector2(x, y);
             }

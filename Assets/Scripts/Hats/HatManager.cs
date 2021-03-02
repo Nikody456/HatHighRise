@@ -74,9 +74,9 @@ public class HatManager : MonoBehaviour
         {
             if (pixels[i] == Color.black)
             {
-                //print($"First BlackPixel Seen is at Horizontal:  {indexLast / (int)sprite.textureRect.width} and yHeight:{indexLast / (int)sprite.textureRect.height}");
                 int x = i / (int)sprite.textureRect.width;
                 int y = i / (int)sprite.textureRect.height;
+                print($"First BlackPixel Seen is at Horizontal:  {x} and yHeight:{y}");
 
                 return new Vector2(x, y);
             }

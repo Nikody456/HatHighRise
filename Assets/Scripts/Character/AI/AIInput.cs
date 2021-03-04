@@ -20,6 +20,7 @@ namespace AI
         private AIState _attackState;
         private AIState _jumpState;
 
+        bool _applicationIsQuitting = false;
         /***********INIT**************************************************************************************************/
         void Awake()
         {
@@ -39,7 +40,10 @@ namespace AI
 
         void Update()
         {
-            _currentState.Execute(_target);
+            if (!_applicationIsQuitting)
+            {
+                _currentState.Execute(_target);
+            }
 
         }
         /*************************************************************************************************************/
@@ -99,6 +103,11 @@ namespace AI
                     }
             }
             return state;
+        }
+
+        private void OnApplicationQuit()
+        {
+            _applicationIsQuitting = true;
         }
     }
 }

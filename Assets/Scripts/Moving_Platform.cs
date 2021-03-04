@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Moving_Platform : MonoBehaviour
+public class MovingPlatform : MonoBehaviour
 {
     public Transform pos1, pos2;
     public float speed;

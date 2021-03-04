@@ -38,6 +38,7 @@ public class CharMovement : MonoBehaviour
 
     private void Start()
     {
+
         _playerStats = GetComponent<Stats>();
         _view = GetComponent<CharacterView>();
         _controller = GetComponent<Rigidbody2D>();
@@ -92,7 +93,6 @@ public class CharMovement : MonoBehaviour
 
     private void DoJump()
     {
-
         _coyotePre = coyoteTime+1;
         _coyotePreEnabled = false;
 
@@ -135,12 +135,10 @@ public class CharMovement : MonoBehaviour
 
         if(collisions.Length > 0)
         {
-            //Debug.Log("grounded");
             return true;
         }
         else
         {
-            //Debug.Log("not grounded");
             return false;
         }
     }
@@ -180,9 +178,11 @@ public class CharMovement : MonoBehaviour
 
     void Update()
     {
+        bool grounded = isGrounded();
+        _view.SetIsGrounded(grounded);
 
         _currentSpeed = _playerStats.CurrentMoveSpeed;
-        if(isGrounded())
+        if(grounded)
         {
             moveDirection = Mathf.Lerp(moveDirection, input * _currentSpeed, friction * Time.deltaTime);
             if(_controller.velocity.y <= 0)
@@ -193,6 +193,7 @@ public class CharMovement : MonoBehaviour
         else
         {
             moveDirection = Mathf.Lerp(moveDirection, input * _currentSpeed, airFriction * Time.deltaTime);
+
             if (!_coyotePostEnabled)
             {
                 _coyotePostEnabled = true;
@@ -222,7 +223,25 @@ public class CharMovement : MonoBehaviour
             TryJump();
         }
 
+        //set velocity of the character
         _controller.velocity = new Vector2(moveDirection, _controller.velocity.y);
-        _view.SetMoveSpeed(_controller.velocity.magnitude);
+
+        //Send character speed info to the animator
+        _view.SetXSpeed(Mathf.Abs(_controller.velocity.x));
+        _view.SetYSpeed(_controller.velocity.y);
+
+        if(Mathf.Abs(_controller.velocity.x) > .5)
+        {
+            if (_controller.velocity.x > 0)
+            {
+                _view.SetMirror(false);
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else
+            {
+                _view.SetMirror(true);
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+        }
     }
 }

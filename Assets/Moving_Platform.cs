@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class Moving_Platform : MonoBehaviour
 {
     public Transform pos1, pos2;
     public float speed;
@@ -32,7 +32,7 @@ public class MovingPlatform : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
     }
 
-    private void OnDrawGizmos()
+    private void _OnDrawGizmos()
     {
         Gizmos.DrawLine(pos1.position, pos2.position);
     }

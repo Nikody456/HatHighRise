@@ -89,7 +89,10 @@ public class HatManager : MonoBehaviour
     private void ApplyHatStackPositions(Vector2 v2)
     {
         Vector2 differenceSinceLastFrame = (_lastOffsetVector - v2) / GameConstants.PIXELS_PER_UNIT;
-        _hatStack.transform.position += new Vector3(differenceSinceLastFrame.x, differenceSinceLastFrame.y, 0);
+        Vector3 diff = new Vector3(differenceSinceLastFrame.x, differenceSinceLastFrame.y, 0);
+        //if(diff.x !=0 && diff.y !=0)
+        //    Debug.Log($"Difference each frame={diff.x} , {diff.y}");
+        _hatStack.transform.position += diff;
         _lastOffsetVector = v2;
     }
 

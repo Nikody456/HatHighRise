@@ -20,13 +20,19 @@ namespace AI
         private AIState _attackState;
         private AIState _jumpState;
 
-        bool _applicationIsQuitting = false;
+        bool sceneIsLoading = false;
         /***********INIT**************************************************************************************************/
         void Awake()
         {
             _charMovement = GetComponent<CharMovement>();
             CreateStates();
+           
         }
+        private void OnEnable()
+        {
+            LevelLoader.Instance.OnSceneIsLoading += OnSceneLoad;
+        }
+
 
         void CreateStates()
         {
@@ -40,7 +46,7 @@ namespace AI
 
         void Update()
         {
-            if (!_applicationIsQuitting)
+            if (!sceneIsLoading)
             {
                 _currentState.Execute(_target);
             }
@@ -105,9 +111,14 @@ namespace AI
             return state;
         }
 
-        private void OnApplicationQuit()
+        private void OnDisable()
         {
-            _applicationIsQuitting = true;
+            LevelLoader.Instance.OnSceneIsLoading -= OnSceneLoad;
+        }
+
+        private void OnSceneLoad(bool cond)
+        {
+            sceneIsLoading = cond;
         }
     }
 }

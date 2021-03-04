@@ -6,8 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class CharacterView : MonoBehaviour
 {
-    const string SPEED = "speed";
-    const string JUMPING = "isJumping";
+    const string XSPEED = "x_speed";
+    const string YSPEED = "y_speed";
+    const string GROUNDED = "isGrounded";
+    const string MIRROR = "mirror";
 
 
     ///Will Need to Manage Hats added
@@ -42,14 +44,25 @@ public class CharacterView : MonoBehaviour
     /*********Animations******************************************************************************************************/
 
 
-    public void SetMoveSpeed(float input)
+    public void SetXSpeed(float input)
     {
-        _animator.SetFloat(SPEED, input);
+        _animator.SetFloat(XSPEED, input);
     }
 
-    public void SetIsJumping(bool isJumping)
+    public void SetYSpeed(float input)
     {
-        _animator.SetBool(JUMPING, isJumping);
+        _animator.SetFloat(YSPEED, input);
     }
+
+    public void SetIsGrounded(bool isGrounded)
+    {
+        _animator.SetBool(GROUNDED, isGrounded);
+    }
+
+    public void SetMirror(bool mirror)
+    {
+        _animator.SetBool(MIRROR, mirror); ;
+    }
+
 
 }

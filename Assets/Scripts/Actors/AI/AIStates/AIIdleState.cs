@@ -41,6 +41,10 @@ namespace AI
 
         protected virtual bool CheckExitConditions(Transform target)
         {
+            if(target==null)
+            {
+                return true;
+            }
             //Debug.Log($"Dis= {Vector3.Distance(_ai.transform.position, target.position)}");
             if (Vector3.Distance(_ai.transform.position, target.position) < _ai.DetectionRange)
             {

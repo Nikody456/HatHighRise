@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea1370964fe3cde489655d8883a13978, type: 3}
-  m_Name: Yellow Hat
+  m_Name: Soda Hat
   m_EditorClassIdentifier: 
-  _name: Yellow Hat
+  _name: Soda
   _colliderSize: {x: 0.5, y: 0.5}
-  _img: {fileID: 21300000, guid: cf9fe02e6267e8045a14205cd7672494, type: 3}
-  _stat: 1
+  _img: {fileID: 21300000, guid: 5a19982b78916f844a977eeb71db47e4, type: 3}
+  _stat: 3
   _type: 0
-  _value: 3
+  _value: 4

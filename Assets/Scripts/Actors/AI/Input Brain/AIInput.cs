@@ -42,15 +42,14 @@ namespace AI
             {
                 _currentState.Execute(_target);
             }
-
             //Debug.Log($"Curr statename={_currentState.ToString()}");
-
         }
         /*************************************************************************************************************/
-
+        public float DetectionRange => _detectionRange;
+        public float AttackRange => _atkRange;
+        public Vector3 FacingDir => _movement.isFacingRight() ? transform.right : -transform.right;
         public void SetState(AIState.eAIStates state)
         {
-
             if(_currentState.CanExit(state))
             {
                 AIState nextState = GetAIState(state);
@@ -62,9 +61,11 @@ namespace AI
                 }
             }
         }
+        public void SetTarget(Transform newTarget)
+        {
+            _target = newTarget;
+        }
 
-        public float DetectionRange => _detectionRange;
-        public float AttackRange => _atkRange;
         public void SetMovement(float dir)
         {
             _movement.SetInput(dir);

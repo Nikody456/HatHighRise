@@ -7,7 +7,7 @@ using Statistics;
 [RequireComponent(typeof(Stats))]
 public class CharMovement : ActorMovement
 {
-    private new CharacterView _view;
+    private CharacterView _view;
 
     private Stats _playerStats;
 
@@ -31,6 +31,10 @@ public class CharMovement : ActorMovement
     private int _jumps;
 
 
+    private void Awake()
+    {
+        _view = this.GetComponent<CharacterView>();
+    }
 
     protected override void Start()
     {

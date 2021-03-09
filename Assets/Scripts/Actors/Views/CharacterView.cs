@@ -10,6 +10,7 @@ public class CharacterView : ActorView
     const string YSPEED = "y_speed";
     const string GROUNDED = "isGrounded";
     const string MIRROR = "mirror";
+    const string ONWALL = "onWall";
 
 
     ///Will Need to Manage Hats added
@@ -59,7 +60,12 @@ public class CharacterView : ActorView
 
     public void SetMirror(bool mirror)
     {
-        _animator.SetBool(MIRROR, mirror); ;
+        _animator.SetBool(MIRROR, mirror);
+    }
+
+    public void SetIsOnWall(bool isOnWall)
+    {
+        _animator.SetBool(ONWALL, isOnWall);
     }
 
 

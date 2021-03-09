@@ -11,9 +11,8 @@ public class CharMovement : ActorMovement
 
     private Stats _playerStats;
 
-    public float _currentSpeed =1; ///Steve set to be able to move
+    private float _currentSpeed =1; ///Steve set to be able to move
 
-    public float sprintSpeed; ///TODO STEVE: Move this into Stats 
     [SerializeField] ParticleSystem sprintParticles =default;
 
     [SerializeField] float gravity = default; ///TODO ??: Move into its own GAMECONSTANTS static class thats non-monobehavior
@@ -34,6 +33,7 @@ public class CharMovement : ActorMovement
     {
         base.Start();
         _playerStats = GetComponent<Stats>();
+        _currentSpeed = _playerStats.CurrentMoveSpeed;
         _view = this.GetComponent<CharacterView>();
 
     }
@@ -41,10 +41,10 @@ public class CharMovement : ActorMovement
 
     protected override void Update()
     {
+        //Determine if the player is grounded each frame
         bool grounded = isGrounded();
         _view.SetIsGrounded(grounded);
 
-        _currentSpeed = _playerStats.CurrentMoveSpeed;
         if (grounded)
         {
             moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
@@ -69,29 +69,21 @@ public class CharMovement : ActorMovement
                     _coyotePost += 1 * Time.deltaTime;
                 }
             }
-        }
 
-        if (isOnWall() != 0 && _controller.velocity.y <= 0)
-        {
-
-            if (!grounded)
+            if (isOnWall() != 0 && _controller.velocity.y <= 0)
             {
                 _view.SetIsOnWall(true);
+
+                if (Mathf.Sign(_input) != Mathf.Sign(isOnWall()) && _input != 0)
+                {
+                    _controller.velocity = new Vector2(moveDirection, 0);
+                }
+                _jumps = 0;
             }
             else
             {
                 _view.SetIsOnWall(false);
             }
-
-            if (Mathf.Sign(_input) != Mathf.Sign(isOnWall()) && _input != 0)
-            {
-                _controller.velocity = new Vector2(moveDirection, 0);
-            }
-            _jumps = 0;
-        }
-        else
-        {
-            _view.SetIsOnWall(false);
         }
 
         if (_coyotePre <= coyoteTime)

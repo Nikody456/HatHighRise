@@ -85,7 +85,7 @@ namespace Statistics
             _baseAttack = initalStats.attack < MAXATTACK ? initalStats.attack : MAXATTACK;
             _baseDefense = initalStats.defense < MAXDEFENSE ? initalStats.defense : MAXDEFENSE;
             _baseMoveSpeed = (int)initalStats.BaseMove;
-
+            _baseSprintSpeed = initalStats.BaseSprint;
             _currentHealth = _healthMAX;
 
 

@@ -30,16 +30,11 @@ public class CharMovement : ActorMovement
     [SerializeField] int jumpLimit = 1; //Additional jump powerup?
     private int _jumps;
 
-
-    private void Awake()
-    {
-        _view = this.GetComponent<CharacterView>();
-    }
-
     protected override void Start()
     {
         base.Start();
         _playerStats = GetComponent<Stats>();
+        _view = this.GetComponent<CharacterView>();
 
     }
 
@@ -78,6 +73,16 @@ public class CharMovement : ActorMovement
 
         if (isOnWall() != 0 && _controller.velocity.y <= 0)
         {
+
+            if (!grounded)
+            {
+                _view.SetIsOnWall(true);
+            }
+            else
+            {
+                _view.SetIsOnWall(false);
+            }
+
             if (Mathf.Sign(_input) != Mathf.Sign(isOnWall()) && _input != 0)
             {
                 _controller.velocity = new Vector2(moveDirection, 0);

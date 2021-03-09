@@ -42,12 +42,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 458183825
+    locked: 0
+  - name: Enviornment
+    uniqueID: 997747735
+    locked: 0
+  - name: Env-Items
+    uniqueID: 933399807
+    locked: 0
   - name: Characters
     uniqueID: 1302541211
     locked: 0
   - name: Hats
     uniqueID: 3743872721
-    locked: 0
-  - name: Enviornment
-    uniqueID: 997747735
     locked: 0

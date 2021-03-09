@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Statistics;
 
-[RequireComponent(typeof(Rigidbody2D))]
+
 [RequireComponent(typeof(Stats))]
-[RequireComponent(typeof(CharacterView))]
-public class CharMovement : MonoBehaviour
+public class CharMovement : ActorMovement
 {
     private CharacterView _view;
+
     private Stats _playerStats;
 
     public float _currentSpeed =1; ///Steve set to be able to move
@@ -30,27 +30,96 @@ public class CharMovement : MonoBehaviour
     [SerializeField] int jumpLimit = 1; //Additional jump powerup?
     private int _jumps;
 
-    [SerializeField] float moveDirection = default; //the direction the player is moving
-    [SerializeField] LayerMask groundedMask = default;
-    private Rigidbody2D _controller;
 
-    public float input;
-
-    private void Start()
+    private void Awake()
     {
-
-        _playerStats = GetComponent<Stats>();
-        _view = GetComponent<CharacterView>();
-        _controller = GetComponent<Rigidbody2D>();
-        moveDirection = 0;
+        _view = this.GetComponent<CharacterView>();
     }
+
+    protected override void Start()
+    {
+        base.Start();
+        _playerStats = GetComponent<Stats>();
+
+    }
+
+
+    protected override void Update()
+    {
+        bool grounded = isGrounded();
+        _view.SetIsGrounded(grounded);
+
+        _currentSpeed = _playerStats.CurrentMoveSpeed;
+        if (grounded)
+        {
+            moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
+            if (_controller.velocity.y <= 0)
+            {
+                _jumps = 0;
+            }
+        }
+        else
+        {
+            moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, airFriction * Time.deltaTime);
+
+            if (!_coyotePostEnabled)
+            {
+                _coyotePostEnabled = true;
+                _coyotePost = 0;
+            }
+            else
+            {
+                if (_coyotePost <= coyoteTime)
+                {
+                    _coyotePost += 1 * Time.deltaTime;
+                }
+            }
+        }
+
+        if (isOnWall() != 0 && _controller.velocity.y <= 0)
+        {
+            if (Mathf.Sign(_input) != Mathf.Sign(isOnWall()) && _input != 0)
+            {
+                _controller.velocity = new Vector2(moveDirection, 0);
+            }
+            _jumps = 0;
+        }
+
+        if (_coyotePre <= coyoteTime)
+        {
+            _coyotePre += 1 * Time.deltaTime;
+            TryJump();
+        }
+
+        //set velocity of the character
+        _controller.velocity = new Vector2(moveDirection, _controller.velocity.y);
+
+        //Send character speed info to the animator
+        _view.SetXSpeed(Mathf.Abs(_controller.velocity.x));
+        _view.SetYSpeed(_controller.velocity.y);
+
+        if (Mathf.Abs(_controller.velocity.x) > .5)
+        {
+            if (_controller.velocity.x > 0)
+            {
+                _view.SetMirror(false);
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else
+            {
+                _view.SetMirror(true);
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+        }
+    }
+
 
     public void TrySprint()
     {
         if (isGrounded())
         {
             _currentSpeed = _playerStats.CurrentSprintSpeed;
-            if (Mathf.Abs(input) > .25f)
+            if (Mathf.Abs(_input) > .25f)
             {
                 sprintParticles.Play();
             }
@@ -91,7 +160,7 @@ public class CharMovement : MonoBehaviour
 
     }
 
-    private void DoJump()
+    void DoJump()
     {
         _coyotePre = coyoteTime+1;
         _coyotePreEnabled = false;
@@ -109,11 +178,6 @@ public class CharMovement : MonoBehaviour
         
         sprintParticles.Emit(20);
         _jumps++;
-    }
-
-    public void SetInput(float newInput)
-    {
-        input = newInput;
     }
 
     bool isGrounded()
@@ -165,96 +229,18 @@ public class CharMovement : MonoBehaviour
         }
     }
 
+
+
+
     void OnDrawGizmosSelected()
     {
         // Draw a semitransparent blue cube at the transforms position
         Gizmos.color = new Color(1, 0, 0, 0.5f);
         Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y - transform.GetComponent<BoxCollider2D>().size.y / 2 - .065f, 0), new Vector3(transform.GetComponent<BoxCollider2D>().size.x - .125f, .125f, 1));
-        Vector2 boxPositionR = new Vector2(transform.position.x - transform.GetComponent<BoxCollider2D>().size.x/2 - .0625f, transform.position.y);
+        Vector2 boxPositionR = new Vector2(transform.position.x - transform.GetComponent<BoxCollider2D>().size.x / 2 - .0625f, transform.position.y);
         Vector2 boxPositionL = new Vector2(transform.position.x + transform.GetComponent<BoxCollider2D>().size.x / 2 + .0625f, transform.position.y);
         Gizmos.DrawCube(boxPositionR, new Vector3(.125f, transform.GetComponent<BoxCollider2D>().size.y - .25f, 1));
         Gizmos.DrawCube(boxPositionL, new Vector3(.125f, transform.GetComponent<BoxCollider2D>().size.y - .25f, 1));
     }
 
-    void Update()
-    {
-        bool grounded = isGrounded();
-        _view.SetIsGrounded(grounded);
-
-        _currentSpeed = _playerStats.CurrentMoveSpeed;
-        if(grounded)
-        {
-            moveDirection = Mathf.Lerp(moveDirection, input * _currentSpeed, friction * Time.deltaTime);
-            if(_controller.velocity.y <= 0)
-            {
-                _jumps = 0;
-            }
-        }
-        else
-        {
-            moveDirection = Mathf.Lerp(moveDirection, input * _currentSpeed, airFriction * Time.deltaTime);
-
-            if (!_coyotePostEnabled)
-            {
-                _coyotePostEnabled = true;
-                _coyotePost = 0;
-            }
-            else
-            {
-                if (_coyotePost <= coyoteTime)
-                {
-                    _coyotePost += 1 * Time.deltaTime;
-                }
-            }
-        }
-
-        if (isOnWall() != 0 && _controller.velocity.y <= 0)
-        {
-            if (!grounded)
-            {
-                _view.SetIsOnWall(true);
-            }
-            else
-            {
-                _view.SetIsOnWall(false);
-            }
-
-            if (Mathf.Sign(input) != Mathf.Sign(isOnWall()) && input != 0)
-            {
-                _controller.velocity = new Vector2(moveDirection, 0);
-            }
-            _jumps = 0;
-        }
-        else
-        {
-            _view.SetIsOnWall(false);
-        }
-
-        if(_coyotePre <= coyoteTime)
-        {
-            _coyotePre += 1 * Time.deltaTime;
-            TryJump();
-        }
-
-        //set velocity of the character
-        _controller.velocity = new Vector2(moveDirection, _controller.velocity.y);
-
-        //Send character speed info to the animator
-        _view.SetXSpeed(Mathf.Abs(_controller.velocity.x));
-        _view.SetYSpeed(_controller.velocity.y);
-
-        if(Mathf.Abs(_controller.velocity.x) > .5)
-        {
-            if (_controller.velocity.x > 0)
-            {
-                _view.SetMirror(false);
-                GetComponent<SpriteRenderer>().flipX = false;
-            }
-            else
-            {
-                _view.SetMirror(true);
-                GetComponent<SpriteRenderer>().flipX = true;
-            }
-        }
-    }
 }

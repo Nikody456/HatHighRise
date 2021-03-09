@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Animator))]
-public class CharacterView : MonoBehaviour
+public class CharacterView : ActorView
 {
     const string XSPEED = "x_speed";
     const string YSPEED = "y_speed";
@@ -17,15 +17,13 @@ public class CharacterView : MonoBehaviour
     [SerializeField] 
     HatManager _hatManager = default;
     ///Will Need to Manage Animations 
-    Animator _animator;
-    
     
     /*********INIT******************************************************************************************************/
 
 
-    private void Awake()
+    protected override void Awake()
     {
-        _animator = this.GetComponent<Animator>();
+        base.Awake();
         if (_hatManager == null)
             _hatManager = this.GetComponentInChildren<HatManager>();
     }

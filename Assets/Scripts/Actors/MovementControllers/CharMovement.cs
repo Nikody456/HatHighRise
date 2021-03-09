@@ -89,6 +89,10 @@ public class CharMovement : ActorMovement
             }
             _jumps = 0;
         }
+        else
+        {
+            _view.SetIsOnWall(false);
+        }
 
         if (_coyotePre <= coyoteTime)
         {

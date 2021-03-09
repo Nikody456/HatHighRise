@@ -32,7 +32,7 @@ namespace AI
 
         public override void Execute(Transform target)
         {
-            if(!CheckExitConditions(target))
+            if (!CheckExitConditions(target))
             {
                 _ai.SetMovement(0);
             }
@@ -41,20 +41,31 @@ namespace AI
 
         protected virtual bool CheckExitConditions(Transform target)
         {
-            if(target==null)
+            if (target == null)
             {
-                return true;
+                return TryFindTarget();
             }
             //Debug.Log($"Dis= {Vector3.Distance(_ai.transform.position, target.position)}");
             if (Vector3.Distance(_ai.transform.position, target.position) < _ai.DetectionRange)
             {
                 _ai.SetState(eAIStates.MOVE);
                 return true;
-
             }
 
             return false;
         }
 
+        private bool TryFindTarget()
+        {
+            ///RayCast facing DIR
+            var facingDir = _ai.FacingDir;
+            GameObject found = null;
+            if (found)
+            {
+                _ai.SetTarget(null);
+                return true;
+            }
+            return false;
+        }
     }
 }

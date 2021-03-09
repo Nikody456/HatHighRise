@@ -9,7 +9,6 @@ namespace AI
     {
         private AIState _jumpState;
 
-        bool sceneIsLoading = false;
         /***********INIT**************************************************************************************************/
 
 
@@ -65,4 +64,4 @@ namespace AI
 
 
     }
-    }
+}

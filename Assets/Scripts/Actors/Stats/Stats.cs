@@ -78,14 +78,12 @@ namespace Statistics
             ///Grab our Initial dynamic meter stats
             _healthMAX = initalStats.hpMAX < MAXHP ? initalStats.hpMAX : MAXHP;
 
-
-
             ///Grab our initial static stats
             _baseJump = initalStats.BaseJump < MAXJUMP ? initalStats.BaseJump : MAXJUMP;
             _baseAttack = initalStats.attack < MAXATTACK ? initalStats.attack : MAXATTACK;
             _baseDefense = initalStats.defense < MAXDEFENSE ? initalStats.defense : MAXDEFENSE;
             _baseMoveSpeed = (int)initalStats.BaseMove;
-
+            _baseSprintSpeed = initalStats.BaseSprint;
             _currentHealth = _healthMAX;
 
 

@@ -210,11 +210,24 @@ public class CharMovement : MonoBehaviour
 
         if (isOnWall() != 0 && _controller.velocity.y <= 0)
         {
+            if (!grounded)
+            {
+                _view.SetIsOnWall(true);
+            }
+            else
+            {
+                _view.SetIsOnWall(false);
+            }
+
             if (Mathf.Sign(input) != Mathf.Sign(isOnWall()) && input != 0)
             {
                 _controller.velocity = new Vector2(moveDirection, 0);
             }
             _jumps = 0;
+        }
+        else
+        {
+            _view.SetIsOnWall(false);
         }
 
         if(_coyotePre <= coyoteTime)

@@ -87,5 +87,10 @@ public class CharacterView : ActorView
         
     }
 
+    public void Test()
+    {
+        Debug.Log($"WE CALLED TEST for {this.gameObject.name}");
+    }
+
 
 }

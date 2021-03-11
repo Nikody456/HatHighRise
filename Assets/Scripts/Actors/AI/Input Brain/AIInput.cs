@@ -8,6 +8,7 @@ namespace AI
     public abstract class AIInput : MonoBehaviour
     {
         [SerializeField] protected Transform _target = default;
+        ///THESE STATS MAY WANT TO BE READ OFF A SCRIPTABLE OBJ FOR A TYPE OF ENEMY
         [SerializeField] protected float _detectionRange = default;
         [SerializeField] protected float _atkRange = default;
         [SerializeField] protected ContactFilter2D _detectionInfo = default;
@@ -18,6 +19,8 @@ namespace AI
         protected AIState _moveState;
         protected AIState _deathState;
         protected AIState _attackState;
+
+        [SerializeField] string _debuggCurrState;
 
         bool sceneIsLoading = false;
         /***********INIT**************************************************************************************************/
@@ -41,6 +44,7 @@ namespace AI
             if (!sceneIsLoading)
             {
                 _currentState.Execute(_target);
+                _debuggCurrState = _currentState.ToString();
             }
             //Debug.Log($"Curr statename={_currentState.ToString()}");
         }

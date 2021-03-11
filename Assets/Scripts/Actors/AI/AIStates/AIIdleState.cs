@@ -45,11 +45,14 @@ namespace AI
             {
                 return TryFindTarget();
             }
-            //Debug.Log($"Dis= {Vector3.Distance(_ai.transform.position, target.position)}");
             if (Vector3.Distance(_ai.transform.position, target.position) < _ai.DetectionRange)
             {
                 _ai.SetState(eAIStates.MOVE);
                 return true;
+            }
+            else
+            {
+                Debug.Log($"Dis= {Vector3.Distance(_ai.transform.position, target.position)} vs {_ai.DetectionRange}");
             }
 
             return false;
@@ -64,7 +67,7 @@ namespace AI
             List<RaycastHit2D> results = new List<RaycastHit2D>();
             var depth = ourPos + (facingDir * _ai.DetectionRange);
             Debug.DrawLine(ourPos, depth, Color.red, 1);
-            int numHits = (Physics2D.Raycast(ourPos, depth, _ai.DetectionInfo, results, _ai.DetectionRange));
+            int numHits = (Physics2D.Raycast(ourPos, facingDir, _ai.DetectionInfo, results, _ai.DetectionRange));
             for (int i = 0; i < numHits; i++)
             {
                 RaycastHit2D hit = results[i];

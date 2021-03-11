@@ -57,15 +57,33 @@ namespace AI
 
         private bool TryFindTarget()
         {
-            ///RayCast facing DIR
-            var facingDir = _ai.FacingDir;
             GameObject found = null;
+            ///RayCast facing DIR
+            var ourPos = _ai.transform.position;
+            Vector3 facingDir = _ai.FacingDir;
+            List<RaycastHit2D> results = new List<RaycastHit2D>();
+            var depth = ourPos + (facingDir * _ai.DetectionRange);
+            Debug.DrawLine(ourPos, depth, Color.red, 1);
+            int numHits = (Physics2D.Raycast(ourPos, depth, _ai.DetectionInfo, results, _ai.DetectionRange));
+            for (int i = 0; i < numHits; i++)
+            {
+                RaycastHit2D hit = results[i];
+                if (hit.collider != null)
+                {
+                    Debug.Log($"Dir={facingDir}, #{numHits}, Detected Hit: {hit.collider.gameObject.name} !");
+                    ///We are not ourself
+                    if (hit.collider.gameObject != _ai.gameObject)
+                    {
+                        found = hit.collider.gameObject;
+                    }
+                }
+            }
             if (found)
             {
-                _ai.SetTarget(null);
-                return true;
+                _ai.SetTarget(found.transform);
             }
-            return false;
+
+            return found!=null;
         }
     }
 }

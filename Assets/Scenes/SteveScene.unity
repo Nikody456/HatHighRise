@@ -211,7 +211,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &426745226
 GameObject:
@@ -319,7 +319,7 @@ Transform:
   m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &659496467
 GameObject:
@@ -340,13 +340,13 @@ GameObject:
   - component: {fileID: 659496469}
   - component: {fileID: 659496468}
   - component: {fileID: 659496478}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: AI_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &659496468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,14 +404,13 @@ MonoBehaviour:
   groundedMask:
     serializedVersion: 2
     m_Bits: 55
-  _currentSpeed: 1
-  sprintSpeed: 2
   sprintParticles: {fileID: 1520815789}
   gravity: 0.5
   friction: 10
   airFriction: 0
   coyoteTime: 0
   jumpLimit: 10
+  startPosition: {x: 0, y: 0}
 --- !u!114 &659496472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,12 +549,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659496467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.15, y: 3.535, z: 0}
+  m_LocalPosition: {x: -2.67, y: -2.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1520815791}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &659496478
 MonoBehaviour:
@@ -569,9 +568,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1551c538ef02fd548bafb8959d202fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 426745229}
-  _detectionRange: 13
+  _target: {fileID: 0}
+  _detectionRange: 25
   _atkRange: 5
+  _detectionInfo:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 256
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
 --- !u!1 &722097622
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +691,7 @@ Transform:
   m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &797443486
 GameObject:
@@ -771,7 +784,7 @@ GameObject:
   - component: {fileID: 1035779907}
   - component: {fileID: 1035779906}
   - component: {fileID: 1035779905}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: red_hat (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -900,7 +913,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1485793737
 GameObject:
@@ -1035,7 +1048,7 @@ GameObject:
   - component: {fileID: 1520815791}
   - component: {fileID: 1520815789}
   - component: {fileID: 1520815790}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5885,7 +5898,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1530366663
 MonoBehaviour:
@@ -6009,7 +6022,7 @@ Transform:
   m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2071992389
 GameObject:
@@ -6039,7 +6052,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2133227816
 GameObject:
@@ -6069,7 +6082,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &894852842813654320
 Rigidbody2D:
@@ -6208,7 +6221,7 @@ GameObject:
   - component: {fileID: 894852842813654323}
   - component: {fileID: 894852842813654332}
   - component: {fileID: 894852842813654320}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: red_hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6241,7 +6254,7 @@ GameObject:
   - component: {fileID: 2882545882540162893}
   - component: {fileID: 2882545882540162890}
   - component: {fileID: 2882545882540162894}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: yellow_hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6414,7 +6427,7 @@ PrefabInstance:
     - target: {fileID: 3581617203901105273, guid: 86054f568c206ce41bd887c525ca8c0f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3581617203901105273, guid: 86054f568c206ce41bd887c525ca8c0f,
         type: 3}
@@ -6531,7 +6544,7 @@ GameObject:
   - component: {fileID: 5614981369687891950}
   - component: {fileID: 5614981369687891951}
   - component: {fileID: 5614981369687891947}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: top_hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

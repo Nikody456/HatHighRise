@@ -7,10 +7,10 @@ namespace AI
     [RequireComponent(typeof(ActorMovement))]
     public abstract class AIInput : MonoBehaviour
     {
-        [SerializeField] protected Transform _target;
-        [SerializeField] protected float _detectionRange;
-        [SerializeField] protected float _atkRange;
-
+        [SerializeField] protected Transform _target = default;
+        [SerializeField] protected float _detectionRange = default;
+        [SerializeField] protected float _atkRange = default;
+        [SerializeField] protected ContactFilter2D _detectionInfo = default;
         protected ActorMovement _movement;
 
         protected AIState _currentState;
@@ -47,6 +47,7 @@ namespace AI
         /*************************************************************************************************************/
         public float DetectionRange => _detectionRange;
         public float AttackRange => _atkRange;
+        public ContactFilter2D DetectionInfo => _detectionInfo;
         public Vector3 FacingDir => _movement.isFacingRight() ? transform.right : -transform.right;
         public void SetState(AIState.eAIStates state)
         {

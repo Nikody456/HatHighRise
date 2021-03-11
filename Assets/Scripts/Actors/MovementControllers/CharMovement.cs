@@ -201,6 +201,11 @@ public class CharMovement : ActorMovement
 
     }
 
+    public void TryMeleeAttack()
+    {
+        _view.SetMeleeAttack();
+    }
+
     void DoJump()
     {
         //disable pre coyote time

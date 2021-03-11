@@ -31,6 +31,11 @@ public class PlayerInput : MonoBehaviour
             character.StopSprint();
         }
 
+        if (Input.GetMouseButtonUp(0))//IDK
+        {
+            character.TryMeleeAttack();
+        }
+
         character.SetInput(Input.GetAxis("Horizontal"));
 
     }

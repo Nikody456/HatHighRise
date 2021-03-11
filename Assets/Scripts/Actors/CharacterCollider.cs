@@ -20,5 +20,10 @@ public class CharacterCollider : MonoBehaviour
         {
             hat.OnPickup(_characterStats, _characterView);
         }
+
+        if(collision.transform.tag == "Death")
+        {
+            GetComponent<CharMovement>().onDeath();
+        }
     }
 }

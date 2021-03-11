@@ -11,13 +11,14 @@ public class CharacterView : ActorView
     const string GROUNDED = "isGrounded";
     const string MIRROR = "mirror";
     const string ONWALL = "onWall";
-
+    const string ATTACK = "Attack";
+    const string MELEE = "melee_atk";
 
     ///Will Need to Manage Hats added
     [SerializeField] 
     HatManager _hatManager = default;
     ///Will Need to Manage Animations 
-    
+    private int _attackIndex=1;
     /*********INIT******************************************************************************************************/
 
 
@@ -66,6 +67,24 @@ public class CharacterView : ActorView
     public void SetIsOnWall(bool isOnWall)
     {
         _animator.SetBool(ONWALL, isOnWall);
+    }
+
+    public void SetMeleeAttack()
+    {
+        ///Need a way to validate they are not already attacking
+        _animator.SetInteger(MELEE, _attackIndex++);
+        _animator.SetTrigger(ATTACK);
+    }
+
+    public void OnAttackFinish()
+    {
+        //Validate attack index todo:
+        _attackIndex = 1;
+        //Clear the trigger and hope this doesnt mess up an atk queue 
+        //(this prevents looping as triggers sometimes dont clear reliably in mecanim)
+        _animator.ResetTrigger(ATTACK);
+        Debug.Log("WE CALLED ONATKFINISH");
+        
     }
 
 

@@ -169,6 +169,11 @@ public class CharMovement : ActorMovement
 
     }
 
+    public void TryMeleeAttack()
+    {
+        _view.SetMeleeAttack();
+    }
+
     void DoJump()
     {
         _coyotePre = coyoteTime+1;

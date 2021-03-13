@@ -86,19 +86,6 @@ public class CharMovement : ActorMovement
         SetAnimatorSpeeds();
     }
 
-    public void onDeath()
-    {
-        //reset position and velocity
-        transform.position = startPosition;
-        _controller.velocity = Vector2.zero;
-
-        //reset camera
-        CameraController cam = GameObject.FindObjectOfType<CameraController>();
-        if (cam)
-        {
-            cam.resetCamera();
-        }
-    }
     private void CoyoteTimePost() //Allows the player to jump slightly after walking off a platform
     {
         if (!_coyotePostEnabled) //if timer is not already incrementing

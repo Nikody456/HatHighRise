@@ -8,9 +8,12 @@ public class LevelInfo : MonoBehaviour
     [SerializeField] Transform _playerStart;
 
     public Vector3 LevelEnd => _levelEnd.position;
-    [SerializeField] Transform _levelEnd;
+    [SerializeField] Transform _levelEnd = default;
 
-    [SerializeField] GameObject _playerPreFab;
+
+    [SerializeField] LevelDeathPlane _deathPlane = default;
+    [SerializeField] GameObject _playerPreFab = default;
+
 
     private GameObject _activePlayer;
 
@@ -20,11 +23,19 @@ public class LevelInfo : MonoBehaviour
         {
             _playerPreFab = Resources.Load<GameObject>("Player_Prefab");
         }
+       if(_deathPlane==null)
+        {
+            _deathPlane = this.GetComponentInChildren<LevelDeathPlane>();
+        }
     }
 
 
     IEnumerator Start()
     {
+        if(_deathPlane)
+        {
+            _deathPlane.OnDeathPlaneTouched += ResetPlayer;
+        }    
         yield return new WaitForSeconds(0.5f);
         StartLevel();
     }
@@ -34,18 +45,26 @@ public class LevelInfo : MonoBehaviour
         _activePlayer= Instantiate(_playerPreFab, PlayerStart, Quaternion.identity);
     }
 
-    public void ResetPlayer()
+    public void ResetPlayer(GameObject go) ///We have to match delegate signature
     {
         _activePlayer.transform.position = PlayerStart;
-        ///TODO reset the deathBool for anim state and anything else
+        /// Jaden was doing this, but I think it looks better w.o it, kind of lerps down in a smooth way
+        CameraController cam = go.GetComponentInChildren<CameraController>();
+        if (cam)
+        {
+            //cam.resetCamera();
+        }
+        ///TODO reset the deathBool for anim state and anything else that becomes needed
+        
+
     }
 
-
-    ///HACK FOR TESTING
-    private void Update()
+    private void OnDisable()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-            ResetPlayer();
+        if (_deathPlane)
+        {
+            _deathPlane.OnDeathPlaneTouched -= ResetPlayer;
+        }
     }
 
 }

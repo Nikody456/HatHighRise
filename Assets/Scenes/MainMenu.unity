@@ -1038,7 +1038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1b3a58184f8f64295f4770271fae86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _firstLevelName: 
+  _firstLevelName: AlphaScene
 --- !u!1 &1795972134
 GameObject:
   m_ObjectHideFlags: 0

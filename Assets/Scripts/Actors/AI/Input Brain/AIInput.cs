@@ -28,7 +28,6 @@ namespace AI
         {
             _movement = GetComponent<ActorMovement>();
             CreateStates();
-           
         }
         private void OnEnable()
         {

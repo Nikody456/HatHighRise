@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3938450800951877331}
   - component: {fileID: 3938450800951877333}
   - component: {fileID: 3938450800951877327}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SecCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -35,7 +35,7 @@ namespace AI
         {
             if (!CheckExitConditions(target))
             {
-               
+                TryRayCastForTarget();
             }
         }
         /*************************************************************************************************************/
@@ -61,6 +61,16 @@ namespace AI
             ///Pick a Random Direction left or right
             System.Random random = new System.Random();
             return random.Next()%2 ==0 ? -1 : 1;
+
+        }
+
+        private void TryRayCastForTarget()
+        {
+            ///Not sure how to debug the direction of an animation?
+            
+            
+            ///If we hit something (the player) , set Target
+
 
         }
     }

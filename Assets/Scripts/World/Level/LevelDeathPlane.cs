@@ -10,7 +10,7 @@ public class LevelDeathPlane : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger with " + collision.gameObject.name);
+        //Debug.Log("DeathPlane Trigger with " + collision.gameObject.name);
         ///Currently Only player collides with this layer in physics settings
         if(collision.gameObject.GetComponent<PlayerInput>())
         {

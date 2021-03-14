@@ -41,12 +41,12 @@ namespace AI
 
         protected virtual bool CheckExitConditions(Transform target)
         {
-            if (Vector3.Distance(_ai.transform.position, target.position) > _ai.DetectionRange)
+            if (Mathf.Abs(Vector3.Distance(_ai.transform.position, target.position)) > _ai.DetectionRange)
             {
                 _ai.SetState(eAIStates.IDLE);
                 return true;
             }
-            if (Vector3.Distance(_ai.transform.position, target.position) <= _ai.AttackRange)
+            if (Mathf.Abs(Vector3.Distance(_ai.transform.position, target.position)) <= _ai.AttackRange)
             {
                 _ai.SetState(eAIStates.ATTACK);
                 return true;

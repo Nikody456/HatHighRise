@@ -80,7 +80,8 @@ namespace AI
 
         private void OnDisable()
         {
-            LevelLoader.Instance.OnSceneIsLoading -= OnSceneLoad;
+            if (LevelLoader.Instance)
+                LevelLoader.Instance.OnSceneIsLoading -= OnSceneLoad;
         }
 
         private void OnSceneLoad(bool cond)

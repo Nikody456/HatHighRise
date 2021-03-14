@@ -56,7 +56,6 @@ namespace AI
 
         private bool TryFindTarget()
         {
-            GameObject found = null;
             ///RayCast facing DIR
             var ourPos = _ai.transform.position;
             Vector3 facingDir = _ai.FacingDir;
@@ -74,25 +73,21 @@ namespace AI
                     {
                         if (hit.collider.gameObject.layer == GameConstants.PLAYER_LAYER)
                         {
-                            found = hit.collider.gameObject;
+                            _ai.SetTarget(hit.collider.gameObject.transform);
                             Debug.DrawLine(ourPos, ourPos + (facingDir * _ai.DetectionRange), Color.red, 1);
 
                         }
                         else ///We hit an obstacle first, our view is blocked
                         {
-                            Debug.DrawLine(ourPos, ourPos + hit.collider.gameObject.transform.position, Color.yellow, 1);
+                            Debug.DrawLine(ourPos, hit.point, Color.yellow, 1);
 
                             return false;
                         }
                     }
                 }
             }
-            if (found)
-            {
-                _ai.SetTarget(found.transform);
-            }
 
-            return found!=null;
+            return false;
         }
     }
 }

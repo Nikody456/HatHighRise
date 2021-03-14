@@ -83,13 +83,13 @@ public class CharacterView : ActorView
         //Clear the trigger and hope this doesnt mess up an atk queue 
         //(this prevents looping as triggers sometimes dont clear reliably in mecanim)
         _animator.ResetTrigger(ATTACK);
-        Debug.Log("WE CALLED ONATKFINISH");
+        //Debug.Log("WE CALLED ONATKFINISH");
         
     }
 
     public void Test()
     {
-        Debug.Log($"WE CALLED TEST for {this.gameObject.name}");
+        //Debug.Log($"WE CALLED TEST for {this.gameObject.name}");
     }
 
 

@@ -124,8 +124,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1302541211
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7218312749309048875, guid: e6956b733eab24c41a5168dec00bb830,
     type: 3}
@@ -248,8 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  _detectionRange: 5
-  _atkRange: 1
+  _detectionRange: 15
+  _atkRange: 6.5
   _detectionInfo:
     useTriggers: 0
     useLayerMask: 1
@@ -259,7 +259,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 256
+      m_Bits: 4864
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0

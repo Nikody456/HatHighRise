@@ -66,7 +66,7 @@ namespace AI
         protected virtual void DoAttack()
         {
             ///TODO
-            Debug.Log("fake atking");
+            //Debug.Log($"<color=red> ATK!</color>");
             _ai.SetMovement(0);
         }
     }

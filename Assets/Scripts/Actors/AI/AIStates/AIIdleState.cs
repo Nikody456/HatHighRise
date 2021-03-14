@@ -45,14 +45,10 @@ namespace AI
             {
                 return TryFindTarget();
             }
-            if (Vector3.Distance(_ai.transform.position, target.position) < _ai.DetectionRange)
+            if (Mathf.Abs(Vector3.Distance(_ai.transform.position, target.position)) < _ai.DetectionRange)
             {
                 _ai.SetState(eAIStates.MOVE);
                 return true;
-            }
-            else
-            {
-                Debug.Log($"Dis= {Vector3.Distance(_ai.transform.position, target.position)} vs {_ai.DetectionRange}");
             }
 
             return false;
@@ -65,19 +61,29 @@ namespace AI
             var ourPos = _ai.transform.position;
             Vector3 facingDir = _ai.FacingDir;
             List<RaycastHit2D> results = new List<RaycastHit2D>();
-            var depth = ourPos + (facingDir * _ai.DetectionRange);
-            Debug.DrawLine(ourPos, depth, Color.red, 1);
-            int numHits = (Physics2D.Raycast(ourPos, facingDir, _ai.DetectionInfo, results, _ai.DetectionRange));
+               //Something in here is slightly off, raycast range is slightly farther than detectionRange like 15.3 vs 15
+            int numHits = Physics2D.Raycast(ourPos, facingDir, _ai.DetectionInfo, results, _ai.DetectionRange);
             for (int i = 0; i < numHits; i++)
             {
                 RaycastHit2D hit = results[i];
                 if (hit.collider != null)
                 {
-                    Debug.Log($"Dir={facingDir}, #{numHits}, Detected Hit: {hit.collider.gameObject.name} !");
+                    Debug.Log($"Dir={facingDir}, #NumHits={numHits}, Detected Hit: {hit.collider.gameObject.name} !");
                     ///We are not ourself
                     if (hit.collider.gameObject != _ai.gameObject)
                     {
-                        found = hit.collider.gameObject;
+                        if (hit.collider.gameObject.layer == GameConstants.PLAYER_LAYER)
+                        {
+                            found = hit.collider.gameObject;
+                            Debug.DrawLine(ourPos, ourPos + (facingDir * _ai.DetectionRange), Color.red, 1);
+
+                        }
+                        else ///We hit an obstacle first, our view is blocked
+                        {
+                            Debug.DrawLine(ourPos, ourPos + hit.collider.gameObject.transform.position, Color.yellow, 1);
+
+                            return false;
+                        }
                     }
                 }
             }

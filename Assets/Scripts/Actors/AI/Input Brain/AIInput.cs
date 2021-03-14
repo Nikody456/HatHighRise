@@ -11,7 +11,7 @@ namespace AI
         ///THESE STATS MAY WANT TO BE READ OFF A SCRIPTABLE OBJ FOR A TYPE OF ENEMY
         [SerializeField] protected float _detectionRange = default;
         [SerializeField] protected float _atkRange = default;
-        [SerializeField] protected ContactFilter2D _detectionInfo = default;
+        [SerializeField] protected DetectionFilter _detectionInfo = default;
         protected ActorMovement _movement;
 
         protected AIState _currentState;
@@ -50,7 +50,7 @@ namespace AI
         /*************************************************************************************************************/
         public float DetectionRange => _detectionRange;
         public float AttackRange => _atkRange;
-        public ContactFilter2D DetectionInfo => _detectionInfo;
+        public ContactFilter2D DetectionInfo => _detectionInfo.DetectionInfo;
         public Vector3 FacingDir => _movement.isFacingRight() ? transform.right : -transform.right;
         public void SetState(AIState.eAIStates state)
         {

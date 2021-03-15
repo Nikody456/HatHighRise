@@ -10486,6 +10486,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!212 &1878573102 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3938450800951877329, guid: bd502ae859141704fb7116820a0c19e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 3938450800800369246}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1888881138
 GameObject:
   m_ObjectHideFlags: 0
@@ -10593,6 +10599,11 @@ PrefabInstance:
       propertyPath: _detectionInfo.layerMask.m_Bits
       value: 4353
       objectReference: {fileID: 0}
+    - target: {fileID: 3938450800951877327, guid: bd502ae859141704fb7116820a0c19e3,
+        type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 1878573102}
     - target: {fileID: 3938450800951877332, guid: bd502ae859141704fb7116820a0c19e3,
         type: 3}
       propertyPath: m_Name

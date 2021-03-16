@@ -11,27 +11,33 @@ namespace Helpers
         {
 
             Vector2 pos = Vector2.zero;
+
+            int width = (int)sprite.textureRect.width;
+            int height = (int)sprite.textureRect.height;
+
             Color[] pixels = sprite.texture.GetPixels(
                        (int)sprite.textureRect.x,
                        (int)sprite.textureRect.y,
-                       (int)sprite.textureRect.width,
-                       (int)sprite.textureRect.height);
+                       width,
+                       height);
 
             for (int i = 0; i < pixels.Length; ++i)
             {
                 if (pixels[i] == color)
                 {
-                    int x = i / (int)sprite.textureRect.width;
-                    int y = i / (int)sprite.textureRect.height;
+                    int x = i / width;
+                    int y = i / width;
                     //print($"First matching {color} Pixel Seen is at Horizontal:  {x} and yHeight:{y}");
 
-                    return new Vector2(x, y);
+                    int offsetPixelWidth =  x - (width / 2);
+                    int offsetPixelHeight = y - (height / 2);
+
+
+                    return new Vector2(0, offsetPixelHeight);
                 }
             }
 
             return pos;
-
-
         }
 
 
@@ -45,6 +51,8 @@ namespace Helpers
 
             Debug.Log($"Sprite Dimensions are: x:{x1} y:{y1} , [{h1} x {w1}] ");
 
+            bool findFirst = true;
+
             bool failed = true;
             Vector2 pos = Vector2.zero;
             Color[] pixels = sprite.texture.GetPixels(
@@ -56,8 +64,8 @@ namespace Helpers
             for (int i = 0; i < pixels.Length; ++i)
             {
 
-                int x = i / (int)sprite.textureRect.width;
-                int y = i / (int)sprite.textureRect.height;
+                int x = i % (int)sprite.textureRect.width;
+                int y = i / (int)sprite.textureRect.width;
 
 
                 if (pixels[i] == Color.black)
@@ -67,12 +75,12 @@ namespace Helpers
                 }
                 else
                 {
-                    //       Debug.Log($"COLOR: {pixels[i]} Pixel Seen is at Horizontal:  {x} and yHeight:{y}");
+                   // Debug.Log($"COLOR: {pixels[i]} Pixel Seen is at Horizontal:  {x} and yHeight:{y}");
 
                 }
             }
 
-            if(failed)
+            if (failed)
             {
                 Debug.Log($"FAILED for: <color=red>{sprite.name} </color>");
 

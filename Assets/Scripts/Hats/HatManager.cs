@@ -72,7 +72,7 @@ public class HatManager : MonoBehaviour
         Vector3 diff = new Vector3(differenceSinceLastFrame.x, differenceSinceLastFrame.y, 0);
         //if(diff.x !=0 && diff.y !=0)
         //    Debug.Log($"Difference each frame={diff.x} , {diff.y}");
-        _hatStack.transform.position += diff;
+        _hatStack.transform.position -= diff;
         _lastOffsetVector = v2;
     }
 

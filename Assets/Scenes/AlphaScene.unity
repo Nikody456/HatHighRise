@@ -519,6 +519,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 252ae10dc0f35b0459ef87308e28943d, type: 3}
+--- !u!212 &513494626 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3938450800951877329, guid: bd502ae859141704fb7116820a0c19e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 3938450800800369246}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1151146416
 GameObject:
   m_ObjectHideFlags: 0
@@ -7327,6 +7333,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecGuard
       objectReference: {fileID: 0}
+    - target: {fileID: 2401825446399864849, guid: cc307647b078ccb45a9de0e5cd390a9e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2401825446399864860, guid: cc307647b078ccb45a9de0e5cd390a9e,
         type: 3}
       propertyPath: _detectionInfo.layerMask.m_Bits
@@ -10810,10 +10821,20 @@ PrefabInstance:
       propertyPath: _atkRange
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 3938450800951877327, guid: bd502ae859141704fb7116820a0c19e3,
+        type: 3}
+      propertyPath: _spriteRenderer
+      value: 
+      objectReference: {fileID: 513494626}
     - target: {fileID: 3938450800951877332, guid: bd502ae859141704fb7116820a0c19e3,
         type: 3}
       propertyPath: m_Name
       value: SecCam
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938450800951877332, guid: bd502ae859141704fb7116820a0c19e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd502ae859141704fb7116820a0c19e3, type: 3}

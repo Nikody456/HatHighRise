@@ -9,7 +9,7 @@ public class SecurityCamView : ActorView
 
    public void SetScanning()
     {
-        Debug.Log("we set scanning!");
+        //Debug.Log("we set scanning!");
         _animator.SetTrigger(SCAN);
     }
 }

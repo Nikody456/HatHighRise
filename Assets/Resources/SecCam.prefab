@@ -172,4 +172,5 @@ MonoBehaviour:
   _atkRange: 0
   _detectionInfo: {fileID: 11400000, guid: 3f50a49a8d310e143879c5665e633483, type: 2}
   _debuggCurrState: 
+  _spriteRenderer: {fileID: 0}
   _scanFrequency: 2.5

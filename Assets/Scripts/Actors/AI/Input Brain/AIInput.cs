@@ -45,7 +45,6 @@ namespace AI
                 _currentState.Execute(_target);
                 _debuggCurrState = _currentState.ToString();
             }
-            //Debug.Log($"Curr statename={_currentState.ToString()}");
         }
         /*************************************************************************************************************/
         public float DetectionRange => _detectionRange;

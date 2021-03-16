@@ -35,6 +35,9 @@ public class HatManager : MonoBehaviour
     {
         Vector2 v2 = GetCharacterAnimOffset();
         ApplyHatStackPositions(v2);
+
+        if(Input.GetKeyDown(KeyCode.J))
+            PixelDetector.PrintAllPixels(_characterSpriteHACK.sprite);
     }
 
 

@@ -57,7 +57,7 @@ namespace AI
 
         public void ScanDirection()
         {
-            Debug.Log(PixelDetector.DetectFirstPixel(_spriteRenderer.sprite, new Color(0.859f, 0.863f, 0.867f)));
+            Debug.Log(PixelDetector.DetectFirstPixel(_spriteRenderer.sprite, Color.black));
             PixelDetector.PrintAllPixels(_spriteRenderer.sprite);
         }
 
@@ -66,6 +66,8 @@ namespace AI
         {
             if (Input.GetKeyDown(KeyCode.S))
                 ScanDirection();
+
+            base.Update();
         }
     }
 }

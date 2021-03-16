@@ -4850,12 +4850,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b8b728a8e723b4c8ed70b40a743aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clampCameraPosition: 0
+  clampCameraPosition: 1
   minClamp: {x: -4.54, y: -0.09, z: -10}
   maxClamp: {x: 3.64, y: 6.89, z: -10}
   charRigidbody: {fileID: 3581617203901105270}
   lerpSpeed: 2
-  cameraDist: 3
+  cameraDist: 1.5
 --- !u!1 &3581617203901105267
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,6 +38,13 @@ namespace Helpers
         public static void PrintAllPixels(Sprite sprite)
         {
             Debug.Log($"Looking at Sprite: {sprite}");
+            var x1 = Mathf.FloorToInt(sprite.textureRect.x);
+            var y1 = Mathf.FloorToInt(sprite.textureRect.y);
+            var w1 = Mathf.FloorToInt(sprite.textureRect.width);
+            var h1 = Mathf.FloorToInt(sprite.textureRect.height);
+
+            Debug.Log($"Sprite Dimensions are: x:{x1} y:{y1} , [{h1} x {w1}] ");
+
             bool failed = true;
             Vector2 pos = Vector2.zero;
             Color[] pixels = sprite.texture.GetPixels(

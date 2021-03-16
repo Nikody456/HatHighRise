@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 256845519}
   - component: {fileID: 256845518}
+  - component: {fileID: 256845520}
   m_Layer: 0
   m_Name: Security Cam Sprite sheet_0
   m_TagString: Untagged
@@ -203,6 +204,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &256845520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256845517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d747ccce893f59840b6bcc67464be5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sr: {fileID: 256845518}
 --- !u!1 &310049102
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,9 +664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0232e970f87b0e8429076ab16cccd450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  _detectionRange: 5
-  _atkRange: 2
 --- !u!1 &722097622
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,7 +37,8 @@ namespace Helpers
 
         public static void PrintAllPixels(Sprite sprite)
         {
-
+            Debug.Log($"Looking at Sprite: {sprite}");
+            bool failed = true;
             Vector2 pos = Vector2.zero;
             Color[] pixels = sprite.texture.GetPixels(
                        (int)sprite.textureRect.x,
@@ -50,10 +51,25 @@ namespace Helpers
 
                 int x = i / (int)sprite.textureRect.width;
                 int y = i / (int)sprite.textureRect.height;
-                Debug.Log($"COLOR: {pixels[i]} Pixel Seen is at Horizontal:  {x} and yHeight:{y}");
 
+
+                if (pixels[i] == Color.black)
+                {
+                    Debug.Log($"FOUND: <color=green>{pixels[i]} </color> Pixel Seen is at Horizontal:  {x} and yHeight:{y}");
+                    failed = false;
+                }
+                else
+                {
+                    //       Debug.Log($"COLOR: {pixels[i]} Pixel Seen is at Horizontal:  {x} and yHeight:{y}");
+
+                }
             }
 
+            if(failed)
+            {
+                Debug.Log($"FAILED for: <color=red>{sprite.name} </color>");
+
+            }
         }
     }
 }

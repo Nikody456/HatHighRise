@@ -18,15 +18,19 @@ public class CameraController : MonoBehaviour
         initialOffset = transform.localPosition;
     }
 
-    void Update()
+    private void Update()
     {
-
-        Vector3 targetLocalPosition = (Vector3)(Vector2.ClampMagnitude(charRigidbody.velocity,cameraDist)) + initialOffset;
-        transform.localPosition = Vector3.Lerp(transform.localPosition, targetLocalPosition, Time.deltaTime * lerpSpeed);
         if (clampCameraPosition)
         {
             transform.position = VectorClamp(transform.position);
         }
+    }
+
+    void FixedUpdate()
+    {
+
+        Vector3 targetLocalPosition = (Vector3)(Vector2.ClampMagnitude(charRigidbody.velocity,cameraDist)) + initialOffset;
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetLocalPosition, Time.deltaTime * lerpSpeed);
     }
 
     public void resetCamera()

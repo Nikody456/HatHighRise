@@ -42,13 +42,18 @@ namespace AI
 
         protected virtual bool CheckExitConditions(Transform target)
         {
+            if(target==null)
+            {
+                return true;
+            }
+
             ///Obv refactor this
-            if (Vector3.Distance(_ai.transform.position, target.position) > _ai.DetectionRange)
+            else if (Vector3.Distance(_ai.transform.position, target.position) > _ai.DetectionRange)
             {
                 _ai.SetState(eAIStates.IDLE);
                 return true;
             }
-            if (Vector3.Distance(_ai.transform.position, target.position) > _ai.AttackRange)
+            else if(Vector3.Distance(_ai.transform.position, target.position) > _ai.AttackRange)
             {
                 _ai.SetState(eAIStates.MOVE);
                 return true;
@@ -61,6 +66,7 @@ namespace AI
         protected virtual void DoAttack()
         {
             ///TODO
+            //Debug.Log($"<color=red> ATK!</color>");
             _ai.SetMovement(0);
         }
     }

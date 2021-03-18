@@ -45,8 +45,7 @@ namespace AI
             {
                 return TryFindTarget();
             }
-            //Debug.Log($"Dis= {Vector3.Distance(_ai.transform.position, target.position)}");
-            if (Vector3.Distance(_ai.transform.position, target.position) < _ai.DetectionRange)
+            if (Mathf.Abs(Vector3.Distance(_ai.transform.position, target.position)) < _ai.DetectionRange)
             {
                 _ai.SetState(eAIStates.MOVE);
                 return true;
@@ -58,13 +57,36 @@ namespace AI
         private bool TryFindTarget()
         {
             ///RayCast facing DIR
-            var facingDir = _ai.FacingDir;
-            GameObject found = null;
-            if (found)
+            var ourPos = _ai.transform.position;
+            Vector3 facingDir = _ai.FacingDir;
+            List<RaycastHit2D> results = new List<RaycastHit2D>();
+               //Something in here is slightly off, raycast range is slightly farther than detectionRange like 15.3 vs 15
+            int numHits = Physics2D.Raycast(ourPos, facingDir, _ai.DetectionInfo, results, _ai.DetectionRange);
+            for (int i = 0; i < numHits; i++)
             {
-                _ai.SetTarget(null);
-                return true;
+                RaycastHit2D hit = results[i];
+                if (hit.collider != null)
+                {
+                    Debug.Log($"Dir={facingDir}, #NumHits={numHits}, Detected Hit: {hit.collider.gameObject.name} !");
+                    ///We are not ourself
+                    if (hit.collider.gameObject != _ai.gameObject)
+                    {
+                        if (hit.collider.gameObject.layer == GameConstants.PLAYER_LAYER)
+                        {
+                            _ai.SetTarget(hit.collider.gameObject.transform);
+                            Debug.DrawLine(ourPos, ourPos + (facingDir * _ai.DetectionRange), Color.red, 1);
+
+                        }
+                        else ///We hit an obstacle first, our view is blocked
+                        {
+                            Debug.DrawLine(ourPos, hit.point, Color.yellow, 1);
+
+                            return false;
+                        }
+                    }
+                }
             }
+
             return false;
         }
     }

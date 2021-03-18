@@ -33,7 +33,7 @@ public class ActorMovement : MonoBehaviour
 
     public bool isFacingRight()
     {
-        return _spriteRenderer.flipX;
+        return _spriteRenderer.flipX==false;
     }
    
 }

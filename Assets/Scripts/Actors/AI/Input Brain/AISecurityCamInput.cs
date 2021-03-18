@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Helpers;
+
 namespace AI
 {
     public class AISecurityCamInput : AIInput
     {
+        [SerializeField] SpriteRenderer _spriteRenderer = default;
         [SerializeField] float _scanFrequency=2.5f;
        
         public bool IsScanning { get; private set; }
@@ -51,6 +54,18 @@ namespace AI
         {
             IsScanning = cond;
         }
-    
+
+        public void ScanDirection()
+        {
+            Debug.Log(PixelDetector.DetectFirstPixel(_spriteRenderer.sprite, new Color(0.859f, 0.863f, 0.867f)));
+            PixelDetector.PrintAllPixels(_spriteRenderer.sprite);
+        }
+
+
+        protected override void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+                ScanDirection();
+        }
     }
 }

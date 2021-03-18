@@ -21,9 +21,10 @@ public class CharacterCollider : MonoBehaviour
             hat.OnPickup(_characterStats, _characterView);
         }
 
-        if(collision.transform.tag == "Death")
-        {
-            GetComponent<CharMovement>().onDeath();
-        }
+        ///Let the death script handle this, less hidden coupling without string tags       
+        //if(collision.transform.tag == "Death")
+        //{
+        //    GetComponent<CharMovement>().onDeath();
+        //}
     }
 }

@@ -170,19 +170,6 @@ MonoBehaviour:
   _target: {fileID: 0}
   _detectionRange: 0
   _atkRange: 0
-  _detectionInfo:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 0
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
+  _detectionInfo: {fileID: 11400000, guid: 3f50a49a8d310e143879c5665e633483, type: 2}
   _debuggCurrState: 
   _scanFrequency: 2.5

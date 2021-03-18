@@ -7,11 +7,11 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
 
-    private CharMovement character;
+    private PlayerMovement character;
 
     private void Start()
     {
-        character = GetComponent<CharMovement>();
+        character = GetComponent<PlayerMovement>();
     }
 
     void Update()

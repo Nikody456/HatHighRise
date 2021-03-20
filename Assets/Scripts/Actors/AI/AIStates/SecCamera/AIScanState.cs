@@ -66,12 +66,7 @@ namespace AI
 
         private void TryRayCastForTarget()
         {
-            ///Not sure how to debug the direction of an animation?
-            
-            
-            ///If we hit something (the player) , set Target
-
-
+            _secCamInputAi.RayCastScanDirection();
         }
     }
 }

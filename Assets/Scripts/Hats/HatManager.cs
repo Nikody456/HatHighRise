@@ -63,7 +63,7 @@ public class HatManager : MonoBehaviour
 
     private Vector2 GetCharacterAnimOffset()
     {
-        return PixelDetector.DetectFirstPixel(_characterSpriteHACK.sprite, Color.black);
+        return PixelDetector.DetectFirstPixel(_characterSpriteHACK.sprite, Color.black, true);
     }
 
     private void ApplyHatStackPositions(Vector2 v2)

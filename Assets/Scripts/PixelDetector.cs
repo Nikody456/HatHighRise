@@ -7,7 +7,7 @@ namespace Helpers
 {
     public static class PixelDetector
     {
-        public static Vector2 DetectFirstPixel(Sprite sprite, Color color)
+        public static Vector2 DetectFirstPixel(Sprite sprite, Color color, bool ignoreX)
         {
 
             Vector2 pos = Vector2.zero;
@@ -25,15 +25,20 @@ namespace Helpers
             {
                 if (pixels[i] == color)
                 {
-                    int x = i / width;
+                    int x = i % width;
                     int y = i / width;
                     //print($"First matching {color} Pixel Seen is at Horizontal:  {x} and yHeight:{y}");
 
-                    int offsetPixelWidth =  x - (width / 2);
+                    int offsetPixelWidth = x - (width / 2);
                     int offsetPixelHeight = y - (height / 2);
 
+                    if (ignoreX)
+                    {
+                        return new Vector2(0, offsetPixelHeight);
+                    }
 
-                    return new Vector2(0, offsetPixelHeight);
+                    return new Vector2(offsetPixelWidth, offsetPixelHeight);
+
                 }
             }
 
@@ -75,7 +80,7 @@ namespace Helpers
                 }
                 else
                 {
-                   // Debug.Log($"COLOR: {pixels[i]} Pixel Seen is at Horizontal:  {x} and yHeight:{y}");
+                    // Debug.Log($"COLOR: {pixels[i]} Pixel Seen is at Horizontal:  {x} and yHeight:{y}");
 
                 }
             }

@@ -5,16 +5,18 @@ using UnityEngine;
 
 namespace AI
 {
-    public class AIScanState : AIState
+    public class AISecCamNotifyState : AIState
     {
         AIInput _ai;
-        AISecurityCamInput _secCamInputAi;
+
+        private float _timeInState = 0;
+        private float _timeToLeaveState = 5;
+        private bool _sentNotification = false;
         /*************************************************************************************************************/
 
-        public AIScanState(AIInput ai)
+        public AISecCamNotifyState(AIInput ai)
         {
             _ai = ai;
-            _secCamInputAi=_ai as AISecurityCamInput;
         }
         /*************************************************************************************************************/
 
@@ -24,10 +26,12 @@ namespace AI
         }
         public override void OnDisable(Transform target)
         {
+
         }
         public override void OnEnable(Transform target)
         {
-            _ai.SetMovement(PickADirection(_ai.transform.position));
+            _timeInState = 0;
+            _sentNotification = false;
         }
         /*************************************************************************************************************/
 
@@ -35,38 +39,40 @@ namespace AI
         {
             if (!CheckExitConditions(target))
             {
-                TryRayCastForTarget();
+                DoAttack();
             }
         }
+
         /*************************************************************************************************************/
 
         protected virtual bool CheckExitConditions(Transform target)
         {
-            if (target != null)
+            if(target==null)
             {
-                _ai.SetState(eAIStates.ATTACK);
                 return true;
             }
-            else if (!_secCamInputAi.IsScanning)
+            if(_timeInState > _timeToLeaveState)
             {
+                _ai.SetTarget(null);
                 _ai.SetState(eAIStates.IDLE);
                 return true;
             }
-
+            _timeInState += Time.deltaTime;
             return false;
         }
 
-        protected virtual float PickADirection(Vector3 pos)
-        {
-            ///Pick a Random Direction left or right
-            System.Random random = new System.Random();
-            return random.Next()%2 ==0 ? -1 : 1;
 
-        }
-
-        private void TryRayCastForTarget()
+        protected virtual void DoAttack()
         {
-            _secCamInputAi.RayCastScanDirection();
+            ///Only notify once per time through this state
+            if (_sentNotification)
+                return;
+
+            Debug.Log($"<color=red> Notify!</color>");
+            //Notify someone to spawn guards TODO
+
+            _sentNotification = true;
+
         }
     }
 }

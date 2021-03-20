@@ -17,7 +17,7 @@ namespace AI
         {
             _idleState = new AIISecurityCamIdleState(this, _scanFrequency);
             _moveState = new AIScanState(this);
-            _attackState = new AIAttackState(this);
+            _attackState = new AISecCamNotifyState(this);
             _currentState = _idleState;
 
         }
@@ -73,7 +73,7 @@ namespace AI
                 RaycastHit2D hit = results[i];
                 if (hit.collider != null)
                 {
-                    Debug.Log($"Dir={facingDir}, #NumHits={numHits}, Detected Hit: {hit.collider.gameObject.name} !");
+                    //Debug.Log($"Dir={facingDir}, #NumHits={numHits}, Detected Hit: {hit.collider.gameObject.name} !");
                     ///We are not ourself
                     if (hit.collider.gameObject != this.gameObject)
                     {

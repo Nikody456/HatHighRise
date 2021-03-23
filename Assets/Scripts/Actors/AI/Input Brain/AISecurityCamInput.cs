@@ -10,6 +10,7 @@ namespace AI
         [SerializeField] SpriteRenderer _spriteRenderer = default;
         [SerializeField] float _scanFrequency = 2.5f;
         [SerializeField] Vector3 _scanPositionOffset = Vector3.zero;
+        [SerializeField] SecDoor _securityDoor = default;
 
         public bool IsScanning { get; private set; }
 
@@ -17,7 +18,7 @@ namespace AI
         {
             _idleState = new AIISecurityCamIdleState(this, _scanFrequency);
             _moveState = new AIScanState(this);
-            _attackState = new AISecCamNotifyState(this);
+            _attackState = new AISecCamNotifyState(this, _securityDoor.SpawnGuard);
             _currentState = _idleState;
 
         }
@@ -101,7 +102,7 @@ namespace AI
             var hits = Physics2D.CircleCastAll(hitPoint, _sphereRadius, Vector2.zero, 0, _detectionInfo.DetectionInfo.layerMask);
             foreach (var item in hits)
             {
-                Debug.Log($"hit : {item.rigidbody.gameObject.name}");
+                //Debug.Log($"hit : {item.rigidbody.gameObject.name}");
                 var objHit = item.collider.gameObject;
                 if (objHit.layer == GameConstants.PLAYER_LAYER)
                 {

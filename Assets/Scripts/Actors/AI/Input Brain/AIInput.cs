@@ -40,7 +40,7 @@ namespace AI
 
         protected virtual void Update()
         {
-            if (!sceneIsLoading)
+            if (!sceneIsLoading && _currentState!=null)
             {
                 _currentState.Execute(_target);
                 _debuggCurrState = _currentState.ToString();

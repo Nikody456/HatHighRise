@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Helpers;
 
 public class HatManager : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class HatManager : MonoBehaviour
     private Transform _hatStack;
     private Vector2 _lastOffsetVector;
     [SerializeField] SpriteRenderer _characterSpriteHACK;
-    
-    
+
+
     /***********INIT**************************************************************************************************/
 
 
@@ -62,28 +63,7 @@ public class HatManager : MonoBehaviour
 
     private Vector2 GetCharacterAnimOffset()
     {
-        Vector2 pos = Vector2.zero;
-        var sprite = _characterSpriteHACK.sprite;
-        Color[] pixels = sprite.texture.GetPixels(
-                   (int)sprite.textureRect.x,
-                   (int)sprite.textureRect.y,
-                   (int)sprite.textureRect.width,
-                   (int)sprite.textureRect.height);
-
-        for (int i = 0; i < pixels.Length; ++i)
-        {
-            if (pixels[i] == Color.black)
-            {
-                int x = i / (int)sprite.textureRect.width;
-                int y = i / (int)sprite.textureRect.height;
-                //print($"First BlackPixel Seen is at Horizontal:  {x} and yHeight:{y}");
-
-                return new Vector2(x, y);
-            }
-        }
-
-        return pos;
-
+        return PixelDetector.DetectFirstPixel(_characterSpriteHACK.sprite, Color.black, true);
     }
 
     private void ApplyHatStackPositions(Vector2 v2)
@@ -92,11 +72,11 @@ public class HatManager : MonoBehaviour
         Vector3 diff = new Vector3(differenceSinceLastFrame.x, differenceSinceLastFrame.y, 0);
         //if(diff.x !=0 && diff.y !=0)
         //    Debug.Log($"Difference each frame={diff.x} , {diff.y}");
-        _hatStack.transform.position += diff;
+        _hatStack.transform.position -= diff;
         _lastOffsetVector = v2;
     }
 
-  
+
 
     private float GetHeight(int index)
     {

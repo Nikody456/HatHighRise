@@ -67,7 +67,7 @@ namespace AI
                 RaycastHit2D hit = results[i];
                 if (hit.collider != null)
                 {
-                    Debug.Log($"Dir={facingDir}, #NumHits={numHits}, Detected Hit: {hit.collider.gameObject.name} !");
+                    //Debug.Log($"Dir={facingDir}, #NumHits={numHits}, Detected Hit: {hit.collider.gameObject.name} !");
                     ///We are not ourself
                     if (hit.collider.gameObject != _ai.gameObject)
                     {

@@ -79,12 +79,10 @@ public class CharMovement : ActorMovement
             if (_controller.velocity.x > 0)
             {
                 _view.SetMirror(false);
-                GetComponent<SpriteRenderer>().flipX = false; //flip character sprites accordingly
             }
             else
             {
                 _view.SetMirror(true);
-                GetComponent<SpriteRenderer>().flipX = true;
             }
         }
     }

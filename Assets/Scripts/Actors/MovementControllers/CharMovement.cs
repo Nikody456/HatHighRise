@@ -56,7 +56,7 @@ public class CharMovement : ActorMovement
 
         if (_isGrounded)
         {
-            moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
+            _moveDirection = Mathf.Lerp(_moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
 
             //Reset Jumps
             if (_controller.velocity.y <= 0)
@@ -66,11 +66,11 @@ public class CharMovement : ActorMovement
         }
         else
         {
-            moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, airFriction * Time.deltaTime);
+            _moveDirection = Mathf.Lerp(_moveDirection, _input * _currentSpeed, airFriction * Time.deltaTime);
         }
 
         //set velocity of the character
-        _controller.velocity = new Vector2(moveDirection, _controller.velocity.y);
+        _controller.velocity = new Vector2(_moveDirection, _controller.velocity.y);
 
         SetAnimatorSpeeds();
     }
@@ -157,7 +157,7 @@ public class CharMovement : ActorMovement
         ///TODO Figure out player on moving platform physics
         Vector2 boxPosition = new Vector2(transform.position.x, transform.position.y - transform.GetComponent<BoxCollider2D>().size.y / 2 - .065f);
         //an array of every 2d collider that intersects the players grounded box
-        Collider2D[] collisions = Physics2D.OverlapBoxAll(boxPosition, new Vector2(transform.GetComponent<BoxCollider2D>().size.x - .125f, .125f), 0,groundedMask);
+        Collider2D[] collisions = Physics2D.OverlapBoxAll(boxPosition, new Vector2(transform.GetComponent<BoxCollider2D>().size.x - .125f, .125f), 0,_groundedMask);
 
 
         //moving platform logic

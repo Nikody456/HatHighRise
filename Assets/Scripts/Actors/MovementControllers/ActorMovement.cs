@@ -7,8 +7,8 @@ using Statistics;
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class ActorMovement : MonoBehaviour
 {
-    [SerializeField] protected float moveDirection = default; //the direction the actor is moving
-    [SerializeField] protected LayerMask groundedMask = default;
+    [SerializeField] protected float _moveDirection = default; //the direction the actor is moving
+    [SerializeField] protected LayerMask _groundedMask = default;
     protected Rigidbody2D _controller;
     protected SpriteRenderer _spriteRenderer;
     protected float _input;
@@ -18,7 +18,7 @@ public abstract class ActorMovement : MonoBehaviour
     {
         _controller = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        moveDirection = 0;
+        _moveDirection = 0;
 
     }
     protected virtual void Start()

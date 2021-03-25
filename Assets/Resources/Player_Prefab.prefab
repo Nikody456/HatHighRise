@@ -5006,8 +5006,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227a1aa33aba69a4dbf8b57d2be64acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 0
-  groundedMask:
+  _moveDirection: 0
+  _groundedMask:
     serializedVersion: 2
     m_Bits: 55
   sprintParticles: {fileID: 3581617202464624835}

@@ -103,15 +103,9 @@ namespace Statistics
                 _modifiers[i] = new List<Modifier>();
             }
 
-            Debug.Log($"We ran INIT IN STATS"); ;
-
             InitModifierComponent();
 
-
-
-
             ///register ourselves to this classes static events to set up a health bar in UI
-           
 
         }
 
@@ -294,7 +288,6 @@ namespace Statistics
         }
         private List<Modifier> GetListForModifier(eStat stat)
         {
-            Debug.Log($"lookin at: {(int)stat}"); ;
             return _modifiers[(int)stat];
         }
     }

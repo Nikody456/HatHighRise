@@ -19,10 +19,10 @@ public class PlayerMovement : CharMovement
     {
         base.DoMovement();
 
+
         if (_isGrounded)
         {
             _view.SetIsOnWall(false);
-
         }
         else
         {
@@ -61,7 +61,7 @@ public class PlayerMovement : CharMovement
 
             if (Mathf.Sign(_input) != Mathf.Sign(isOnWall()) && _input != 0)
             {
-                _controller.velocity = new Vector2(moveDirection, 0); //make the player not fall
+                _controller.velocity = new Vector2(_moveDirection, 0); //make the player not fall
                 _controller.gravityScale = 0;
             }
             else
@@ -77,18 +77,27 @@ public class PlayerMovement : CharMovement
             _controller.gravityScale = 1.5f;
         }
     }
-
     public override bool TryJump() //coyote time and jumps
     {
-        var jumpSuceeded = base.TryJump();
-        if (!jumpSuceeded && !_coyotePreEnabled)
+
+        if (_jumps == 0 && (isGrounded() || isOnWall() != 0 || _coyotePost <= coyoteTime)) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
+        {
+            DoJump();
+        }
+        else if (_jumps > 0 && _jumps < jumpLimit) //subsequent jumps can be performed mid-air
+        {
+            DoJump();
+        }
+        else if (!_coyotePreEnabled) //enables coyoteTime if jump fails
         {
             _coyotePre = 0;
             _coyotePreEnabled = true;
         }
 
-        return jumpSuceeded;
+        return true;
+
     }
+
 
     protected override void DoJump() //coyote time and walls
     {
@@ -98,15 +107,15 @@ public class PlayerMovement : CharMovement
         base.DoJump();
     }
 
+
     protected override void UpdateJumpVelocity()
     {
         int wallCheck = isOnWall();
 
-        Debug.Log($" {wallCheck != 0} vs {!_isGrounded} ");
         if (wallCheck != 0 && !_isGrounded) //make sure the player jumps away from the wall if wall jumping
         {
-            moveDirection = wallCheck * _currentSpeed;
-            _controller.velocity = new Vector2(moveDirection, _playerStats.CurrentJumpSpeed);
+            _moveDirection = wallCheck * _currentSpeed;
+            _controller.velocity = new Vector2(_moveDirection, _playerStats.CurrentJumpSpeed);
         }
         else
         {
@@ -116,11 +125,12 @@ public class PlayerMovement : CharMovement
 
     int isOnWall() //determine whether or not the player can wall jump
     {
+        var boxCol = transform.GetComponent<BoxCollider2D>().size;
         //similar to isGrounded, have two intersect tests on either side of the player
-        Vector2 boxPositionR = new Vector2(transform.position.x - transform.GetComponent<BoxCollider2D>().size.x / 2 - .0625f, transform.position.y);
-        Vector2 boxPositionL = new Vector2(transform.position.x + transform.GetComponent<BoxCollider2D>().size.x / 2 + .0625f, transform.position.y);
-        Collider2D[] collisionsL = Physics2D.OverlapBoxAll(boxPositionL, new Vector2(.125f, transform.GetComponent<BoxCollider2D>().size.y - .25f), 0, groundedMask);
-        Collider2D[] collisionsR = Physics2D.OverlapBoxAll(boxPositionR, new Vector2(.125f, transform.GetComponent<BoxCollider2D>().size.y - .25f), 0, groundedMask);
+        Vector2 boxPositionR = new Vector2(transform.position.x -boxCol.x / 2 - .0625f, transform.position.y);
+        Vector2 boxPositionL = new Vector2(transform.position.x + boxCol.x / 2 + .0625f, transform.position.y);
+        Collider2D[] collisionsL = Physics2D.OverlapBoxAll(boxPositionL, new Vector2(.125f, boxCol.y - .25f), 0, _groundedMask);
+        Collider2D[] collisionsR = Physics2D.OverlapBoxAll(boxPositionR, new Vector2(.125f, boxCol.y - .25f), 0, _groundedMask);
 
         if (collisionsL.Length > 0) //return an int for which side of the player the wall is on
         {

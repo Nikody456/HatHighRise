@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Statistics
@@ -11,28 +12,34 @@ namespace Statistics
     {
 
         ///TMP way to inject stats:
-        [SerializeField] StartingStats _startingStats = default;
+        [SerializeField] BaseStats _baseStats = default;
 
         #region Modifiers
         private Transform _modiferChild;
-
-        private List<Modifier> _healthModifiers = new List<Modifier>();
-        private List<Modifier> _moveSpeedModifiers = new List<Modifier>();
-        private List<Modifier> _sprintSpeedModifiers = new List<Modifier>();
-        private List<Modifier> _jumpModifiers = new List<Modifier>();
-        private List<Modifier> _attackModifiers = new List<Modifier>();
-        private List<Modifier> _defenseModifiers = new List<Modifier>();
-        private List<Modifier> _damageModifiers = new List<Modifier>();
+        private List<Modifier>[] _modifiers;
         #endregion
 
         #region MaxStats
-        public static int MAXHP { get; private set; } = 1000;
-        public static int MAXMOVESPEED { get; private set; } = 150;
-        public static int MAXSPRINT { get; private set; } = 150;
-        public static int MAXJUMP { get; private set; } = 150;
-        public static int MAXATTACK { get; private set; } = 120;
-        public static int MAXDEFENSE { get; private set; } = 120;
-        public static int MAXRAWDAMAGE { get; private set; } = 999;
+
+        private static readonly int MAXHP = 100;
+        private static readonly int MAXMOVESPEED = 150;
+        private static readonly int MAXSPRINT  = 150;
+        private static readonly int MAXJUMP = 150;
+        private static readonly int MAXATTACK  = 120;
+        private static readonly int MAXDEFENSE = 120;
+        private static readonly int MAXRAWDAMAGE  = 999;
+
+        private static readonly int[] _maxStats = new int[]
+            {
+                MAXHP,
+                MAXMOVESPEED,
+                MAXSPRINT,
+                MAXJUMP,
+                MAXATTACK,
+                MAXDEFENSE,
+                MAXRAWDAMAGE
+            };
+
         #endregion
 
         #region Properties
@@ -46,6 +53,7 @@ namespace Statistics
 
 
         #region Dynamic Meters
+        ///WHY R U HERE? TODO
         private int _healthMAX = 100;
 
         #endregion
@@ -65,29 +73,42 @@ namespace Statistics
         private void Awake()
         {
             ///TEMP?
-            if (_startingStats)
-                Initalize( _startingStats, true);
+            if (_baseStats)
+            {
+                Initalize(_baseStats, true);
+            }
             
         }
 
         /*********INIT******************************************************************************************************/
 
-        public void Initalize(StartingStats initalStats, bool isPlayer)
+        public void Initalize(BaseStats baseStats, bool isPlayer)
         {
             //Soldier = soldier;
             ///Grab our Initial dynamic meter stats
-            _healthMAX = initalStats.hpMAX < MAXHP ? initalStats.hpMAX : MAXHP;
+            _healthMAX = baseStats.HpMax < MAXHP ? baseStats.HpMax : MAXHP;
 
             ///Grab our initial static stats
-            _baseJump = initalStats.BaseJump < MAXJUMP ? initalStats.BaseJump : MAXJUMP;
-            _baseAttack = initalStats.attack < MAXATTACK ? initalStats.attack : MAXATTACK;
-            _baseDefense = initalStats.defense < MAXDEFENSE ? initalStats.defense : MAXDEFENSE;
-            _baseMoveSpeed = (int)initalStats.BaseMove;
-            _baseSprintSpeed = initalStats.BaseSprint;
+            _baseJump = baseStats.Jump < MAXJUMP ? baseStats.Jump : MAXJUMP;
+            _baseAttack = baseStats.Attack < MAXATTACK ? baseStats.Attack : MAXATTACK;
+            _baseDefense = baseStats.Defense < MAXDEFENSE ? baseStats.Defense : MAXDEFENSE;
+            _baseMoveSpeed = (int)baseStats.MovementSpeed;
+            _baseSprintSpeed = baseStats.Sprint;
             _currentHealth = _healthMAX;
 
+            var modifierSize=System.Enum.GetValues(typeof(eStat)).Length;
+            _modifiers = new List<Modifier>[modifierSize];
+            for (int i = 0; i < modifierSize; i++)
+            {
+                _modifiers[i] = new List<Modifier>();
+            }
+
+            Debug.Log($"We ran INIT IN STATS"); ;
 
             InitModifierComponent();
+
+
+
 
             ///register ourselves to this classes static events to set up a health bar in UI
            
@@ -269,75 +290,12 @@ namespace Statistics
         }
         private int GetStatLimit(eStat stat)
         {
-            switch (stat)
-            {
-                case eStat.HPMAX:
-                    {
-                        return MAXHP;
-                    }
-                case eStat.ATTACK:
-                    {
-                        return MAXATTACK;
-                    }
-                case eStat.DEFENSE:
-                    {
-                        return MAXDEFENSE;
-                    }
-                case eStat.RAWDAMAGE:
-                    {
-                        ///????
-                        return MAXRAWDAMAGE;
-                    }
-                case eStat.MOVESPEED:
-                    {
-                        return MAXMOVESPEED;
-                    }
-                case eStat.SPRINT:
-                    {
-                        return MAXSPRINT;
-                    }
-                case eStat.JUMP:
-                    {
-                        return MAXJUMP;
-                    }
-            }
-            return 0;
+            return _maxStats[(int)stat];
         }
         private List<Modifier> GetListForModifier(eStat stat)
         {
-
-            switch (stat)
-            {
-                case eStat.HPMAX:
-                    {
-                        return _healthModifiers;
-                    }
-                case eStat.ATTACK:
-                    {
-                        return _attackModifiers;
-                    }
-                case eStat.DEFENSE:
-                    {
-                        return _defenseModifiers;
-                    }
-                case eStat.RAWDAMAGE:
-                    {
-                        return _damageModifiers;
-                    }
-                case eStat.MOVESPEED:
-                    {
-                        return _moveSpeedModifiers;
-                    }
-                case eStat.SPRINT:
-                    {
-                        return _sprintSpeedModifiers;
-                    }
-                case eStat.JUMP:
-                    {
-                        return _jumpModifiers;
-                    }
-            }
-            return null;
+            Debug.Log($"lookin at: {(int)stat}"); ;
+            return _modifiers[(int)stat];
         }
     }
 

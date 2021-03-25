@@ -5,7 +5,7 @@ using Statistics;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class ActorMovement : MonoBehaviour
+public abstract class ActorMovement : MonoBehaviour
 {
     [SerializeField] protected float moveDirection = default; //the direction the actor is moving
     [SerializeField] protected LayerMask groundedMask = default;
@@ -13,22 +13,28 @@ public class ActorMovement : MonoBehaviour
     protected SpriteRenderer _spriteRenderer;
     protected float _input;
 
-    protected virtual void Start()
+
+    protected virtual void Awake()
     {
         _controller = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         moveDirection = 0;
+
+    }
+    protected virtual void Start()
+    {
     }
 
+    protected void Update()
+    {
+        DoMovement();
+    }
+
+    protected abstract void DoMovement();
   
     public virtual void SetInput(float newInput)
     {
         _input = newInput;
-    }
-
-    protected virtual void Update()
-    {
-
     }
 
     public bool isFacingRight()

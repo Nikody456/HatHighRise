@@ -15,42 +15,17 @@ public class PlayerMovement : CharMovement
     private bool _coyotePostEnabled = false;
     private float _coyotePost = 10;
 
-    protected override void Start()
+    protected override void DoMovement()
     {
-        base.Start();
+        base.DoMovement();
 
-        if(startPosition == Vector2.zero)
+        if (_isGrounded)
         {
-            startPosition = transform.position;
-        }
-        else
-        {
-            transform.position = startPosition;
-        }
-
-    }
-
-    protected override void Update()
-    {
-        //Determine if the player is grounded each frame
-        bool grounded = isGrounded();
-        _view.SetIsGrounded(grounded);
-
-        if (grounded)
-        {
-            moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
-
             _view.SetIsOnWall(false);
 
-            //Reset Jumps
-            if (_controller.velocity.y <= 0)
-            {
-                _jumps = 0;
-            }
         }
         else
         {
-            moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, airFriction * Time.deltaTime);
             CoyoteTimePost();
             WallJumping();
         }
@@ -60,11 +35,6 @@ public class PlayerMovement : CharMovement
             _coyotePre += 1 * Time.deltaTime;
             TryJump();
         }
-
-        //set velocity of the character
-        _controller.velocity = new Vector2(moveDirection, _controller.velocity.y);
-
-        SetAnimatorSpeeds();
     }
 
     private void CoyoteTimePost() //Allows the player to jump slightly after walking off a platform
@@ -108,33 +78,29 @@ public class PlayerMovement : CharMovement
         }
     }
 
-    public override void TryJump() //coyote time and jumps
+    public override bool TryJump() //coyote time and jumps
     {
-
-        if(_jumps == 0 && (isGrounded() || isOnWall() != 0 || _coyotePost <= coyoteTime)) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
-        {
-            DoJump();
-        }
-        else if (_jumps > 0 && _jumps < jumpLimit) //subsequent jumps can be performed mid-air
-        {
-            DoJump();
-        }
-        else if (!_coyotePreEnabled) //enables coyoteTime if jump fails
+        var jumpSuceeded = base.TryJump();
+        if (!jumpSuceeded && !_coyotePreEnabled)
         {
             _coyotePre = 0;
             _coyotePreEnabled = true;
         }
 
+        return jumpSuceeded;
     }
 
     protected override void DoJump() //coyote time and walls
     {
         //disable pre coyote time
-        _coyotePre = coyoteTime+1;
+        _coyotePre = coyoteTime + 1;
         _coyotePreEnabled = false;
+        base.DoJump();
+    }
 
+    protected override void UpdateJumpVelocity()
+    {
         int wallCheck = isOnWall();
-
         if (wallCheck != 0 && !isGrounded()) //make sure the player jumps away from the wall if wall jumping
         {
             moveDirection = wallCheck * _currentSpeed;
@@ -142,11 +108,8 @@ public class PlayerMovement : CharMovement
         }
         else
         {
-            _controller.velocity = new Vector2(_controller.velocity.x, _playerStats.CurrentJumpSpeed); //jump normally when not on a wall
+            base.UpdateJumpVelocity();
         }
-        
-        sprintParticles.Emit(20); //emit some particles
-        _jumps++; //keep track of how many times the player has jumped
     }
 
     int isOnWall() //determine whether or not the player can wall jump
@@ -161,7 +124,7 @@ public class PlayerMovement : CharMovement
         {
             return -1;
         }
-        else if(collisionsR.Length > 0)
+        else if (collisionsR.Length > 0)
         {
             return 1;
         }

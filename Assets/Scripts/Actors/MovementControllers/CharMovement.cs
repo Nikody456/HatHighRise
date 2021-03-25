@@ -10,7 +10,7 @@ public class CharMovement : ActorMovement
     protected CharacterView _view;
     protected Stats _playerStats;
 
-    protected float _currentSpeed =1; ///Steve set to be able to move
+    protected float _currentSpeed;
 
     [SerializeField] protected ParticleSystem sprintParticles =default;
 
@@ -20,14 +20,14 @@ public class CharMovement : ActorMovement
 
     [SerializeField] protected int jumpLimit = 1; //Additional jump powerup?
     protected int _jumps;
+    protected bool _isGrounded;
 
     public Vector2 startPosition;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         _playerStats = GetComponent<Stats>();
-        _currentSpeed = _playerStats.CurrentMoveSpeed;
         _view = this.GetComponent<CharacterView>();
 
         if(startPosition == Vector2.zero)
@@ -39,15 +39,22 @@ public class CharMovement : ActorMovement
             transform.position = startPosition;
         }
 
+
     }
 
-    protected override void Update()
+    protected override void Start()
+    {
+        base.Start();
+        _currentSpeed = _playerStats.CurrentMoveSpeed;
+    }
+
+    protected override void DoMovement()
     {
         //Determine if the player is grounded each frame
-        bool grounded = isGrounded();
-        _view.SetIsGrounded(grounded);
+        _isGrounded = isGrounded();
+        _view.SetIsGrounded(_isGrounded);
 
-        if (grounded)
+        if (_isGrounded)
         {
             moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
 
@@ -114,17 +121,15 @@ public class CharMovement : ActorMovement
         sprintParticles.Stop();
     }
 
-    public virtual void TryJump()
+    public virtual bool TryJump()
     {
 
-        if(_jumps == 0 && isGrounded()) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
+        if ((_jumps == 0 && isGrounded()) || (_jumps > 0 && _jumps < jumpLimit)) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
         {
             DoJump();
+            return true;
         }
-        else if (_jumps > 0 && _jumps < jumpLimit) //subsequent jumps can be performed mid-air
-        {
-            DoJump();
-        }
+        return false;
 
     }
 
@@ -135,14 +140,21 @@ public class CharMovement : ActorMovement
 
     protected virtual void DoJump()
     {
-        _controller.velocity = new Vector2(_controller.velocity.x, _playerStats.CurrentJumpSpeed); //jump
-        
+        UpdateJumpVelocity();
         sprintParticles.Emit(20); //emit some particles
         _jumps++; //keep track of how many times the player has jumped
     }
 
+    protected virtual void UpdateJumpVelocity()
+    {
+        _controller.velocity = new Vector2(_controller.velocity.x, _playerStats.CurrentJumpSpeed); //jump
+
+    }
+
     protected bool isGrounded() //determine whether or not the player is grounded
     {
+
+        ///TODO Figure out player on moving platform physics
         Vector2 boxPosition = new Vector2(transform.position.x, transform.position.y - transform.GetComponent<BoxCollider2D>().size.y / 2 - .065f);
         //an array of every 2d collider that intersects the players grounded box
         Collider2D[] collisions = Physics2D.OverlapBoxAll(boxPosition, new Vector2(transform.GetComponent<BoxCollider2D>().size.x - .125f, .125f), 0,groundedMask);

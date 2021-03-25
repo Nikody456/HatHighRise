@@ -69,10 +69,13 @@ namespace AI
             if (_sentNotification)
                 return;
 
-            Debug.Log($"<color=red> Notify!</color>");
+            //Debug.Log($"<color=red> Notify!</color>");
             //Notify someone to spawn guards TODO
             _onNotify?.Invoke();
             _sentNotification = true;
+
+            //could do this? if we dont want to play some kind of blinking light?
+            //_timeInState = _timeToLeaveState;
 
         }
     }

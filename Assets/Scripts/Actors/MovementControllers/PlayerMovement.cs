@@ -92,6 +92,11 @@ public class PlayerMovement : CharMovement
             if (Mathf.Sign(_input) != Mathf.Sign(isOnWall()) && _input != 0)
             {
                 _controller.velocity = new Vector2(moveDirection, 0); //make the player not fall
+                _controller.gravityScale = 0;
+            }
+            else
+            {
+                _controller.gravityScale = 1.5f;
             }
 
             _jumps = 0;//reset jumps
@@ -99,6 +104,7 @@ public class PlayerMovement : CharMovement
         else
         {
             _view.SetIsOnWall(false);
+            _controller.gravityScale = 1.5f;
         }
     }
 

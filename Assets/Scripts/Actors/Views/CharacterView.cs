@@ -4,12 +4,12 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class CharacterView : ActorView
 {
     const string XSPEED = "x_speed";
     const string YSPEED = "y_speed";
     const string GROUNDED = "isGrounded";
-    const string MIRROR = "mirror";
     const string ONWALL = "onWall";
     const string ATTACK = "Attack";
     const string MELEE = "melee_atk";
@@ -17,6 +17,7 @@ public class CharacterView : ActorView
     ///Will Need to Manage Hats added
     [SerializeField] 
     HatManager _hatManager = default;
+    SpriteRenderer _sr;
     ///Will Need to Manage Animations 
     private int _attackIndex=1;
     /*********INIT******************************************************************************************************/
@@ -27,6 +28,7 @@ public class CharacterView : ActorView
         base.Awake();
         if (_hatManager == null)
             _hatManager = this.GetComponentInChildren<HatManager>();
+        _sr = this.GetComponent<SpriteRenderer>();
     }
 
     /*********HATS******************************************************************************************************/
@@ -61,7 +63,7 @@ public class CharacterView : ActorView
 
     public void SetMirror(bool mirror)
     {
-        _animator.SetBool(MIRROR, mirror);
+        _sr.flipX = mirror;
     }
 
     public void SetIsOnWall(bool isOnWall)

@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-
+using System;
 
 namespace AI
 {
@@ -12,11 +11,13 @@ namespace AI
         private float _timeInState = 0;
         private float _timeToLeaveState = 5;
         private bool _sentNotification = false;
+        private Action _onNotify;
         /*************************************************************************************************************/
 
-        public AISecCamNotifyState(AIInput ai)
+        public AISecCamNotifyState(AIInput ai, Action onNotify)
         {
             _ai = ai;
+            _onNotify = onNotify;
         }
         /*************************************************************************************************************/
 
@@ -68,10 +69,13 @@ namespace AI
             if (_sentNotification)
                 return;
 
-            Debug.Log($"<color=red> Notify!</color>");
+            //Debug.Log($"<color=red> Notify!</color>");
             //Notify someone to spawn guards TODO
-
+            _onNotify?.Invoke();
             _sentNotification = true;
+
+            //could do this? if we dont want to play some kind of blinking light?
+            //_timeInState = _timeToLeaveState;
 
         }
     }

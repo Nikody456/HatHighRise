@@ -7,6 +7,9 @@ public class LevelEndPoint : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        LevelLoader.Instance.LoadNextLevel();
+        if (collision.GetComponentInChildren<PlayerMovement>())
+        {
+            LevelLoader.Instance.LoadNextLevel();
+        }
     }
 }

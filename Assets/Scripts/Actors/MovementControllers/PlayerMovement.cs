@@ -101,7 +101,9 @@ public class PlayerMovement : CharMovement
     protected override void UpdateJumpVelocity()
     {
         int wallCheck = isOnWall();
-        if (wallCheck != 0 && !isGrounded()) //make sure the player jumps away from the wall if wall jumping
+
+        Debug.Log($" {wallCheck != 0} vs {!_isGrounded} ");
+        if (wallCheck != 0 && !_isGrounded) //make sure the player jumps away from the wall if wall jumping
         {
             moveDirection = wallCheck * _currentSpeed;
             _controller.velocity = new Vector2(moveDirection, _playerStats.CurrentJumpSpeed);

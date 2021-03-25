@@ -7,8 +7,8 @@ public class HatManager : MonoBehaviour
 {
     [SerializeField] List<Hat> _hats = new List<Hat>();
 
-    private float _characterHeight = 0.5f;
-    private float _yOffset = 0.25f;
+    private float _characterHeight = 1f;
+    private float _yOffset = 0.5f;
     private Transform _hatStack;
     private Vector2 _lastOffsetVector;
     [SerializeField] SpriteRenderer _characterSpriteHACK;

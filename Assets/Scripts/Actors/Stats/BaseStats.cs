@@ -6,14 +6,14 @@ using UnityEngine;
 namespace Statistics
 {
 
-    [CreateAssetMenu(menuName = "Stats/Starting Stats")]
-    public class StartingStats : ScriptableObject
+    [CreateAssetMenu(menuName = "Stats/Base Stats")]
+    public class BaseStats : ScriptableObject
     {
 
         #region meters
         [Range(1, 100)]
         [SerializeField] int _hpMax = default;
-        public int hpMAX => _hpMax;
+        public int HpMax => _hpMax;
 
         #endregion
 
@@ -21,22 +21,22 @@ namespace Statistics
 
         [Range(1, 25f)]
         [SerializeField] float _baseJump = default;
-        public float BaseJump => _baseJump;
+        public float Jump => _baseJump;
 
         [Range(1, 15f)]
         [SerializeField] float _baseMove = default;
-        public float BaseMove => _baseMove;
+        public float MovementSpeed => _baseMove;
 
         [Range(1, 15f)]
         [SerializeField] float _baseSprint = default;
-        public float BaseSprint => _baseSprint;
+        public float Sprint => _baseSprint;
         [Range(1, 120)]
         [SerializeField] int _attack = default;
-        public int attack => _attack;
+        public int Attack => _attack;
 
         [Range(1, 120)]
         [SerializeField] int _defense = default;
-        public int defense => _defense;
+        public int Defense => _defense;
 
 
         #endregion

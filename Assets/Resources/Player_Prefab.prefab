@@ -5006,8 +5006,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227a1aa33aba69a4dbf8b57d2be64acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 0
-  groundedMask:
+  _moveDirection: 0
+  _groundedMask:
     serializedVersion: 2
     m_Bits: 55
   sprintParticles: {fileID: 3581617202464624835}
@@ -5029,7 +5029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d219e937a8a4ef04786e579ca0a19ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingStats: {fileID: 11400000, guid: fc4299ab0c09f964e80ed1dc22dc2555, type: 2}
+  _baseStats: {fileID: 11400000, guid: fc4299ab0c09f964e80ed1dc22dc2555, type: 2}
 --- !u!114 &3581617203901105272
 MonoBehaviour:
   m_ObjectHideFlags: 0

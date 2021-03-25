@@ -15,42 +15,17 @@ public class PlayerMovement : CharMovement
     private bool _coyotePostEnabled = false;
     private float _coyotePost = 10;
 
-    protected override void Start()
+    protected override void DoMovement()
     {
-        base.Start();
+        base.DoMovement();
 
-        if(startPosition == Vector2.zero)
+
+        if (_isGrounded)
         {
-            startPosition = transform.position;
-        }
-        else
-        {
-            transform.position = startPosition;
-        }
-
-    }
-
-    protected override void Update()
-    {
-        //Determine if the player is grounded each frame
-        bool grounded = isGrounded();
-        _view.SetIsGrounded(grounded);
-
-        if (grounded)
-        {
-            moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
-
             _view.SetIsOnWall(false);
-
-            //Reset Jumps
-            if (_controller.velocity.y <= 0)
-            {
-                _jumps = 0;
-            }
         }
         else
         {
-            moveDirection = Mathf.Lerp(moveDirection, _input * _currentSpeed, airFriction * Time.deltaTime);
             CoyoteTimePost();
             WallJumping();
         }
@@ -60,11 +35,6 @@ public class PlayerMovement : CharMovement
             _coyotePre += 1 * Time.deltaTime;
             TryJump();
         }
-
-        //set velocity of the character
-        _controller.velocity = new Vector2(moveDirection, _controller.velocity.y);
-
-        SetAnimatorSpeeds();
     }
 
     private void CoyoteTimePost() //Allows the player to jump slightly after walking off a platform
@@ -91,7 +61,7 @@ public class PlayerMovement : CharMovement
 
             if (Mathf.Sign(_input) != Mathf.Sign(isOnWall()) && _input != 0)
             {
-                _controller.velocity = new Vector2(moveDirection, 0); //make the player not fall
+                _controller.velocity = new Vector2(_moveDirection, 0); //make the player not fall
                 _controller.gravityScale = 0;
             }
             else
@@ -107,11 +77,10 @@ public class PlayerMovement : CharMovement
             _controller.gravityScale = 1.5f;
         }
     }
-
-    public override void TryJump() //coyote time and jumps
+    public override bool TryJump() //coyote time and jumps
     {
 
-        if(_jumps == 0 && (isGrounded() || isOnWall() != 0 || _coyotePost <= coyoteTime)) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
+        if (_jumps == 0 && (isGrounded() || isOnWall() != 0 || _coyotePost <= coyoteTime)) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
         {
             DoJump();
         }
@@ -125,43 +94,49 @@ public class PlayerMovement : CharMovement
             _coyotePreEnabled = true;
         }
 
+        return true;
+
     }
+
 
     protected override void DoJump() //coyote time and walls
     {
         //disable pre coyote time
-        _coyotePre = coyoteTime+1;
+        _coyotePre = coyoteTime + 1;
         _coyotePreEnabled = false;
+        base.DoJump();
+    }
 
+
+    protected override void UpdateJumpVelocity()
+    {
         int wallCheck = isOnWall();
 
-        if (wallCheck != 0 && !isGrounded()) //make sure the player jumps away from the wall if wall jumping
+        if (wallCheck != 0 && !_isGrounded) //make sure the player jumps away from the wall if wall jumping
         {
-            moveDirection = wallCheck * _currentSpeed;
-            _controller.velocity = new Vector2(moveDirection, _playerStats.CurrentJumpSpeed);
+            _moveDirection = wallCheck * _currentSpeed;
+            _controller.velocity = new Vector2(_moveDirection, _playerStats.CurrentJumpSpeed);
         }
         else
         {
-            _controller.velocity = new Vector2(_controller.velocity.x, _playerStats.CurrentJumpSpeed); //jump normally when not on a wall
+            base.UpdateJumpVelocity();
         }
-        
-        sprintParticles.Emit(20); //emit some particles
-        _jumps++; //keep track of how many times the player has jumped
     }
 
     int isOnWall() //determine whether or not the player can wall jump
     {
+        var boxCol = transform.GetComponent<BoxCollider2D>().size;
         //similar to isGrounded, have two intersect tests on either side of the player
-        Vector2 boxPositionR = new Vector2(transform.position.x - transform.GetComponent<BoxCollider2D>().size.x / 2 - .0625f, transform.position.y);
-        Vector2 boxPositionL = new Vector2(transform.position.x + transform.GetComponent<BoxCollider2D>().size.x / 2 + .0625f, transform.position.y);
-        Collider2D[] collisionsL = Physics2D.OverlapBoxAll(boxPositionL, new Vector2(.125f, transform.GetComponent<BoxCollider2D>().size.y - .25f), 0, groundedMask);
-        Collider2D[] collisionsR = Physics2D.OverlapBoxAll(boxPositionR, new Vector2(.125f, transform.GetComponent<BoxCollider2D>().size.y - .25f), 0, groundedMask);
+        Vector2 boxPositionR = new Vector2(transform.position.x -boxCol.x / 2 - .0625f, transform.position.y);
+        Vector2 boxPositionL = new Vector2(transform.position.x + boxCol.x / 2 + .0625f, transform.position.y);
+        Collider2D[] collisionsL = Physics2D.OverlapBoxAll(boxPositionL, new Vector2(.125f, boxCol.y - .25f), 0, _groundedMask);
+        Collider2D[] collisionsR = Physics2D.OverlapBoxAll(boxPositionR, new Vector2(.125f, boxCol.y - .25f), 0, _groundedMask);
 
         if (collisionsL.Length > 0) //return an int for which side of the player the wall is on
         {
             return -1;
         }
-        else if(collisionsR.Length > 0)
+        else if (collisionsR.Length > 0)
         {
             return 1;
         }

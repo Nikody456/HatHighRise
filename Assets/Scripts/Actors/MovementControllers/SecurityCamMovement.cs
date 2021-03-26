@@ -11,6 +11,10 @@ public class SecurityCamMovement : ActorMovement
         _view = this.GetComponent<SecurityCamView>();
     }
 
+    protected override void DoMovement()
+    {
+       ///Doesnt move, TODO reasses
+    }
 
 
     public override void SetInput(float newInput)
@@ -22,6 +26,5 @@ public class SecurityCamMovement : ActorMovement
             _view.SetScanning();
         }
     }
-
 
 }

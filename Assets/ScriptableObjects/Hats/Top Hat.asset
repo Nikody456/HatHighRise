@@ -15,9 +15,9 @@ MonoBehaviour:
   _name: Top Hat
   _colliderSize: {x: 1, y: 0.8}
   _img: {fileID: 21300000, guid: 77b1169e37860c243b8cb60b876dcce0, type: 3}
-  _stat: 1
+  _stat: 7
   _type: 0
-  _value: 2
+  _value: 1
   _isMeleeHat: 0
   _isRangedHat: 0
   _animatorAttackIndex: 0

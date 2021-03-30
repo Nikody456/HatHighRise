@@ -79,7 +79,7 @@ public class PlayerMovement : CharMovement
     }
     public override bool TryJump() //coyote time and jumps
     {
-
+        jumpLimit = _playerStats.CurrentJumpLimit;
         if (_jumps == 0 && (isGrounded() || isOnWall() != 0 || _coyotePost <= coyoteTime)) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
         {
             DoJump();

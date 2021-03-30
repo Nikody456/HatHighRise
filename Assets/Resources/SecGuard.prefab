@@ -86,7 +86,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6049109, y: 1}
+  m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
 --- !u!212 &2401825446399864856
 SpriteRenderer:
@@ -183,15 +183,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60bf94a492db0c4a82b2843681bb67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 0
-  groundedMask:
+  _moveDirection: 0
+  _groundedMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 0
   sprintParticles: {fileID: 2401825447399825583}
   gravity: 0.5
   friction: 10
   airFriction: 0
-  coyoteTime: 0
   jumpLimit: 10
   startPosition: {x: 0, y: 0}
 --- !u!114 &2401825446399864852
@@ -220,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d219e937a8a4ef04786e579ca0a19ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingStats: {fileID: 11400000, guid: fc4299ab0c09f964e80ed1dc22dc2555, type: 2}
+  _baseStats: {fileID: 11400000, guid: fc4299ab0c09f964e80ed1dc22dc2555, type: 2}
 --- !u!114 &2401825446399864854
 MonoBehaviour:
   m_ObjectHideFlags: 0

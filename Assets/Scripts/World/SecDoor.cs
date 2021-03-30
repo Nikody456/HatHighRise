@@ -6,14 +6,18 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class SecDoor : MonoBehaviour
 {
+    [SerializeField] GameObject _secGuardPREFAB;
+    
     Animator _animator;
-    GameObject _secGuardPREFAB;
     string _triggerName = "Open";
 
     private void Awake()
     {
         _animator = this.GetComponent<Animator>();
-        _secGuardPREFAB = Resources.Load<GameObject>("SecGuard");
+        if (_secGuardPREFAB == null) //FailSafe
+        {
+            _secGuardPREFAB = Resources.Load<GameObject>("SecGuard");
+        }
     }
 
     public void SpawnGuard()

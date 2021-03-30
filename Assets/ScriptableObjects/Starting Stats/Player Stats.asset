@@ -18,4 +18,4 @@ MonoBehaviour:
   _baseSprint: 8
   _attack: 10
   _defense: 5
-  _jumpLimit: 2
+  _jumpLimit: 1

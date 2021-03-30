@@ -100,7 +100,7 @@ namespace Statistics
             _baseSprintSpeed = baseStats.Sprint;
             _currentHealth = _healthMAX;
             _jumpLimit = baseStats.JumpLimit < MAXJUMP ? baseStats.JumpLimit : MAXJUMP;
-
+            Debug.Log($"Our Jump Limit is {_jumpLimit} ");
             var modifierSize=System.Enum.GetValues(typeof(eStat)).Length;
             _modifiers = new List<Modifier>[modifierSize];
             for (int i = 0; i < modifierSize; i++)
@@ -283,6 +283,10 @@ namespace Statistics
                 case eStat.JUMP:
                     {
                         return _baseJump;
+                    }
+                case eStat.JUMPLIMIT:
+                    {
+                        return _jumpLimit;
                     }
             }
             return 0;

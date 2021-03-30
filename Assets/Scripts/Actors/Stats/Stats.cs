@@ -96,13 +96,15 @@ namespace Statistics
             _baseJump = baseStats.Jump < MAXJUMP ? baseStats.Jump : MAXJUMP;
             _baseAttack = baseStats.Attack < MAXATTACK ? baseStats.Attack : MAXATTACK;
             _baseDefense = baseStats.Defense < MAXDEFENSE ? baseStats.Defense : MAXDEFENSE;
-            _baseMoveSpeed = (int)baseStats.MovementSpeed;
-            _baseSprintSpeed = baseStats.Sprint;
-            _currentHealth = _healthMAX;
+            _baseMoveSpeed = (int)baseStats.MovementSpeed; ///Todo do we need a max?
+            _baseSprintSpeed = baseStats.Sprint; ///Todo do we need a max?
+            _currentHealth = _healthMAX; ///Todo is this right?
             _jumpLimit = baseStats.JumpLimit < MAXJUMP ? baseStats.JumpLimit : MAXJUMP;
-            Debug.Log($"Our Jump Limit is {_jumpLimit} ");
+            
+            /// Set up our modifier array for each enum
             var modifierSize=System.Enum.GetValues(typeof(eStat)).Length;
             _modifiers = new List<Modifier>[modifierSize];
+            
             for (int i = 0; i < modifierSize; i++)
             {
                 _modifiers[i] = new List<Modifier>();

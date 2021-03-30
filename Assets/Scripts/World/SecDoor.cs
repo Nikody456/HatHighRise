@@ -23,8 +23,9 @@ public class SecDoor : MonoBehaviour
     public void SpawnGuard()
     {
         _animator.SetTrigger(_triggerName);
-        var guard = Instantiate(_secGuardPREFAB);
-        guard.transform.position = this.transform.position;
+        ///TEMP OFF FOR BETA
+        //var guard = Instantiate(_secGuardPREFAB);
+        //guard.transform.position = this.transform.position;
 
     }
 

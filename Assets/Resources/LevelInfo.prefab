@@ -384,8 +384,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a08c398cb722ba49b875795d6b086ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerStart: {fileID: 0}
+  _playerStart: {fileID: 5019163070743411925}
   _levelEnd: {fileID: 5551252763479852029}
-  _deathPlane: {fileID: 3239203162032999435}
+  _deathPlanes: []
   _playerPreFab: {fileID: 3581617203901105267, guid: 86054f568c206ce41bd887c525ca8c0f,
     type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Security Hat
   m_EditorClassIdentifier: 
   _name: Security
-  _colliderSize: {x: 0.5, y: 0.5}
+  _colliderSize: {x: 1, y: 0.8}
   _img: {fileID: 21300000, guid: 37985b24af94c9142bce48c0ca73e31c, type: 3}
   _stat: 3
   _type: 1

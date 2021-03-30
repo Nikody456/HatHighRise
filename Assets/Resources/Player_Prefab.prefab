@@ -5009,7 +5009,7 @@ MonoBehaviour:
   _moveDirection: 0
   _groundedMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 23
   sprintParticles: {fileID: 3581617202464624835}
   gravity: 0.5
   friction: 10

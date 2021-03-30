@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Statistics
 {
-    public enum eStat { HPMAX, MOVESPEED, SPRINT, JUMP, ATTACK, DEFENSE, RAWDAMAGE }
+    public enum eStat { HPMAX, MOVESPEED, SPRINT, JUMP, ATTACK, DEFENSE, RAWDAMAGE, JUMPLIMIT }
 
 
     public class Stats : MonoBehaviour
@@ -28,6 +28,7 @@ namespace Statistics
         private static readonly int MAXATTACK  = 120;
         private static readonly int MAXDEFENSE = 120;
         private static readonly int MAXRAWDAMAGE  = 999;
+        private static readonly int MAXJUMPLIMIT = 5;
 
         private static readonly int[] _maxStats = new int[]
             {
@@ -37,7 +38,8 @@ namespace Statistics
                 MAXJUMP,
                 MAXATTACK,
                 MAXDEFENSE,
-                MAXRAWDAMAGE
+                MAXRAWDAMAGE,
+                MAXJUMPLIMIT
             };
 
         #endregion
@@ -49,6 +51,7 @@ namespace Statistics
         private float _baseJump;  ///James wants a push to hold jump mechanic 
         private int _baseAttack;
         private int _baseDefense;
+        private int _jumpLimit;
         #endregion
 
 
@@ -66,6 +69,7 @@ namespace Statistics
         public int CurrentAttack => (int)GetCurrentStat(eStat.ATTACK);
         public int CurrentDefense => (int)GetCurrentStat(eStat.DEFENSE);
 
+        public int CurrentJumpLimit => (int)GetCurrentStat(eStat.JUMPLIMIT);
 
         #endregion
 
@@ -95,6 +99,7 @@ namespace Statistics
             _baseMoveSpeed = (int)baseStats.MovementSpeed;
             _baseSprintSpeed = baseStats.Sprint;
             _currentHealth = _healthMAX;
+            _jumpLimit = baseStats.JumpLimit < MAXJUMP ? baseStats.JumpLimit : MAXJUMP;
 
             var modifierSize=System.Enum.GetValues(typeof(eStat)).Length;
             _modifiers = new List<Modifier>[modifierSize];

@@ -4947,8 +4947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampCameraPosition: 1
-  minClamp: {x: -4.54, y: -0.09, z: -10}
-  maxClamp: {x: 3.64, y: 6.89, z: -10}
+  minClamp: {x: -4.57, y: -34.1, z: -10}
+  maxClamp: {x: 145.64, y: 6.91, z: -10}
   charRigidbody: {fileID: 3581617203901105270}
   lerpSpeed: 2
   cameraDist: 1.5

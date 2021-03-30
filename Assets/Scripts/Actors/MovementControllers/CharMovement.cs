@@ -135,7 +135,11 @@ public class CharMovement : ActorMovement
 
     public void TryMeleeAttack()
     {
-        _view.SetMeleeAttack();
+        _view.TrySetMeleeAttack();
+    }
+    public void TryRangedAttack()
+    {
+        _view.TrySetRangedAttack();
     }
 
     protected virtual void DoJump()

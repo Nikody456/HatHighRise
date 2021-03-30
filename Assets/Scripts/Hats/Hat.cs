@@ -44,6 +44,10 @@ public class Hat : MonoBehaviour
 
     /***************************************************************************************************************/
 
+    public bool IsMeleeHat => _hatData.IsMeleeHat;
+    public bool IsRangedHat => _hatData.IsRangedHat;
+    public int AnimatorAtkIndex => _hatData.AnimatorAttackIndex;
+
     public void OnPickup(Stats stats, CharacterView view)
     {
         stats.AddModifier(Modifier);

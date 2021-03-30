@@ -28,4 +28,15 @@ public class HatData : ScriptableObject
     public float Value => _value;
     [SerializeField] float _value = default;
 
+    public bool IsMeleeHat => _isMeleeHat;
+    [SerializeField] bool _isMeleeHat=default;
+
+
+    public bool IsRangedHat => _isRangedHat;
+    [SerializeField] bool _isRangedHat = default;
+
+
+    public int AnimatorAttackIndex => _animatorAttackIndex;
+    [SerializeField] int _animatorAttackIndex = default;
+
 }

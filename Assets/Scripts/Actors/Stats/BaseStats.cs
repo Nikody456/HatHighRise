@@ -38,6 +38,9 @@ namespace Statistics
         [SerializeField] int _defense = default;
         public int Defense => _defense;
 
+        [Range(1, 5)]
+        [SerializeField] int _jumpLimit = default;
+        public int JumpLimit => _jumpLimit;
 
         #endregion
 

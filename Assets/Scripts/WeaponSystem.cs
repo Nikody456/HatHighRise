@@ -15,7 +15,7 @@ public class WeaponSystem : MonoBehaviour
         _animator = this.GetComponent<Animator>();
         _sr = this.GetComponent<SpriteRenderer>();
     }
-    public void PlayAnim()
+    public void PlayAnim(bool isMelee, int index)
     {
 
     }

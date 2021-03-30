@@ -31,12 +31,11 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: ecd9d11771dd24e4d9af5ad80fb2ba07, type: 3}
-    totalSpriteSurfaceArea: 470748
+    totalSpriteSurfaceArea: 256638
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: a70ca3d177a8f1e4e8b3f88c5bcdf8a8, type: 3}
-  - {fileID: 21300000, guid: f7bb6ad19bffa9d4881917cb5743e444, type: 3}
   - {fileID: 21300000, guid: 4ca54c558058e804798c72240328743d, type: 3}
   - {fileID: 21300000, guid: 90ff7748ea0f2494cb243ff44756b2f1, type: 3}
   - {fileID: 8964614273753104955, guid: 9b5d73f95980f204ba5ca04338324187, type: 3}
@@ -187,7 +186,6 @@ SpriteAtlas:
   - {fileID: -6825283627750829477, guid: ba0ee2cda302ebe46addbcecfcb90c3c, type: 3}
   m_PackedSpriteNamesToIndex:
   - Stairs down 36 x 36
-  - END
   - Stairs up
   - EXIT
   - officeDoorSpritesheet_0

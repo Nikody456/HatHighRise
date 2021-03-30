@@ -49,6 +49,7 @@ public class HatManager : MonoBehaviour
         hat.transform.parent = _hatStack;
         hat.transform.localPosition = new Vector3(0, GetHeight(_hats.Count), 0);
         hat.SetOrderInSortingLayer(_hats.Count);
+        hat.gameObject.layer = GameConstants.PLAYER_LAYER; //AI also does this?
         _hats.Add(hat);
     }
 
@@ -57,6 +58,7 @@ public class HatManager : MonoBehaviour
     {
         hat.transform.parent = null;
         _hats.Remove(hat);
+        hat.gameObject.layer = GameConstants.HAT_LAYER;
         ReOrderHats();
         ValidateCombatHats();
     }

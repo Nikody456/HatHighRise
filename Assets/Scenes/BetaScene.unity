@@ -2072,10 +2072,20 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5019163070743411925, guid: b0cd7cff2c1dc27449493c0b34ebaefd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -18.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 5019163070743411925, guid: b0cd7cff2c1dc27449493c0b34ebaefd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -4.93
+      objectReference: {fileID: 0}
     - target: {fileID: 5551252763479852029, guid: b0cd7cff2c1dc27449493c0b34ebaefd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -34.148
+      value: -34.078
       objectReference: {fileID: 0}
     - target: {fileID: 5551252763479852029, guid: b0cd7cff2c1dc27449493c0b34ebaefd,
         type: 3}

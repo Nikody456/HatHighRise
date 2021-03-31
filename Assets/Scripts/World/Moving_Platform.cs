@@ -10,25 +10,32 @@ public class MovingPlatform : MonoBehaviour
 
     Vector3 nextPos;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        Debug.LogError("WHY WONT U PRINT???");
+    }
+
     void Start()
     {
         nextPos = startPos.position;
+        Debug.Log("START DOESNT PRINT?");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(transform.position == pos1.position)
+        var dis = Vector3.Distance(transform.position, nextPos);
+        Debug.Log(dis);
+        if (dis < 10)
         {
-            nextPos = pos2.position;
+            if (nextPos == pos1.position)
+            {
+                nextPos = pos2.position;
+            }
+            else
+            {
+                nextPos = pos1.position;
+            }
         }
-
-        if(transform.position == pos2.position)
-        {
-            nextPos = pos1.position;
-        }
-
         transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
     }
 

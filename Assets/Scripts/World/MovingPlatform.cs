@@ -4,43 +4,40 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public Transform pos1, pos2;
-    public float speed;
-    public Transform startPos;
+    [SerializeField] Transform _pos1, _pos2 =default;
+    [SerializeField] float _speed = default;
+    [SerializeField] Transform _platform = default;
 
     Vector3 nextPos;
 
-    private void Awake()
-    {
-        Debug.LogError("WHY WONT U PRINT???");
-    }
+
 
     void Start()
     {
-        nextPos = startPos.position;
-        Debug.Log("START DOESNT PRINT?");
+        nextPos = _pos1.position;
     }
 
     void Update()
     {
-        var dis = Vector3.Distance(transform.position, nextPos);
-        Debug.Log(dis);
-        if (dis < 10)
+        var dis = Vector3.Distance(_platform.position, nextPos);
+
+        if (Mathf.Abs(dis) < 1)
         {
-            if (nextPos == pos1.position)
+            if (nextPos == _pos1.position)
             {
-                nextPos = pos2.position;
+                nextPos = _pos2.position;
             }
             else
             {
-                nextPos = pos1.position;
+                nextPos = _pos1.position;
             }
         }
-        transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
+        _platform.position = Vector3.MoveTowards(_platform.position, nextPos, _speed * Time.deltaTime);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(pos1.position, pos2.position);
+        if(_pos1 && _pos2)
+            Gizmos.DrawLine(_pos1.position, _pos2.position);
     }
 }

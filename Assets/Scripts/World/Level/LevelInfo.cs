@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelInfo : MonoBehaviour
@@ -11,7 +12,7 @@ public class LevelInfo : MonoBehaviour
     [SerializeField] Transform _levelEnd = default;
 
 
-    [SerializeField] LevelDeathPlane _deathPlane = default;
+    [SerializeField] List<LevelDeathPlane> _deathPlanes = default;
     [SerializeField] GameObject _playerPreFab = default;
 
 
@@ -23,19 +24,19 @@ public class LevelInfo : MonoBehaviour
         {
             _playerPreFab = Resources.Load<GameObject>("Player_Prefab");
         }
-       if(_deathPlane==null)
+       if(_deathPlanes.Count==0)
         {
-            _deathPlane = this.GetComponentInChildren<LevelDeathPlane>();
+            _deathPlanes = this.GetComponentsInChildren<LevelDeathPlane>().ToList();
         }
     }
 
 
     IEnumerator Start()
     {
-        if(_deathPlane)
+        foreach (var deathPlane in _deathPlanes)
         {
-            _deathPlane.OnDeathPlaneTouched += ResetPlayer;
-        }    
+            deathPlane.OnDeathPlaneTouched += ResetPlayer;
+        }  
         yield return new WaitForSeconds(0.5f);
         StartLevel();
     }
@@ -61,9 +62,9 @@ public class LevelInfo : MonoBehaviour
 
     private void OnDisable()
     {
-        if (_deathPlane)
+        foreach (var deathPlane in _deathPlanes)
         {
-            _deathPlane.OnDeathPlaneTouched -= ResetPlayer;
+            deathPlane.OnDeathPlaneTouched -= ResetPlayer;
         }
     }
 

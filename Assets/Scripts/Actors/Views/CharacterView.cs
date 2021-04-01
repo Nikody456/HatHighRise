@@ -19,6 +19,7 @@ public class CharacterView : ActorView
     [SerializeField] 
     HatManager _hatManager = default;
     SpriteRenderer _sr;
+    WeaponSystem _wp;
 
     bool _isInteracting = false;
     /*********INIT******************************************************************************************************/
@@ -30,6 +31,7 @@ public class CharacterView : ActorView
         if (_hatManager == null)
             _hatManager = this.GetComponentInChildren<HatManager>();
         _sr = this.GetComponent<SpriteRenderer>();
+        _wp = this.GetComponentInChildren<WeaponSystem>();
     }
 
     /*********HATS******************************************************************************************************/
@@ -86,6 +88,7 @@ public class CharacterView : ActorView
         {
             _animator.SetInteger(MELEE, attackIndex);
             _animator.SetTrigger(ATTACK);
+            _wp.PlayAnim(true, attackIndex);
         }
     }
 
@@ -95,6 +98,7 @@ public class CharacterView : ActorView
         {
             _animator.SetInteger(RANGED, attackIndex);
             _animator.SetTrigger(ATTACK);
+            _wp.PlayAnim(false, attackIndex);
         }
     }
 

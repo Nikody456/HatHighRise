@@ -123,7 +123,7 @@ public class CharMovement : ActorMovement
 
     public virtual bool TryJump()
     {
-
+        jumpLimit = _playerStats.CurrentJumpLimit;
         if ((_jumps == 0 && isGrounded()) || (_jumps > 0 && _jumps < jumpLimit)) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
         {
             DoJump();

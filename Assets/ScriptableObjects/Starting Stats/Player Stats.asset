@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Player Stats
   m_EditorClassIdentifier: 
   _hpMax: 100
-  _baseJump: 6
+  _baseJump: 9
   _baseMove: 6
   _baseSprint: 8
   _attack: 10
   _defense: 5
+  _jumpLimit: 1

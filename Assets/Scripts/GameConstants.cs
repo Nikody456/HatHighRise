@@ -8,4 +8,6 @@ public static class GameConstants
     
     public static int PLAYER_LAYER { get; private set; } = 8;
 
+    public static int HAT_LAYER { get; private set; } = 10;
+
 }

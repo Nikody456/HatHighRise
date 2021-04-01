@@ -4,20 +4,24 @@ using UnityEngine;
 
 namespace AI
 {
-    [RequireComponent(typeof(ActorMovement))]
+    [RequireComponent(typeof(CharMovement))]
     public class AICharInput : AIInput
     {
         private AIState _jumpState;
-
+        private CharMovement _charMovement;
 
         /***********INIT**************************************************************************************************/
-
+        protected override void Awake()
+        {
+            _charMovement = this.GetComponent< CharMovement>();
+            base.Awake();
+        }
 
         protected override void CreateStates()
         {
             _idleState = new AIIdleState(this);
             _moveState = new AIMoveState(this);
-            _attackState = new AIAttackState(this);
+            _attackState = new AIAttackState(this, _charMovement.TryMeleeAttack);
             _currentState = _idleState;
             ///Todo make jump state
 

@@ -74,6 +74,7 @@ namespace AI
         {
             _movement.SetInput(dir);
         }
+
         /*************************************************************************************************************/
 
         protected abstract AIState GetAIState(AIState.eAIStates nextState);

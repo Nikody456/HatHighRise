@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bac3f4d32b2e9040a7842a1583b6166, type: 3}
   m_Name: Player Stats
   m_EditorClassIdentifier: 
-  _hpMax: 100
+  _hpMax: 3
   _baseJump: 9
   _baseMove: 6
   _baseSprint: 8
   _attack: 10
-  _defense: 5
+  _defense: 1
   _jumpLimit: 1

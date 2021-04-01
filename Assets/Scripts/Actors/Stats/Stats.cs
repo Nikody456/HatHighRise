@@ -74,12 +74,17 @@ namespace Statistics
         #endregion
 
 
+        private bool _isPlayer;
+        public delegate void PlayerResetHack(GameObject go);
+        public event PlayerResetHack OnPlayerResetHack;
+
         private void Awake()
         {
-            ///TEMP?
+            ///TEMP HACKY way
             if (_baseStats)
             {
-                Initalize(_baseStats, true);
+                bool isPlayer = this.GetComponent<PlayerMovement>() != null;
+                Initalize(_baseStats, isPlayer);
             }
             
         }
@@ -88,6 +93,7 @@ namespace Statistics
 
         public void Initalize(BaseStats baseStats, bool isPlayer)
         {
+            _isPlayer = isPlayer;
             //Soldier = soldier;
             ///Grab our Initial dynamic meter stats
             _healthMAX = baseStats.HpMax < MAXHP ? baseStats.HpMax : MAXHP;
@@ -125,10 +131,34 @@ namespace Statistics
 
         /*********PUBLIC METHODS******************************************************************************************************/
 
+        public void ImDeadHack()
+        {
+            if (_isPlayer)
+            {
+                StartCoroutine(PlayerReset());
+            }
+            else
+            {
+                StartCoroutine(DeathDelay());
+            }
+        }
+        public IEnumerator PlayerReset()
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            OnPlayerResetHack?.Invoke(this.gameObject);
+        }
+
+        IEnumerator DeathDelay()
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+            Destroy(this.gameObject);
+        }
+
         public int TakeDamage(int incommingDamage)
         {
             int rawDamage = CalculateDefense(incommingDamage);
 
+            Debug.Log($"incommingDamage]{incommingDamage}, vs raw= {rawDamage}");
             return ModifyHealth(rawDamage);
         }
 
@@ -168,7 +198,7 @@ namespace Statistics
 
         private int ModifyHealth(int rawDamage)
         {
-            _currentHealth += rawDamage;
+            _currentHealth -= rawDamage;
 
             if (_currentHealth < 0)
                 _currentHealth = 0;

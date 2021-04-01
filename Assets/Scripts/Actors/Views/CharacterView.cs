@@ -14,6 +14,7 @@ public class CharacterView : ActorView
     const string ATTACK = "Attack";
     const string MELEE = "melee_atk";
     const string RANGED = "ranged_atk";
+    const string HIT = "hit_react";
 
     ///Will Need to Manage Hats added
     [SerializeField] 
@@ -112,9 +113,9 @@ public class CharacterView : ActorView
 
     }
 
-    public void Test()
+    public void ImHit()
     {
-        //Debug.Log($"WE CALLED TEST for {this.gameObject.name}");
+        _animator.SetTrigger(HIT);
     }
 
 

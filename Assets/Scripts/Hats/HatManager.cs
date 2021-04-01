@@ -37,6 +37,18 @@ public class HatManager : MonoBehaviour
     {
         Vector2 v2 = GetCharacterAnimOffset();
         ApplyHatStackPositions(v2);
+
+        ///Monitor the Parents Sprite Direction
+        if (_characterSpriteHACK)
+        {
+            bool dir=_characterSpriteHACK.flipX;
+            foreach (var hat in _hats)
+            {
+                hat.SetFlipX(dir);
+            }
+           
+        }
+  
     }
 
 

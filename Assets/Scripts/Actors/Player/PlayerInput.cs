@@ -16,22 +16,22 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetButtonDown("Jump"))
         {
             _player.TryJump();
         }
 
-        if (Input.GetKey("left shift"))
+        if (Input.GetButton("Sprint"))
         {
             _player.TrySprint();
         }
 
-        if (Input.GetKeyUp("left shift"))
+        if (Input.GetButtonUp("Sprint"))
         {
             _player.StopSprint();
         }
 
-        if (Input.GetMouseButtonUp(0)) //LMB
+        if (Input.GetButtonUp("Attack")) //LMB
         {
             _player.TryMeleeAttack();
         }

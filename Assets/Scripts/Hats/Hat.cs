@@ -67,6 +67,11 @@ public class Hat : MonoBehaviour
         EnforcePhysics();
     }
 
+    public void SetFlipX(bool cond)
+    {
+        _spriteRenderer.flipX = cond;
+    }
+
 
     public void SetOrderInSortingLayer(int order){ _spriteRenderer.sortingOrder = order; }
     /***************************************************************************************************************/

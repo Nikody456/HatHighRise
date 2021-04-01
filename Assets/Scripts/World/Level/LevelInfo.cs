@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Statistics;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -44,6 +45,11 @@ public class LevelInfo : MonoBehaviour
     {
         ///Instantiate the player at the Starting Position?
         _activePlayer= Instantiate(_playerPreFab, PlayerStart, Quaternion.identity);
+        ///TOTAL HACK
+        Stats stats = _activePlayer.GetComponent<Stats>();
+        stats.OnPlayerResetHack += ResetPlayer;
+
+
     }
 
     public void ResetPlayer(GameObject go) ///We have to match delegate signature

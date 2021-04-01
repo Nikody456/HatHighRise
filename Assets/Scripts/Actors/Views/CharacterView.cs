@@ -4,21 +4,25 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class CharacterView : ActorView
 {
     const string XSPEED = "x_speed";
     const string YSPEED = "y_speed";
     const string GROUNDED = "isGrounded";
-    const string MIRROR = "mirror";
     const string ONWALL = "onWall";
     const string ATTACK = "Attack";
     const string MELEE = "melee_atk";
+    const string RANGED = "ranged_atk";
+    const string HIT = "hit_react";
 
     ///Will Need to Manage Hats added
     [SerializeField] 
     HatManager _hatManager = default;
-    ///Will Need to Manage Animations 
-    private int _attackIndex=1;
+    SpriteRenderer _sr;
+    WeaponSystem _wp;
+
+    bool _isInteracting = false;
     /*********INIT******************************************************************************************************/
 
 
@@ -27,6 +31,8 @@ public class CharacterView : ActorView
         base.Awake();
         if (_hatManager == null)
             _hatManager = this.GetComponentInChildren<HatManager>();
+        _sr = this.GetComponent<SpriteRenderer>();
+        _wp = this.GetComponentInChildren<WeaponSystem>();
     }
 
     /*********HATS******************************************************************************************************/
@@ -61,7 +67,7 @@ public class CharacterView : ActorView
 
     public void SetMirror(bool mirror)
     {
-        _animator.SetBool(MIRROR, mirror);
+        _sr.flipX = mirror;
     }
 
     public void SetIsOnWall(bool isOnWall)
@@ -69,27 +75,47 @@ public class CharacterView : ActorView
         _animator.SetBool(ONWALL, isOnWall);
     }
 
-    public void SetMeleeAttack()
+    public void SetIsInteracting(bool cond)
+    {
+        _isInteracting = cond;
+    }
+
+    public void TrySetMeleeAttack()
     {
         ///Need a way to validate they are not already attacking
-        _animator.SetInteger(MELEE, _attackIndex++);
-        _animator.SetTrigger(ATTACK);
+        /// could have the atk state call this script and set to "isAttacking"
+
+        if (!_isInteracting && _hatManager.HasMeleeAttackHat(out int attackIndex))
+        {
+            _animator.SetInteger(MELEE, attackIndex);
+            _animator.SetTrigger(ATTACK);
+            _wp.PlayAnim(true, attackIndex);
+        }
+    }
+
+    public void TrySetRangedAttack()
+    {
+        if (!_isInteracting && _hatManager.HasRangedAttackHat(out int attackIndex))
+        {
+            _animator.SetInteger(RANGED, attackIndex);
+            _animator.SetTrigger(ATTACK);
+            _wp.PlayAnim(false, attackIndex);
+        }
     }
 
     public void OnAttackFinish()
     {
-        //Validate attack index todo:
-        _attackIndex = 1;
         //Clear the trigger and hope this doesnt mess up an atk queue 
         //(this prevents looping as triggers sometimes dont clear reliably in mecanim)
         _animator.ResetTrigger(ATTACK);
+        SetIsInteracting(false);
         //Debug.Log("WE CALLED ONATKFINISH");
-        
+
     }
 
-    public void Test()
+    public void ImHit()
     {
-        //Debug.Log($"WE CALLED TEST for {this.gameObject.name}");
+        _animator.SetTrigger(HIT);
     }
 
 

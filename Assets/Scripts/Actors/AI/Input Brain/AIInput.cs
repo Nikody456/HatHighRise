@@ -40,7 +40,7 @@ namespace AI
 
         protected virtual void Update()
         {
-            if (!sceneIsLoading)
+            if (!sceneIsLoading && _currentState!=null)
             {
                 _currentState.Execute(_target);
                 _debuggCurrState = _currentState.ToString();
@@ -74,6 +74,7 @@ namespace AI
         {
             _movement.SetInput(dir);
         }
+
         /*************************************************************************************************************/
 
         protected abstract AIState GetAIState(AIState.eAIStates nextState);

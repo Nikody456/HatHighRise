@@ -7,36 +7,41 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
 
-    private CharMovement character;
+    private PlayerMovement _player;
 
     private void Start()
     {
-        character = GetComponent<CharMovement>();
+        _player = GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown("space"))
         {
-            character.TryJump();
+            _player.TryJump();
         }
 
         if (Input.GetKey("left shift"))
         {
-            character.TrySprint();
+            _player.TrySprint();
         }
 
         if (Input.GetKeyUp("left shift"))
         {
-            character.StopSprint();
+            _player.StopSprint();
         }
 
-        if (Input.GetMouseButtonUp(0))//IDK
+        if (Input.GetMouseButtonUp(0)) //LMB
         {
-            character.TryMeleeAttack();
+            _player.TryMeleeAttack();
         }
 
-        character.SetInput(Input.GetAxis("Horizontal"));
+        if(Input.GetMouseButtonDown(1))  //RMB
+        {
+            _player.TryRangedAttack();
+        }
+
+        _player.SetInput(Input.GetAxis("Horizontal"));
 
     }
 }

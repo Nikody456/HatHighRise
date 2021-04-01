@@ -7,12 +7,14 @@ public class HatManager : MonoBehaviour
 {
     [SerializeField] List<Hat> _hats = new List<Hat>();
 
-    private float _characterHeight = 0.5f;
-    private float _yOffset = 0.25f;
+    private float _characterHeight = 1f;
+    private float _yOffset = 0.5f;
     private Transform _hatStack;
     private Vector2 _lastOffsetVector;
     [SerializeField] SpriteRenderer _characterSpriteHACK;
 
+    private int _lastMeleeIndex = -1;
+    private int _lastRangedIndex = -1;
 
     /***********INIT**************************************************************************************************/
 
@@ -35,6 +37,18 @@ public class HatManager : MonoBehaviour
     {
         Vector2 v2 = GetCharacterAnimOffset();
         ApplyHatStackPositions(v2);
+
+        ///Monitor the Parents Sprite Direction
+        if (_characterSpriteHACK)
+        {
+            bool dir=_characterSpriteHACK.flipX;
+            foreach (var hat in _hats)
+            {
+                hat.SetFlipX(dir);
+            }
+           
+        }
+  
     }
 
 
@@ -47,6 +61,7 @@ public class HatManager : MonoBehaviour
         hat.transform.parent = _hatStack;
         hat.transform.localPosition = new Vector3(0, GetHeight(_hats.Count), 0);
         hat.SetOrderInSortingLayer(_hats.Count);
+        hat.gameObject.layer = GameConstants.PLAYER_LAYER; //AI also does this?
         _hats.Add(hat);
     }
 
@@ -55,15 +70,81 @@ public class HatManager : MonoBehaviour
     {
         hat.transform.parent = null;
         _hats.Remove(hat);
+        hat.gameObject.layer = GameConstants.HAT_LAYER;
         ReOrderHats();
+        ValidateCombatHats();
     }
 
+    public bool HasMeleeAttackHat(out int atkIndex)
+    {
+        bool retval = HandleAttackIndicies(BuildQueue(true), ref _lastMeleeIndex);
+        atkIndex = _lastMeleeIndex;
+        return retval;
+    }
+    public bool HasRangedAttackHat(out int atkIndex)
+    {
+        bool retval = HandleAttackIndicies(BuildQueue(false), ref _lastRangedIndex);
+        atkIndex = _lastRangedIndex;
+        return retval;
+    }
 
     /***********PRIVATE HELPERS**************************************************************************************************/
 
+    private void ValidateCombatHats()
+    {
+        var meleeQueue = BuildQueue(true);
+        var rangedQueue = BuildQueue(false);
+
+        ///Reset our animation Indicies if our hat status became invalid
+        if(meleeQueue.Count==0 || ! meleeQueue.Contains(_lastMeleeIndex))
+        {
+            _lastMeleeIndex = -1;
+        }
+        if (rangedQueue.Count == 0 || !rangedQueue.Contains(_lastRangedIndex))
+        {
+            _lastRangedIndex = -1;
+        }
+    }
+
+    private Queue<int> BuildQueue(bool isMelee)
+    {
+        Queue<int> _validIndexes = new Queue<int>();
+        foreach (var hat in _hats)
+        {
+            if( (isMelee && hat.IsMeleeHat) || (!isMelee && hat.IsRangedHat))
+            {
+                _validIndexes.Enqueue(hat.AnimatorAtkIndex);
+            }
+        }
+
+        return _validIndexes;
+    }
+
+    private bool HandleAttackIndicies(Queue<int> validAnimationIndicies,  ref int memberVar)
+    {
+        int[] arr = validAnimationIndicies.ToArray();
+        for (int i = 0; i < arr.Length; ++i)
+        {
+            int index = arr[i];
+            ///Proceed thru our hat in order until we found our last used index, or default
+            if((index == memberVar) || (memberVar == -1))
+            {
+                memberVar = index;
+                ///If theres another melee atk available after this one, use that
+                if (i+1 < arr.Length)
+                {
+                    memberVar = arr[i+1];
+                }
+                return true;
+
+            }
+        }
+        return false;
+    }
+
     private Vector2 GetCharacterAnimOffset()
     {
-        return PixelDetector.DetectFirstPixel(_characterSpriteHACK.sprite, Color.black);
+        return PixelDetector.DetectFirstPixel(_characterSpriteHACK.sprite, Color.black, true);
     }
 
     private void ApplyHatStackPositions(Vector2 v2)

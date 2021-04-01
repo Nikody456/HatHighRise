@@ -28,7 +28,6 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-
         Vector3 targetLocalPosition = (Vector3)(Vector2.ClampMagnitude(charRigidbody.velocity,cameraDist)) + initialOffset;
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetLocalPosition, Time.deltaTime * lerpSpeed);
     }

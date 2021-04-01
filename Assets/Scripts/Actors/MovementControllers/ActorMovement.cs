@@ -41,5 +41,5 @@ public abstract class ActorMovement : MonoBehaviour
     {
         return _spriteRenderer.flipX==false;
     }
-   
+
 }

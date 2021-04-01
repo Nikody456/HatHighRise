@@ -133,15 +133,6 @@ public class CharMovement : ActorMovement
 
     }
 
-    public void TryMeleeAttack()
-    {
-        _view.TrySetMeleeAttack();
-    }
-    public void TryRangedAttack()
-    {
-        _view.TrySetRangedAttack();
-    }
-
     protected virtual void DoJump()
     {
         UpdateJumpVelocity();
@@ -188,11 +179,23 @@ public class CharMovement : ActorMovement
         }
     }
 
+
+    public void TryMeleeAttack()
+    {
+        _view.TrySetMeleeAttack();
+    }
+    public void TryRangedAttack()
+    {
+        _view.TrySetRangedAttack();
+    }
+
+
     private void OnDrawGizmosSelected() //Debug boxes to test the grounded and on wall box sizes
     {
         // Draw a semitransparent blue cube at the transforms position
         Gizmos.color = new Color(1, 0, 0, 0.5f);
         Gizmos.DrawCube(new Vector3(transform.position.x, transform.position.y - transform.GetComponent<BoxCollider2D>().size.y / 2 - .065f, 0), new Vector3(transform.GetComponent<BoxCollider2D>().size.x - .125f, .125f, 1));
     }
+
 
 }

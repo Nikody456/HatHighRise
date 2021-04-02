@@ -213,7 +213,7 @@ namespace Statistics
             //Debug.Log($"currentHealthPct={currentHealthPct} from : { (float)CurrentHealth} / {(float)_healthMAX} ");
 
             ///Let anyone subscribed to our delegate know we changed 
-            OnHealthChanged(_currentHealth);
+            OnHealthChanged?.Invoke(_currentHealth);
            // _debugHealth = _currentHealth;
             return _currentHealth;
         }

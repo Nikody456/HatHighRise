@@ -54,16 +54,18 @@ public class LevelInfo : MonoBehaviour
 
     public void ResetPlayer(GameObject go) ///We have to match delegate signature
     {
-        _activePlayer.transform.position = PlayerStart;
         /// Jaden was doing this, but I think it looks better w.o it, kind of lerps down in a smooth way
         CameraController cam = go.GetComponentInChildren<CameraController>();
         if (cam)
         {
             //cam.resetCamera();
         }
-        ///TODO reset the deathBool for anim state and anything else that becomes needed
-        
+        PlayerMonitor pm = _activePlayer.GetComponent<PlayerMonitor>();
+        pm.OnPlayerReset();
+        ///Call this after reset so we can use players last known Location:
+        _activePlayer.transform.position = PlayerStart;
 
+        ///TODO reset the deathBool for anim state and anything else that becomes needed
     }
 
     private void OnDisable()

@@ -62,7 +62,7 @@ namespace Statistics
         #endregion
 
         #region Getters
-        public int CurrentHealth =>(int) GetCurrentStat(eStat.HPMAX);
+        public int CurrentHealth => _currentHealth; //(int) GetCurrentStat(eStat.HPMAX);
         public float CurrentMoveSpeed => GetCurrentStat(eStat.MOVESPEED);
         public float CurrentSprintSpeed => GetCurrentStat(eStat.SPRINT);
         public float CurrentJumpSpeed => GetCurrentStat(eStat.JUMP);
@@ -78,6 +78,8 @@ namespace Statistics
         public delegate void PlayerResetHack(GameObject go);
         public event PlayerResetHack OnPlayerResetHack;
 
+        public delegate void HealthChanged(int currHealth);
+        public event HealthChanged OnHealthChanged;
         private void Awake()
         {
             ///TEMP HACKY way
@@ -104,7 +106,7 @@ namespace Statistics
             _baseDefense = baseStats.Defense < MAXDEFENSE ? baseStats.Defense : MAXDEFENSE;
             _baseMoveSpeed = (int)baseStats.MovementSpeed; ///Todo do we need a max?
             _baseSprintSpeed = baseStats.Sprint; ///Todo do we need a max?
-            _currentHealth = _healthMAX; ///Todo is this right?
+            _currentHealth = 1; /// Player starts off with 1 hitpoint, more hats will increase hp
             _jumpLimit = baseStats.JumpLimit < MAXJUMP ? baseStats.JumpLimit : MAXJUMP;
             
             /// Set up our modifier array for each enum
@@ -211,7 +213,7 @@ namespace Statistics
             //Debug.Log($"currentHealthPct={currentHealthPct} from : { (float)CurrentHealth} / {(float)_healthMAX} ");
 
             ///Let anyone subscribed to our delegate know we changed 
-           // OnHealthPctChanged(currentHealthPct);
+            OnHealthChanged(_currentHealth);
            // _debugHealth = _currentHealth;
             return _currentHealth;
         }

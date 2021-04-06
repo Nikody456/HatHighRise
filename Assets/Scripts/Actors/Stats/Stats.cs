@@ -144,6 +144,18 @@ namespace Statistics
                 StartCoroutine(DeathDelay());
             }
         }
+        public void IsHitDelay()
+        {
+            if(_isPlayer)
+            {
+                this.GetComponent<PlayerInput>().SetIsInteracting(true);
+            }
+            else
+            {
+
+            }
+        }
+
         public IEnumerator PlayerReset()
         {
             yield return new WaitForSecondsRealtime(1f);
@@ -165,7 +177,7 @@ namespace Statistics
         {
             int rawDamage = CalculateDefense(incommingDamage);
 
-            Debug.Log($"incommingDamage]{incommingDamage}, vs raw= {rawDamage}");
+            //Debug.Log($"incommingDamage]{incommingDamage}, vs raw= {rawDamage}");
             return ModifyHealth(rawDamage);
         }
 
@@ -219,6 +231,7 @@ namespace Statistics
 
             ///Let anyone subscribed to our delegate know we changed 
             OnHealthChanged?.Invoke(_currentHealth);
+            IsHitDelay();
            // _debugHealth = _currentHealth;
             return _currentHealth;
         }

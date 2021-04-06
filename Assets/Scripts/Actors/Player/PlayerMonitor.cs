@@ -46,7 +46,7 @@ public class PlayerMonitor : MonoBehaviour
 
     private void PlayerHealthChanged(int currHealth)
     {
-        Debug.Log($"PM health changed : cur={currHealth} vs last={_lastKnownHealth} ");
+       // Debug.Log($"PM health changed : cur={currHealth} vs last={_lastKnownHealth} ");
         if (currHealth == _lastKnownHealth)
             return;
 

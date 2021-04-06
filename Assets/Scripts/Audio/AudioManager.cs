@@ -2,39 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoSingleton<AudioManager>
 {
-    public static AudioManager Instance;
     public bool isMute = false;
 
-    private AudioSource _audioSrc;
+    [SerializeField] AudioSource _audioSFXSrc;
+    [SerializeField] AudioSource _audioBackgroundSrc;
     [SerializeField] AudioClip[] _sounds;
+    [SerializeField] AudioClip[] _backgroundSounds;
 
-    void Awake()
+    private void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        PlayBackgroundMusic("MainMenu");
     }
 
-    void Start()
-    {
-        _audioSrc = GetComponent<AudioSource>();
-    }
-
-    public void PlaySound(string sound)
+    public void PlaySFX(string sound)
     {
         if (!isMute)
         {
             switch (sound)
             {
                 case "jumpSound":
-                    _audioSrc.PlayOneShot(_sounds[0]);
+                    _audioSFXSrc.PlayOneShot(_sounds[0]);
                     break;
                 case "otherSound":
-                    _audioSrc.PlayOneShot(_sounds[1]);
+                    _audioSFXSrc.PlayOneShot(_sounds[1]);
+                    break;
+                default:
+                    Debug.LogError("There is no sound with the given name:" + sound);
+                    break;
+            }
+        }
+    }
+
+    public void PlayBackgroundMusic(string sound)
+    {
+        if (!isMute)
+        {
+            switch (sound)
+            {
+                case "MainMenu":
+                    _audioBackgroundSrc.PlayOneShot(_backgroundSounds[0]);
+                    break;
+                case "MainLevel":
+                    _audioBackgroundSrc.PlayOneShot(_backgroundSounds[1]);
+                    break;
+                case "ScoringLevel":
+                    _audioBackgroundSrc.PlayOneShot(_backgroundSounds[2]);
+                    break;
+                case "EndGame":
+                    _audioBackgroundSrc.PlayOneShot(_backgroundSounds[3]);
                     break;
                 default:
                     Debug.LogError("There is no sound with the given name:" + sound);

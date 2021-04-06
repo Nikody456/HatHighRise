@@ -25,7 +25,7 @@ public class ScoreIncriminator : MonoBehaviour
         _itemsToScore = itemsToScore;
         _hatManager = hatManager;
         _tickRate = tickRate;
-        _currTime = _tickRate;
+        _currTime = _tickRate/2;
         _initialized = true;
     }
 

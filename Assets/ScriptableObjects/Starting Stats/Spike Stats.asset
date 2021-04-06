@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bac3f4d32b2e9040a7842a1583b6166, type: 3}
-  m_Name: Sec Guard Stats
+  m_Name: Spike Stats
   m_EditorClassIdentifier: 
   _hpMax: 1
-  _baseJump: 4
-  _baseMove: 3
-  _baseSprint: 5
+  _baseJump: 1
+  _baseMove: 1
+  _baseSprint: 1
   _attack: 1
   _defense: 1
   _jumpLimit: 1

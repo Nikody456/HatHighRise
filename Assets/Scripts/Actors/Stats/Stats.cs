@@ -156,6 +156,11 @@ namespace Statistics
             Destroy(this.gameObject);
         }
 
+        public void IncreaseHealthHack(int amount)
+        {
+            _currentHealth += amount;
+        }
+
         public int TakeDamage(int incommingDamage)
         {
             int rawDamage = CalculateDefense(incommingDamage);
@@ -220,13 +225,13 @@ namespace Statistics
         private int CalculateDefense(int rawDamage)
         {
             float retVal = rawDamage; ///A negative Number 
-            float defenseBlock = (retVal / 2) * ((float)CurrentDefense / 100);
+            //float defenseBlock = (retVal / 2) * ((float)CurrentDefense / 100);
 
-            retVal -= defenseBlock;
+            //retVal -= defenseBlock;
 
-            //Debug.Log($" incommingDamage={rawDamage} , DEF:{GetCurrentDefense()} Blocked={defenseBlock}  finalDmg={retVal}");
-            if (retVal > 0)
-                Debug.LogWarning("Somehow Positive damage is going thru??");
+            ////Debug.Log($" incommingDamage={rawDamage} , DEF:{GetCurrentDefense()} Blocked={defenseBlock}  finalDmg={retVal}");
+            //if (retVal > 0)
+            //    Debug.LogWarning("Somehow Positive damage is going thru??");
 
             return (int)retVal;
         }

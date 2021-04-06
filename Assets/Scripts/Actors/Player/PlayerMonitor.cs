@@ -66,7 +66,8 @@ public class PlayerMonitor : MonoBehaviour
         GameCanvas.Instance.IncreaseScore(amount);
     }
 
-    public void OnPlayerReset()
+
+    public void ResetPlayer()
     {
         ///this means I got melee hit without any hats,
         /// or fell down a death trap while wearing hats?

@@ -13,7 +13,6 @@ public class Hat : MonoBehaviour
     public bool IsPickedUp { get; private set; }
 
 
-
     SpriteRenderer _spriteRenderer;
     Collider2D _collider;
     Rigidbody2D _rb;

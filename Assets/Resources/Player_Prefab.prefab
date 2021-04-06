@@ -4910,7 +4910,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5163,6 +5163,7 @@ MonoBehaviour:
   jumpLimit: 1
   startPosition: {x: 0, y: 0}
   coyoteTime: 0.125
+  maxSlideSpeed: -1
 --- !u!114 &3581617203901105272
 MonoBehaviour:
   m_ObjectHideFlags: 0

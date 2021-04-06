@@ -22,6 +22,7 @@ public class UIScoreDisplay : MonoBehaviour
         ///IF you dont want this short anim to play multiple times before exit,
         ///Make sure loop is set to false on anim , and the preview area in the anim transition is tiny
         ///ExitTime =1.234273e-07 , bools seem better than triggers
+        ///Also awkwardly need an animState script that flips the bool OnStateEnter....whatever
         _animator.SetBool(ANIM_TRIGGER, true);
         _currScore += amnt;
         _scoreCount.text = _currScore.ToString();

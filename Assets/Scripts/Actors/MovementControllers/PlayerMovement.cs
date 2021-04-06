@@ -15,6 +15,9 @@ public class PlayerMovement : CharMovement
     private bool _coyotePostEnabled = false;
     private float _coyotePost = 10;
 
+    [SerializeField] float maxSlideSpeed;
+    private float _slideSpeed = 0;
+
     protected override void DoMovement()
     {
         base.DoMovement();
@@ -28,6 +31,7 @@ public class PlayerMovement : CharMovement
         {
             CoyoteTimePost();
             WallJumping();
+
         }
 
         if (_coyotePre <= coyoteTime) //if player has tried to jump before they have landed, keep trying to jump
@@ -61,12 +65,14 @@ public class PlayerMovement : CharMovement
 
             if (Mathf.Sign(_input) != Mathf.Sign(isOnWall()) && _input != 0)
             {
-                _controller.velocity = new Vector2(_moveDirection, 0); //make the player not fall
+                _controller.velocity = new Vector2(_moveDirection, _slideSpeed); //make the player not fall
                 _controller.gravityScale = 0;
+                _slideSpeed = Mathf.Lerp(_slideSpeed, maxSlideSpeed, .5f * Time.deltaTime);
             }
             else
             {
                 _controller.gravityScale = 1.5f;
+                _slideSpeed = 0;
             }
 
             _jumps = 0;//reset jumps
@@ -80,7 +86,13 @@ public class PlayerMovement : CharMovement
     public override bool TryJump() //coyote time and jumps
     {
         jumpLimit = _playerStats.CurrentJumpLimit;
-        if (_jumps == 0 && (isGrounded() || isOnWall() != 0 || _coyotePost <= coyoteTime)) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
+
+        if(_jumps == 0 && !_isGrounded && isOnWall() == 0 && _coyotePost >= coyoteTime)
+        {
+            _jumps = 1;
+        }
+
+        if (_jumps == 0 && (_isGrounded || isOnWall() != 0 || _coyotePost < coyoteTime)) //only let the player use their first jump when they are grounded, on a wall, or if coyote time applies
         {
             DoJump();
         }
@@ -104,6 +116,7 @@ public class PlayerMovement : CharMovement
         //disable pre coyote time
         _coyotePre = coyoteTime + 1;
         _coyotePreEnabled = false;
+        _slideSpeed = 0;
         base.DoJump();
     }
 

@@ -25,4 +25,13 @@ public class GameCanvas : MonoSingleton<GameCanvas>
         _scoreDisplay.SetScore(newScore);
     }
 
+    public void IncreaseScore(int amount)
+    {
+        _scoreDisplay.IncreaseScore(amount);
+    }
+
+    public int GetScore()
+    {
+        return _scoreDisplay.GetScore();
+    }
 }

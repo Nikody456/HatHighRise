@@ -30,6 +30,8 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             _currentScene = SceneManager.LoadScene(_firstLevelName, parameters);
         }
         _currentSceneIndex = _currentScene.buildIndex;
+        //Init our score prefs
+        PlayerPrefs.SetInt(GameConstants.HAT_SCORE_KEY, 0);
     }
     public void LoadNextLevel()
     {
@@ -37,6 +39,9 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         if (!_isScoringScene)
         {
             _isScoringScene = true;
+            var totalScore = PlayerPrefs.GetInt(GameConstants.HAT_SCORE_KEY);
+            var levelScore = GameCanvas.Instance.GetScore();
+            PlayerPrefs.SetInt(GameConstants.HAT_SCORE_KEY, totalScore + levelScore);
             SceneManager.LoadScene(_scoringSceneIndex);
         }
         else
@@ -44,6 +49,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             _isScoringScene = false;
             /// Mandatory the victory scene ends the sequence
             SceneManager.LoadScene(++_currentSceneIndex);
+            GameCanvas.Instance.UpdateScore(0);
         }
         OnSceneIsLoading?.Invoke(false);
     }

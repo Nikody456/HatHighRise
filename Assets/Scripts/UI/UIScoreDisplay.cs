@@ -6,10 +6,19 @@ using TMPro;
 public class UIScoreDisplay : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _scoreCount =default;
+    int _currScore = 0;
+
+    public void IncreaseScore(int amnt)
+    {
+        _currScore += amnt;
+        _scoreCount.text = _currScore.ToString();
+    }
 
     public void SetScore(int amount)
     {
-        _scoreCount.text = amount.ToString();
+        _currScore = amount;
+        _scoreCount.text = _currScore.ToString();
     }
 
+    public int GetScore() => _currScore;
 }

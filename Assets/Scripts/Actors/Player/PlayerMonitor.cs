@@ -63,7 +63,7 @@ public class PlayerMonitor : MonoBehaviour
         {
             _currentScoreThisLevel = 0;
         }
-        GameCanvas.Instance.UpdateScore(_currentScoreThisLevel);
+        GameCanvas.Instance.IncreaseScore(amount);
     }
 
     public void OnPlayerReset()

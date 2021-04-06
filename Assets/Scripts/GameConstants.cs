@@ -10,4 +10,10 @@ public static class GameConstants
 
     public static int HAT_LAYER { get; private set; } = 10;
 
+    public static string HAT_SCORE_PATH { get; private set; } = "Hats/HatScore";
+    public static string HAT_SCORE_KEY { get; private set; } = "SCORE";
+
+    public static int HAT_SCORE { get; private set; } = 10;
+
+
 }

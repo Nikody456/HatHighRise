@@ -72,6 +72,10 @@ public class Hat : MonoBehaviour
         _spriteRenderer.flipX = cond;
     }
 
+    public void SaveDataToScore(HatScore score)
+    {
+        score.SaveHat(_hatData);
+    }
 
     public void SetOrderInSortingLayer(int order){ _spriteRenderer.sortingOrder = order; }
     /***************************************************************************************************************/
@@ -84,4 +88,6 @@ public class Hat : MonoBehaviour
             _rb.isKinematic = false;
         
     }
+
+
 }

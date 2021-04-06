@@ -8,12 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 424617f6fc97c9e40ae0eb6e9a79d4ee
-  - enabled: 0
-    path: Assets/Scenes/AlphaScene.unity
-    guid: c9f642591f3b98c4894b19aa4bcd4f45
+  - enabled: 1
+    path: Assets/Scenes/ScoringScene.unity
+    guid: 58dee71f6b28a2047938b24ed43c4ed7
+  - enabled: 1
+    path: Assets/Scenes/SteveScene2.unity
+    guid: 8ce5c3aeb2d6cd6499af091269d15ed0
   - enabled: 1
     path: Assets/Scenes/BetaScene.unity
     guid: 6591f547b7d28414f84f31b3ac3561b4
+  - enabled: 0
+    path: Assets/Scenes/AlphaScene.unity
+    guid: c9f642591f3b98c4894b19aa4bcd4f45
   - enabled: 0
     path: Assets/Scenes/SteveScene.unity
     guid: b386f3e7c90b5fa46adaa0059bf8fede

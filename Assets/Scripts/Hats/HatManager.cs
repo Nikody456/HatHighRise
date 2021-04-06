@@ -64,8 +64,6 @@ public class HatManager : MonoBehaviour
         hat.gameObject.layer = GameConstants.PLAYER_LAYER; //AI also does this?
         _hats.Add(hat);
     }
-
-
     public void OnPutDownHat(Hat hat)
     {
         hat.transform.parent = null;
@@ -86,6 +84,21 @@ public class HatManager : MonoBehaviour
         bool retval = HandleAttackIndicies(BuildQueue(false), ref _lastRangedIndex);
         atkIndex = _lastRangedIndex;
         return retval;
+    }
+
+    public void SaveHatData()
+    {
+        HatScore score = Resources.Load<HatScore>(GameConstants.HAT_SCORE_PATH);
+        if(score==null)
+        {
+            Debug.Log($"Can not find hatScore object at Resources/{GameConstants.HAT_SCORE_PATH}");
+            return;
+        }
+
+        foreach (var hat in _hats)
+        {
+            hat.SaveDataToScore(score);
+        }
     }
 
     /***********PRIVATE HELPERS**************************************************************************************************/

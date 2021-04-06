@@ -9,6 +9,11 @@ public class LevelEndPoint : MonoBehaviour
     {
         if (collision.GetComponentInChildren<PlayerMovement>())
         {
+            var hatManager = collision.GetComponentInChildren<HatManager>();
+            if(hatManager)
+            {
+                hatManager.SaveHatData();
+            }
             LevelLoader.Instance.LoadNextLevel();
         }
     }

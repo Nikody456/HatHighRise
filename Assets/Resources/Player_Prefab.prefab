@@ -4910,7 +4910,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4947,8 +4947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clampCameraPosition: 1
-  minClamp: {x: -8.59, y: -29.12, z: -10}
-  maxClamp: {x: 154.67, y: 15.89, z: -10}
+  minClamp: {x: -4.57, y: -34.1, z: -10}
+  maxClamp: {x: 145.64, y: 6.91, z: -10}
   charRigidbody: {fileID: 3581617203901105270}
   lerpSpeed: 2
   cameraDist: 1.5
@@ -4971,6 +4971,7 @@ GameObject:
   - component: {fileID: 3581617203901105272}
   - component: {fileID: 3581617203901105275}
   - component: {fileID: 3581617203901105268}
+  - component: {fileID: 5290772471307034408}
   m_Layer: 8
   m_Name: Player_Prefab
   m_TagString: Untagged
@@ -5201,6 +5202,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseStats: {fileID: 11400000, guid: fc4299ab0c09f964e80ed1dc22dc2555, type: 2}
+--- !u!114 &5290772471307034408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581617203901105267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a8a0490b13f834eb666e115bd8fb5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6709203340344399908
 GameObject:
   m_ObjectHideFlags: 0

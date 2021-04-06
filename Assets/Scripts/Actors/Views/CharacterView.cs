@@ -90,6 +90,12 @@ public class CharacterView : ActorView
             _animator.SetInteger(MELEE, attackIndex);
             _animator.SetTrigger(ATTACK);
             _wp.PlayAnim(true, attackIndex);
+            var playerHack = this.GetComponent<PlayerInput>(); 
+            if (playerHack)
+            {
+                Debug.Log($"Forced input delay");
+                playerHack.SetIsInteracting(true);
+            }
         }
     }
 

@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SteveScene.unity
     guid: b386f3e7c90b5fa46adaa0059bf8fede
+  - enabled: 1
+    path: Assets/Scenes/GameOverScene.unity
+    guid: 2db3ed9748cd7e741afd485523b2cb11
   m_configObjects: {}

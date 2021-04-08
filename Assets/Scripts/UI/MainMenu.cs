@@ -11,6 +11,7 @@ namespace TurnBased
 
 		[SerializeField] GameObject _default;
 		[SerializeField] GameObject _options;
+		[SerializeField] GameObject _credits;
 
 		public void ShowOptions()
         {
@@ -22,7 +23,21 @@ namespace TurnBased
         {
 			_default.SetActive(true);
 			_options.SetActive(false);
+			_credits.SetActive(false);
 
 		}
-	}
+
+		public void ShowCredits()
+        {
+			_credits.SetActive(true);
+			_default.SetActive(false);
+
+		}
+
+        public void Quit()
+        {
+			Application.Quit();
+        }
+
+    }
 }

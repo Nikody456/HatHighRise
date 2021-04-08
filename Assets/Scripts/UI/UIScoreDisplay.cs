@@ -8,6 +8,7 @@ using System.Collections;
 public class UIScoreDisplay : MonoBehaviour
 {
     public static string ANIM_TRIGGER = "ScoreAdded";
+    [SerializeField] TextMeshProUGUI _scoreLabel = default;
     [SerializeField] TextMeshProUGUI _scoreCount =default;
     Animator _animator;
     int _currScore = 0;
@@ -37,6 +38,12 @@ public class UIScoreDisplay : MonoBehaviour
 
     public int GetScore() => _currScore;
 
-
+    public void DisplayTotalVsCurrent(bool cond)
+    {
+        if (cond)
+            _scoreLabel.text = "Total Score:";
+        else
+            _scoreLabel.text = "Level Score:";
+    }
 
 }

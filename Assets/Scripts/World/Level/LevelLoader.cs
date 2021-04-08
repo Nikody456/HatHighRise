@@ -43,12 +43,14 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             var levelScore = GameCanvas.Instance.GetScore();
             PlayerPrefs.SetInt(GameConstants.HAT_SCORE_KEY, totalScore + levelScore);
             SceneManager.LoadScene(_scoringSceneIndex);
+            GameCanvas.Instance.DisplayTotalVsCurrent(true);
         }
         else
         {
             _isScoringScene = false;
             /// Mandatory the victory scene ends the sequence
             SceneManager.LoadScene(++_currentSceneIndex);
+            GameCanvas.Instance.DisplayTotalVsCurrent(false);
             GameCanvas.Instance.UpdateScore(0);
         }
         OnSceneIsLoading?.Invoke(false);

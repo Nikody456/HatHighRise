@@ -52,16 +52,24 @@ public class LevelInfo : MonoBehaviour
 
     }
 
+    public void ResetPlayer()
+    {
+        ResetPlayer(_activePlayer);
+    }
+
     public void ResetPlayer(GameObject go) ///We have to match delegate signature
     {
         /// Jaden was doing this, but I think it looks better w.o it, kind of lerps down in a smooth way
-        CameraController cam = go.GetComponentInChildren<CameraController>();
-        if (cam)
-        {
-            //cam.resetCamera();
-        }
+        //CameraController cam = go.GetComponentInChildren<CameraController>();
+        //if (cam)
+        //{
+        //    cam.resetCamera();
+        //}
         PlayerMonitor pm = _activePlayer.GetComponent<PlayerMonitor>();
-        pm.OnPlayerReset();
+        if (pm)
+        {
+            pm.ResetPlayer();
+        }
         ///Call this after reset so we can use players last known Location:
         _activePlayer.transform.position = PlayerStart;
 

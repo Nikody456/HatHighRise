@@ -11,10 +11,28 @@ public class UIHealthDisplay : MonoBehaviour
 
     private void Awake()
     {
-        if(_healthIconPrefab==null)
+        if (_healthIconPrefab == null)
         {
             _healthIconPrefab = Resources.Load<GameObject>("UI/HealthIcon");
         }
+    }
+
+    public void SetHealth(int amnt)
+    {
+        int difference = _healthIcons.Count - amnt;
+
+        if (difference == 0)
+            return;
+
+        for (int i = 0; i < Mathf.Abs(difference); i++)
+        {
+            if (difference > 0)
+                DecreaseHealth();
+            else
+                IncreaseHealth();
+        }
+
+
     }
 
     public void IncreaseHealth()
@@ -28,7 +46,7 @@ public class UIHealthDisplay : MonoBehaviour
 
     public void DecreaseHealth()
     {
-        if(_healthIcons.Count > 0)
+        if (_healthIcons.Count > 0)
         {
             Destroy(_healthIcons.Dequeue());
         }

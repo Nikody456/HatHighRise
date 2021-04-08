@@ -20,7 +20,7 @@ public class CoinCreator : MonoSingleton<CoinCreator>
 
     public void CreateSomeCoins(int amount, Vector3 nearWorldPos)
     {
-        Debug.Log($"Creating {amount} coins ");
+       // Debug.Log($"Creating {amount} coins ");
         for (int i = 0; i < amount; i++)
         {
             var newCoin = Instantiate(_coinPrefab, this.transform);

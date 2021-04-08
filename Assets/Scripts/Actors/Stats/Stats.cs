@@ -119,7 +119,6 @@ namespace Statistics
             }
 
             InitModifierComponent();
-
             ///register ourselves to this classes static events to set up a health bar in UI
 
         }
@@ -144,6 +143,18 @@ namespace Statistics
                 StartCoroutine(DeathDelay());
             }
         }
+        public void IsHitDelay()
+        {
+            if(_isPlayer)
+            {
+                this.GetComponent<PlayerInput>().SetIsInteracting(true);
+            }
+            else
+            {
+
+            }
+        }
+
         public IEnumerator PlayerReset()
         {
             yield return new WaitForSecondsRealtime(1f);
@@ -156,11 +167,17 @@ namespace Statistics
             Destroy(this.gameObject);
         }
 
+        public void IncreaseHealthHack(int amount)
+        {
+            _currentHealth += amount;
+            OnHealthChanged?.Invoke(_currentHealth);
+        }
+
         public int TakeDamage(int incommingDamage)
         {
             int rawDamage = CalculateDefense(incommingDamage);
 
-            Debug.Log($"incommingDamage]{incommingDamage}, vs raw= {rawDamage}");
+            //Debug.Log($"incommingDamage]{incommingDamage}, vs raw= {rawDamage}");
             return ModifyHealth(rawDamage);
         }
 
@@ -214,19 +231,20 @@ namespace Statistics
 
             ///Let anyone subscribed to our delegate know we changed 
             OnHealthChanged?.Invoke(_currentHealth);
+            IsHitDelay();
            // _debugHealth = _currentHealth;
             return _currentHealth;
         }
         private int CalculateDefense(int rawDamage)
         {
             float retVal = rawDamage; ///A negative Number 
-            float defenseBlock = (retVal / 2) * ((float)CurrentDefense / 100);
+            //float defenseBlock = (retVal / 2) * ((float)CurrentDefense / 100);
 
-            retVal -= defenseBlock;
+            //retVal -= defenseBlock;
 
-            //Debug.Log($" incommingDamage={rawDamage} , DEF:{GetCurrentDefense()} Blocked={defenseBlock}  finalDmg={retVal}");
-            if (retVal > 0)
-                Debug.LogWarning("Somehow Positive damage is going thru??");
+            ////Debug.Log($" incommingDamage={rawDamage} , DEF:{GetCurrentDefense()} Blocked={defenseBlock}  finalDmg={retVal}");
+            //if (retVal > 0)
+            //    Debug.LogWarning("Somehow Positive damage is going thru??");
 
             return (int)retVal;
         }

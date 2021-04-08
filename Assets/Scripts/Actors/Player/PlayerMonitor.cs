@@ -32,21 +32,17 @@ public class PlayerMonitor : MonoBehaviour
     {
         _playerStats = this.GetComponent<Stats>();
         _lastKnownHealth = _playerStats.CurrentHealth;
-        InitializeHealthInUI();
-        OnEnable();
-    }
-
-    private void InitializeHealthInUI()
-    {
-        for (int i = 0; i < _lastKnownHealth; i++)
+        if(_lastKnownHealth==0)
         {
-            GameCanvas.Instance.UpdateHealth(true);
+            _lastKnownHealth = 1;//Another total hack
         }
+        GameCanvas.Instance.SetHealth(_lastKnownHealth);
+        OnEnable();
     }
 
     private void PlayerHealthChanged(int currHealth)
     {
-        Debug.Log($"PM health changed : cur={currHealth} vs last={_lastKnownHealth} ");
+       // Debug.Log($"PM health changed : cur={currHealth} vs last={_lastKnownHealth} ");
         if (currHealth == _lastKnownHealth)
             return;
 
@@ -63,10 +59,11 @@ public class PlayerMonitor : MonoBehaviour
         {
             _currentScoreThisLevel = 0;
         }
-        GameCanvas.Instance.UpdateScore(_currentScoreThisLevel);
+        GameCanvas.Instance.IncreaseScore(amount);
     }
 
-    public void OnPlayerReset()
+
+    public void ResetPlayer()
     {
         ///this means I got melee hit without any hats,
         /// or fell down a death trap while wearing hats?

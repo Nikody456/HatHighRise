@@ -17,7 +17,7 @@ public class Hat : MonoBehaviour
     Collider2D _collider;
     Rigidbody2D _rb;
 
-
+    Stats _myStats;
     /*********INIT******************************************************************************************************/
 
     void Awake()
@@ -49,7 +49,8 @@ public class Hat : MonoBehaviour
 
     public void OnPickup(Stats stats, CharacterView view)
     {
-        stats.AddModifier(Modifier);
+        _myStats = stats;
+        _myStats.AddModifier(Modifier);
         /// tell the characterView to wear this
         view.PickUpHat(this);
         IsPickedUp = true;
@@ -57,18 +58,19 @@ public class Hat : MonoBehaviour
     }
 
 
-    public void OnPutDown(Stats stats, CharacterView view)
+    public void OnPutDown()
     {
-        stats.RemoveModifier(Modifier);
+        _myStats.RemoveModifier(Modifier);
         /// tell the characterView to remove this
-        view.PutDownHat(this);
         IsPickedUp = false;
+        _myStats = null;
         EnforcePhysics();
     }
 
     public void SetFlipX(bool cond)
     {
-        _spriteRenderer.flipX = cond;
+        if(_spriteRenderer)
+            _spriteRenderer.flipX = cond;
     }
 
     public void SaveDataToScore(HatScore score)

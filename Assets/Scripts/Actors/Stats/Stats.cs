@@ -132,6 +132,11 @@ namespace Statistics
 
         /*********PUBLIC METHODS******************************************************************************************************/
 
+        public void PrintMods()
+        {
+
+        }
+
         public void ImDeadHack()
         {
             if (_isPlayer)

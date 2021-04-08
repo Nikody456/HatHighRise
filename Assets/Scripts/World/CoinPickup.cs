@@ -13,6 +13,8 @@ public class CoinPickup : MonoBehaviour
         {
             playerMonitor.AlterScoreThisLevel(_myScoreValue);
             Destroy(this.gameObject);
+
+            AudioManager.Instance.PlaySFX("coinPickUpSound");
         }
     }
 }

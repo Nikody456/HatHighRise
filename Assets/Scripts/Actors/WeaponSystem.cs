@@ -67,6 +67,7 @@ public class WeaponSystem : MonoBehaviour
             //Debug.Log($"atk hit : {hit.collider.gameObject.name}");
             HitManager.CalculateHit(_myStats,hit.collider.GetComponent<Stats>());
         }
+        AudioManager.Instance.PlaySFX("attackSound");
     }
 
 }

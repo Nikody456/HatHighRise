@@ -25,8 +25,26 @@ public class AudioManager : MonoSingleton<AudioManager>
                 case "jumpSound":
                     _audioSFXSrc.PlayOneShot(_sounds[0]);
                     break;
-                case "otherSound":
+                case "attackSound":
                     _audioSFXSrc.PlayOneShot(_sounds[1]);
+                    break;
+                case "coinPickUpSound":
+                    _audioSFXSrc.PlayOneShot(_sounds[2]);
+                    break;
+                case "hatPickUpSound":
+                    _audioSFXSrc.PlayOneShot(_sounds[3]);
+                    break;
+                case "menuClickSound":
+                    _audioSFXSrc.PlayOneShot(_sounds[4]);
+                    break;
+                case "startGameSound":
+                    _audioSFXSrc.PlayOneShot(_sounds[5]);
+                    break;
+                case "endGameSound":
+                    _audioSFXSrc.PlayOneShot(_sounds[6]);
+                    break;
+                case "hitSound":
+                    _audioSFXSrc.PlayOneShot(_sounds[7]);
                     break;
                 default:
                     Debug.LogError("There is no sound with the given name:" + sound);

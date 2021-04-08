@@ -50,10 +50,15 @@ MonoBehaviour:
   _audioBackgroundSrc: {fileID: 181355336597078743}
   _sounds:
   - {fileID: 8300000, guid: 2403062626057554a8ed482ae404e9e9, type: 3}
-  - {fileID: 8300000, guid: 538eccd006d24bf47abdc50b60932314, type: 3}
-  - {fileID: 8300000, guid: 538eccd006d24bf47abdc50b60932314, type: 3}
+  - {fileID: 8300000, guid: e8eb7e27fda412447b64096d59c48cdb, type: 3}
+  - {fileID: 8300000, guid: 5bdfaac42af6dc044a3d8220cc56efef, type: 3}
+  - {fileID: 8300000, guid: 31091f46db1fac44c81535d813e2d9cc, type: 3}
+  - {fileID: 8300000, guid: 5d18d620dec054d41a572fe0e3540ad2, type: 3}
+  - {fileID: 8300000, guid: d98309cf13198b74286a671c6b4ff421, type: 3}
+  - {fileID: 8300000, guid: 754ae297507f0354ab746c92d14dc1a8, type: 3}
+  - {fileID: 8300000, guid: 11324f02f10571c40bc9968b1a2d6119, type: 3}
   _backgroundSounds:
-  - {fileID: 8300000, guid: a1913812826eea240b00c1395f00a292, type: 3}
+  - {fileID: 8300000, guid: f29eb9aadaacba64b9315811e29a4aaf, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -69,7 +74,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4813086148056919346, guid: 915e141c2846e634aad5b5c51569665f,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

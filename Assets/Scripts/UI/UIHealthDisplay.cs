@@ -50,6 +50,7 @@ public class UIHealthDisplay : MonoBehaviour
         {
             Destroy(_healthIcons.Dequeue());
         }
+        AudioManager.Instance.PlaySFX("hitSound");
     }
 
 }

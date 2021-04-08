@@ -9,19 +9,18 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] Transform _platform = default;
 
     Vector3 nextPos;
-
-
+    public Vector2 platformVelocity = Vector2.zero;
 
     void Start()
     {
         nextPos = _pos1.position;
     }
 
-    void Update()
+    void LateUpdate()
     {
         var dis = Vector3.Distance(_platform.position, nextPos);
 
-        if (Mathf.Abs(dis) < 1)
+        if (Mathf.Abs(dis) < .25f)
         {
             if (nextPos == _pos1.position)
             {
@@ -32,7 +31,11 @@ public class MovingPlatform : MonoBehaviour
                 nextPos = _pos1.position;
             }
         }
+
+        Vector2 lastPosition = _platform.position;
         _platform.position = Vector3.MoveTowards(_platform.position, nextPos, _speed * Time.deltaTime);
+        platformVelocity = ((Vector2)_platform.position-lastPosition);
+
     }
 
     private void OnDrawGizmos()

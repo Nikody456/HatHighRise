@@ -157,17 +157,18 @@ public class CharMovement : ActorMovement
 
         //moving platform logic
         //redo this with physics
-        Transform parent = null;
 
         for(int i = 0; i < collisions.Length; i++)
         {
-            if(collisions[i].tag == "Platform")
+            if (collisions[i].transform.parent != null && collisions[i].transform.parent.GetComponent<MovingPlatform>() != null)
             {
-                parent = collisions[i].transform;
+                MovingPlatform platform = collisions[i].transform.parent.GetComponent<MovingPlatform>();
+                if (platform != null)
+                {
+                    _controller.transform.Translate(platform.platformVelocity, transform);
+                }
             }
         }
-
-        transform.parent = parent;
 
         if(collisions.Length > 0) //if there is a collider within the player's grounded box, the player is grounded
         {

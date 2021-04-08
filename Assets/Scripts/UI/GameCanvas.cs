@@ -6,7 +6,25 @@ public class GameCanvas : MonoSingleton<GameCanvas>
 {
     [SerializeField] UIHealthDisplay _healthDisplay = default;
     [SerializeField] UIScoreDisplay _scoreDisplay = default;
+    [SerializeField] GameObject _pauseMenu = default;
 
+
+    bool _isPaused = false;
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            FlipPause();
+        }
+    }
+
+    public void FlipPause()
+    {
+        _isPaused = !_isPaused;
+        _pauseMenu.SetActive(_isPaused);
+        Time.timeScale = _isPaused ? 0 : 1;
+    }
 
     public void SetHealth(int amount)
     {
@@ -44,4 +62,8 @@ public class GameCanvas : MonoSingleton<GameCanvas>
     {
         _scoreDisplay.DisplayTotalVsCurrent(cond);
     }
+
+
+
+
 }

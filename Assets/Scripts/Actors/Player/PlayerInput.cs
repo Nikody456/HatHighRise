@@ -19,13 +19,12 @@ public class PlayerInput : MonoBehaviour
     public void SetIsInteracting(bool cond)
     {
         _isInteracting = cond;
-        Debug.Log($"Set Isinterfactiong to : {_isInteracting}");
     }
 
     void Update()
     {
 
-        if (!_isInteracting)
+        if (!_isInteracting) ///A hack to limit player input, shud do for all controllers 
         {
 
             if (Input.GetButtonDown("Jump"))

@@ -119,7 +119,6 @@ namespace Statistics
             }
 
             InitModifierComponent();
-
             ///register ourselves to this classes static events to set up a health bar in UI
 
         }
@@ -171,6 +170,7 @@ namespace Statistics
         public void IncreaseHealthHack(int amount)
         {
             _currentHealth += amount;
+            OnHealthChanged?.Invoke(_currentHealth);
         }
 
         public int TakeDamage(int incommingDamage)

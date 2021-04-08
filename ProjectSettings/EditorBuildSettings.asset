@@ -15,12 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SteveScene2.unity
     guid: 8ce5c3aeb2d6cd6499af091269d15ed0
   - enabled: 1
+    path: Assets/Scenes/Beta_1.unity
+    guid: 0e3714a7d11a09d4f95111514d8ad9bb
+  - enabled: 1
     path: Assets/Scenes/BetaScene.unity
     guid: 6591f547b7d28414f84f31b3ac3561b4
-  - enabled: 0
-    path: Assets/Scenes/AlphaScene.unity
-    guid: c9f642591f3b98c4894b19aa4bcd4f45
-  - enabled: 0
-    path: Assets/Scenes/SteveScene.unity
-    guid: b386f3e7c90b5fa46adaa0059bf8fede
+  - enabled: 1
+    path: Assets/Scenes/GameOverScene.unity
+    guid: 2db3ed9748cd7e741afd485523b2cb11
   m_configObjects: {}

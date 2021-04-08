@@ -32,16 +32,12 @@ public class PlayerMonitor : MonoBehaviour
     {
         _playerStats = this.GetComponent<Stats>();
         _lastKnownHealth = _playerStats.CurrentHealth;
-        InitializeHealthInUI();
-        OnEnable();
-    }
-
-    private void InitializeHealthInUI()
-    {
-        for (int i = 0; i < _lastKnownHealth; i++)
+        if(_lastKnownHealth==0)
         {
-            GameCanvas.Instance.UpdateHealth(true);
+            _lastKnownHealth = 1;//Another total hack
         }
+        GameCanvas.Instance.SetHealth(_lastKnownHealth);
+        OnEnable();
     }
 
     private void PlayerHealthChanged(int currHealth)

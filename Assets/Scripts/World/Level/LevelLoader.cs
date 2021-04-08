@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelLoader : MonoSingleton<LevelLoader>
 {
-    string _firstLevelName = "SteveScene2";
+    string _firstLevelName = "Beta_1";
     int _scoringSceneIndex = 1;
     int _currentSceneIndex = 0;
     Scene _currentScene;

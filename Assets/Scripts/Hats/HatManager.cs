@@ -60,7 +60,8 @@ public class HatManager : MonoBehaviour
     /***********PUBLIC**************************************************************************************************/
     public void OnPlayerHit(int hp)
     {
-        if (hp > _hats.Count)
+        ///Ugly hack because of our circular stat system doing way too much. prevents endlessloop
+        if (_hats==null || _hats.Count == 0 || hp > _hats.Count)
             return;
 
         var mostRecentHat = _hats[_hats.Count-1];
@@ -87,6 +88,7 @@ public class HatManager : MonoBehaviour
     {
         hat.gameObject.layer = GameConstants.IGNORE_LAYER;
         hat.transform.parent = null;
+        hat.OnPutDown();
         _hats.Remove(hat);
         //hat.gameObject.layer = GameConstants.HAT_LAYER;
         var rb = hat.gameObject.AddComponent<Rigidbody2D>();

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelLoader : MonoSingleton<LevelLoader>
 {
-    string _firstLevelName = "SteveScene2";
+    string _firstLevelName = "Beta_1";
     int _scoringSceneIndex = 1;
     int _currentSceneIndex = 0;
     Scene _currentScene;
@@ -32,6 +32,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         _currentSceneIndex = _currentScene.buildIndex;
         //Init our score prefs
         PlayerPrefs.SetInt(GameConstants.HAT_SCORE_KEY, 0);
+        Instantiate(Resources.Load<GameObject>("UI/GameCanvas"));
     }
     public void LoadNextLevel()
     {

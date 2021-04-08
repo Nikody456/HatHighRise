@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Helpers;
+using Statistics;
 
 public class HatManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class HatManager : MonoBehaviour
     private Transform _hatStack;
     private Vector2 _lastOffsetVector;
     [SerializeField] SpriteRenderer _characterSpriteHACK;
+    Stats _statsHack;
 
     private int _lastMeleeIndex = -1;
     private int _lastRangedIndex = -1;
@@ -25,11 +27,13 @@ public class HatManager : MonoBehaviour
         _hatStack.parent = this.transform;
         _hatStack.localPosition = Vector3.zero;
         _hatStack.name = "Hat Stack";
+        _statsHack = this.GetComponent<Stats>();
     }
 
     private void Start()
     {
         _lastOffsetVector = GetCharacterAnimOffset();
+        _statsHack.OnHealthChanged += OnPlayerHit;
     }
 
     /***********TICK**************************************************************************************************/
@@ -54,6 +58,14 @@ public class HatManager : MonoBehaviour
 
 
     /***********PUBLIC**************************************************************************************************/
+    public void OnPlayerHit(int hp)
+    {
+        if (hp > _hats.Count)
+            return;
+
+        var mostRecentHat = _hats[_hats.Count-1];
+        OnPutDownHat(mostRecentHat);
+    }
 
     public void OnPickUpHat(Hat hat)
     {
@@ -63,14 +75,36 @@ public class HatManager : MonoBehaviour
         hat.SetOrderInSortingLayer(_hats.Count);
         hat.gameObject.layer = GameConstants.PLAYER_LAYER; //AI also does this?
         _hats.Add(hat);
+        ///This is another hack 
+        if (this.GetComponent<PlayerInput>())
+        {
+            _statsHack.IncreaseHealthHack(1);
+        }
     }
     public void OnPutDownHat(Hat hat)
     {
+        hat.gameObject.layer = GameConstants.IGNORE_LAYER;
         hat.transform.parent = null;
         _hats.Remove(hat);
-        hat.gameObject.layer = GameConstants.HAT_LAYER;
+        //hat.gameObject.layer = GameConstants.HAT_LAYER;
+        var rb = hat.gameObject.AddComponent<Rigidbody2D>();
+        rb.AddForce(new Vector2(0, 50));
+        StartCoroutine(DestroyHat(rb));
+        ///Need to send it flying or make it so it cant be picked up again?
         ReOrderHats();
         ValidateCombatHats();
+    }
+
+    IEnumerator DestroyHat(Rigidbody2D hat)
+    {
+        ///Just let the hat pop up for a second, then fall/ delete
+        yield return new WaitForSeconds(2);
+        //yield return new WaitUntil(() => hat.velocity.sqrMagnitude > 0 == true);
+        
+        if (hat != null) //Its possible the hats been added to the score and destroyed
+        {
+            Destroy(hat.gameObject);
+        }
     }
 
     public bool HasMeleeAttackHat(out int atkIndex)

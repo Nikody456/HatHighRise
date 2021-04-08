@@ -118,6 +118,8 @@ public class PlayerMovement : CharMovement
         _coyotePreEnabled = false;
         _slideSpeed = 0;
         base.DoJump();
+
+        AudioManager.Instance.PlaySFX("jumpSound");
     }
 
 

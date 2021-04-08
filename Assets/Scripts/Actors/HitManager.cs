@@ -19,7 +19,7 @@ public static class HitManager
         {
            receiver.ImDeadHack();
         }
-        Debug.Log(healthRemaining);
+       // Debug.Log(healthRemaining);
     }
 
 }

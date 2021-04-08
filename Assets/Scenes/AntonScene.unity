@@ -66491,6 +66491,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 181355336597078738, guid: ae9492d4412581445abf901ad662b9b6,
+        type: 3}
+      propertyPath: _backgroundSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: f29eb9aadaacba64b9315811e29a4aaf, type: 3}
+    - target: {fileID: 181355336597078738, guid: ae9492d4412581445abf901ad662b9b6,
+        type: 3}
+      propertyPath: _backgroundSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7bbc06f37e728b8498a0e583891df73d, type: 3}
+    - target: {fileID: 181355336597078738, guid: ae9492d4412581445abf901ad662b9b6,
+        type: 3}
+      propertyPath: _backgroundSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 696fb08e02858df4c84dff928e158d3b, type: 3}
     - target: {fileID: 181355336597078739, guid: ae9492d4412581445abf901ad662b9b6,
         type: 3}
       propertyPath: m_Name

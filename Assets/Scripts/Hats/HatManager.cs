@@ -80,6 +80,8 @@ public class HatManager : MonoBehaviour
         {
             _statsHack.IncreaseHealthHack(1);
         }
+
+        AudioManager.Instance.PlaySFX("hatPickUpSound");
     }
     public void OnPutDownHat(Hat hat)
     {

@@ -19,7 +19,8 @@ public static class HitManager
         {
            receiver.ImDeadHack();
         }
-       // Debug.Log(healthRemaining);
+        AudioManager.Instance.PlaySFX("hitSound");
+        // Debug.Log(healthRemaining);
     }
 
 }

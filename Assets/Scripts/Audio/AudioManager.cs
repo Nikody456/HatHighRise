@@ -18,7 +18,7 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     public void PlaySFX(string sound)
     {
-        if (!isMute)
+        if (!isMute && _audioSFXSrc != null)
         {
             switch (sound)
             {
@@ -37,7 +37,7 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     public void PlayBackgroundMusic(string sound)
     {
-        if (!isMute)
+        if (!isMute && _audioBackgroundSrc != null)
         {
             switch (sound)
             {

@@ -57,6 +57,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d98309cf13198b74286a671c6b4ff421, type: 3}
   - {fileID: 8300000, guid: 754ae297507f0354ab746c92d14dc1a8, type: 3}
   - {fileID: 8300000, guid: 11324f02f10571c40bc9968b1a2d6119, type: 3}
+  - {fileID: 8300000, guid: 15911b69fbae5f24eb00b488e8bfac28, type: 3}
   _backgroundSounds:
   - {fileID: 8300000, guid: f29eb9aadaacba64b9315811e29a4aaf, type: 3}
   - {fileID: 0}

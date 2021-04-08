@@ -46,6 +46,9 @@ public class AudioManager : MonoSingleton<AudioManager>
                 case "hitSound":
                     _audioSFXSrc.PlayOneShot(_sounds[7]);
                     break;
+                case "scoreSound":
+                    _audioSFXSrc.PlayOneShot(_sounds[8]);
+                    break;
                 default:
                     Debug.LogError("There is no sound with the given name:" + sound);
                     break;

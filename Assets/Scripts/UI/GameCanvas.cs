@@ -8,6 +8,11 @@ public class GameCanvas : MonoSingleton<GameCanvas>
     [SerializeField] UIScoreDisplay _scoreDisplay = default;
 
 
+    public void SetHealth(int amount)
+    {
+        _healthDisplay.SetHealth(amount);
+    }
+
     public void UpdateHealth(bool gainedHealth)
     {
         if(gainedHealth)
@@ -33,5 +38,10 @@ public class GameCanvas : MonoSingleton<GameCanvas>
     public int GetScore()
     {
         return _scoreDisplay.GetScore();
+    }
+
+    public void DisplayTotalVsCurrent(bool cond)
+    {
+        _scoreDisplay.DisplayTotalVsCurrent(cond);
     }
 }

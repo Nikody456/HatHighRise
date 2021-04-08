@@ -93,7 +93,6 @@ public class CharacterView : ActorView
             var playerHack = this.GetComponent<PlayerInput>(); 
             if (playerHack)
             {
-                Debug.Log($"Forced input delay");
                 playerHack.SetIsInteracting(true);
             }
         }

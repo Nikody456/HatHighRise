@@ -60,7 +60,7 @@ public class HatManager : MonoBehaviour
     /***********PUBLIC**************************************************************************************************/
     public void OnPlayerHit(int hp)
     {
-        if (_hats.Count < 1)
+        if (hp > _hats.Count)
             return;
 
         var mostRecentHat = _hats[_hats.Count-1];
@@ -75,8 +75,11 @@ public class HatManager : MonoBehaviour
         hat.SetOrderInSortingLayer(_hats.Count);
         hat.gameObject.layer = GameConstants.PLAYER_LAYER; //AI also does this?
         _hats.Add(hat);
-
-        _statsHack.IncreaseHealthHack(1);
+        ///This is another hack 
+        if (this.GetComponent<PlayerInput>())
+        {
+            _statsHack.IncreaseHealthHack(1);
+        }
     }
     public void OnPutDownHat(Hat hat)
     {

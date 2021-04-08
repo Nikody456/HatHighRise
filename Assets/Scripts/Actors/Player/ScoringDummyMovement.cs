@@ -9,8 +9,11 @@ public class ScoringDummyMovement : MonoBehaviour
 
     [SerializeField] ScoreIncriminator _scoreCounter;
     [SerializeField] Transform _endGoal = default;
+    [SerializeField] bool _isFinalLevel = false;
     private CharMovement _dummy;
     private List<GameObject> _hatsToScore = new List<GameObject>();
+
+
 
     private void Awake()
     {
@@ -52,11 +55,18 @@ public class ScoringDummyMovement : MonoBehaviour
 
     private void Update()
     {
-        if(Vector3.Distance(_dummy.transform.position, _endGoal.position) < 1)
+        if (Vector3.Distance(_dummy.transform.position, _endGoal.position) < 1)
         {
             _dummy.SetInput(0); ///make him stop
-            ///Tell level to load Next
-            StartCoroutine(LoadNext());
+                                ///Tell level to load Next
+            if (!_isFinalLevel)
+            {
+                StartCoroutine(LoadNext());
+            }
+            else
+            {
+                ///Show quit Menu?
+            }
         }
     }
 

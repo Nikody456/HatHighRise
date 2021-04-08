@@ -7,7 +7,7 @@ public static class GameConstants
     public static float PIXELS_PER_UNIT { get; private set; } = 32f;
     
     public static int PLAYER_LAYER { get; private set; } = 8;
-
+    public static int AI_LAYER { get; private set; } = 9;
     public static int HAT_LAYER { get; private set; } = 10;
 
     public static int IGNORE_LAYER { get; private set; } = 2;

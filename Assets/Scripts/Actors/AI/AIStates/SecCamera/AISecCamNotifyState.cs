@@ -12,6 +12,7 @@ namespace AI
         private float _timeToLeaveState = 5;
         private bool _sentNotification = false;
         private Action _onNotify;
+        private int _maxGuards = 3;
         /*************************************************************************************************************/
 
         public AISecCamNotifyState(AIInput ai, Action onNotify)
@@ -58,10 +59,22 @@ namespace AI
                 _ai.SetState(eAIStates.IDLE);
                 return true;
             }
+            if(MakeSureTooManyGuardsDontExist())
+            {
+                return true;
+            }
             _timeInState += Time.deltaTime;
             return false;
         }
 
+
+        private bool MakeSureTooManyGuardsDontExist()
+        {
+            var ffs = _ai as AISecurityCamInput;
+            int guardsInArea = ffs.SphereCastAtDoorLocation();
+            //Debug.Log($"guardsInArea = {guardsInArea} .. = {guardsInArea > _maxGuards}");
+            return guardsInArea > _maxGuards;
+        }
 
         protected virtual void DoAttack()
         {
@@ -70,7 +83,7 @@ namespace AI
                 return;
 
             //Debug.Log($"<color=red> Notify!</color>");
-            //Notify someone to spawn guards TODO
+            //Notify someone to spawn guards
             _onNotify?.Invoke();
             _sentNotification = true;
 

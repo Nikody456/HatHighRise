@@ -27,6 +27,7 @@ public class ScoreIncriminator : MonoBehaviour
         _tickRate = tickRate;
         _currTime = _tickRate/2;
         _initialized = true;
+        //GameCanvas.Instance.SetHealth(1);
     }
 
 
@@ -72,6 +73,7 @@ public class ScoreIncriminator : MonoBehaviour
         Destroy(item);
         var gc = GameCanvas.Instance;
         gc.IncreaseScore(GameConstants.HAT_SCORE);
+        gc.UpdateHealth(false);
         PlayerPrefs.SetInt(GameConstants.HAT_SCORE_KEY, gc.GetScore());
 
     }

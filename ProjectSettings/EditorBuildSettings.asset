@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 424617f6fc97c9e40ae0eb6e9a79d4ee
   - enabled: 1
+    path: Assets/Scenes/Beta_2.unity
+    guid: 936923e629b12bb40b63366544be56df
+  - enabled: 1
     path: Assets/Scenes/ScoringScene.unity
     guid: 58dee71f6b28a2047938b24ed43c4ed7
   - enabled: 1

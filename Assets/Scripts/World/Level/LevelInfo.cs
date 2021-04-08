@@ -52,7 +52,10 @@ public class LevelInfo : MonoBehaviour
 
     }
 
-
+    public void ResetPlayer()
+    {
+        ResetPlayer(_activePlayer);
+    }
 
     public void ResetPlayer(GameObject go) ///We have to match delegate signature
     {

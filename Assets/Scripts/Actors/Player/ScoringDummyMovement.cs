@@ -17,7 +17,17 @@ public class ScoringDummyMovement : MonoBehaviour
 
     private void Awake()
     {
-       HatScore score = Resources.Load<HatScore>(GameConstants.HAT_SCORE_PATH);
+
+        if (_isFinalLevel)
+        {
+            AudioManager.Instance.PlayBackgroundMusic("EndGame");
+        }
+        else
+        {
+            AudioManager.Instance.PlayBackgroundMusic("ScoringLevel");
+        }
+
+        HatScore score = Resources.Load<HatScore>(GameConstants.HAT_SCORE_PATH);
         if(score)
         {
             foreach (var hatData in score.GetHats())

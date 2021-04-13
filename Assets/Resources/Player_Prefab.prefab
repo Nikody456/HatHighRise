@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3581617202464624833}
   - component: {fileID: 3581617202464624835}
   - component: {fileID: 3581617202464624832}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4949,6 +4949,7 @@ MonoBehaviour:
   clampCameraPosition: 1
   minClamp: {x: -4.57, y: -34.1, z: -10}
   maxClamp: {x: 145.64, y: 6.91, z: -10}
+  clampArea: {fileID: 0}
   charRigidbody: {fileID: 3581617203901105270}
   lerpSpeed: 2
   cameraDist: 1.5

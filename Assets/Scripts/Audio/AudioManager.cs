@@ -63,21 +63,23 @@ public class AudioManager : MonoSingleton<AudioManager>
             switch (sound)
             {
                 case "MainMenu":
-                    _audioBackgroundSrc.PlayOneShot(_backgroundSounds[0]);
+                    _audioBackgroundSrc.clip = (_backgroundSounds[0]);
                     break;
                 case "MainLevel":
-                    _audioBackgroundSrc.PlayOneShot(_backgroundSounds[1]);
+                    _audioBackgroundSrc.clip = (_backgroundSounds[1]);
                     break;
                 case "ScoringLevel":
-                    _audioBackgroundSrc.PlayOneShot(_backgroundSounds[2]);
+                    _audioBackgroundSrc.clip = (_backgroundSounds[2]);
                     break;
                 case "EndGame":
-                    _audioBackgroundSrc.PlayOneShot(_backgroundSounds[3]);
+                    _audioBackgroundSrc.clip = (_backgroundSounds[3]);
                     break;
                 default:
                     Debug.LogError("There is no sound with the given name:" + sound);
                     break;
             }
+            _audioBackgroundSrc.loop = true;
+            _audioBackgroundSrc.Play();
         }
     }
 }

@@ -53,6 +53,7 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             SceneManager.LoadScene(++_currentSceneIndex);
             GameCanvas.Instance.DisplayTotalVsCurrent(false);
             GameCanvas.Instance.UpdateScore(0);
+            AudioManager.Instance.PlayBackgroundMusic("ScoringLevel");
         }
         OnSceneIsLoading?.Invoke(false);
     }

@@ -21,6 +21,7 @@ public class GameCanvas : MonoSingleton<GameCanvas>
 
     public void FlipPause()
     {
+        AudioManager.Instance.PlaySFX("menuClickSound");
         _isPaused = !_isPaused;
         _pauseMenu.SetActive(_isPaused);
         Time.timeScale = _isPaused ? 0 : 1;

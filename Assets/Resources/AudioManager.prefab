@@ -60,9 +60,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 15911b69fbae5f24eb00b488e8bfac28, type: 3}
   _backgroundSounds:
   - {fileID: 8300000, guid: f29eb9aadaacba64b9315811e29a4aaf, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 7bbc06f37e728b8498a0e583891df73d, type: 3}
+  - {fileID: 8300000, guid: ce5b4754fd649904cb26c6c7a6daeeed, type: 3}
+  - {fileID: 8300000, guid: b760f1d446626524a9adcac9fd4e43a8, type: 3}
 --- !u!82 &181355336597078737
 AudioSource:
   m_ObjectHideFlags: 0

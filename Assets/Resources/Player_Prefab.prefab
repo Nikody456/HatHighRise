@@ -4946,7 +4946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b8b728a8e723b4c8ed70b40a743aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clampCameraPosition: 1
+  clampCameraPosition: 0
   minClamp: {x: -4.57, y: -34.1, z: -10}
   maxClamp: {x: 145.64, y: 6.91, z: -10}
   clampArea: {fileID: 0}

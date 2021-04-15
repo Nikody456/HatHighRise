@@ -8,8 +8,10 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     [SerializeField] AudioSource _audioSFXSrc;
     [SerializeField] AudioSource _audioBackgroundSrc;
+    [SerializeField] AudioSource _audioWalkingSrc;
     [SerializeField] AudioClip[] _sounds;
     [SerializeField] AudioClip[] _backgroundSounds;
+    [SerializeField] AudioClip[] _walkingSounds;
 
     private void Start()
     {
@@ -81,5 +83,27 @@ public class AudioManager : MonoSingleton<AudioManager>
             _audioBackgroundSrc.loop = true;
             _audioBackgroundSrc.Play();
         }
+    }
+    public void PlayWalkingSounds(string sound)
+    {
+        if (!isMute && _audioWalkingSrc != null)
+        {
+            switch (sound)
+            {
+                case "Walking":
+                    _audioWalkingSrc.clip = (_walkingSounds[0]);
+                    break;
+                default:
+                    Debug.LogError("There is no sound with the given name:" + sound);
+                    break;
+            }
+            _audioWalkingSrc.loop = true;
+            _audioWalkingSrc.Play();
+        }
+    }
+
+    public void StopWalkingSounds()
+    {
+        _audioWalkingSrc.Play();
     }
 }

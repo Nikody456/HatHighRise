@@ -2322,7 +2322,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _backgroundSounds.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: ce5b4754fd649904cb26c6c7a6daeeed, type: 3}
+      objectReference: {fileID: 8300000, guid: f041f7d4603f5e24a82974b84da7370a, type: 3}
     - target: {fileID: 181355336597078739, guid: ae9492d4412581445abf901ad662b9b6,
         type: 3}
       propertyPath: m_Name

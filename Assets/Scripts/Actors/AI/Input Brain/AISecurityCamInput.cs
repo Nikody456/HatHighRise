@@ -9,6 +9,7 @@ namespace AI
     {
         [SerializeField] SpriteRenderer _spriteRenderer = default;
         [SerializeField] float _scanFrequency = 2.5f;
+        [SerializeField] float _scanSpread = 3f;
         [SerializeField] Vector3 _scanPositionOffset = Vector3.zero;
         [SerializeField] SecDoor _securityDoor = default;
 
@@ -65,7 +66,8 @@ namespace AI
 
             if(RaycastViaDir (facingDir) == 0)
             {
-                var slightOffset = new Vector3(0.25f, 0, 0);
+                ///If we miss, Try scanning slighlty to the right / left
+                var slightOffset = new Vector3(_scanSpread, 0, 0);
                 if (RaycastViaDir(facingDir + slightOffset) ==0)
                     RaycastViaDir(facingDir - slightOffset);
             }
@@ -76,8 +78,6 @@ namespace AI
         private int RaycastViaDir(Vector3 facingDir)
         {
             var ourPos = transform.position + _scanPositionOffset;
-
-
             List<RaycastHit2D> results = new List<RaycastHit2D>();
             int numHits = Physics2D.Raycast(ourPos, facingDir, DetectionInfo, results, DetectionRange);
             for (int i = 0; i < numHits; i++)
@@ -92,7 +92,7 @@ namespace AI
                         if (hit.collider.gameObject.layer == GameConstants.PLAYER_LAYER)
                         {
                             SetTarget(hit.collider.gameObject.transform);
-                            Debug.DrawLine(ourPos, ourPos + (facingDir * DetectionRange), Color.red, 1);
+                            Debug.DrawLine(ourPos, ourPos + (facingDir.normalized * DetectionRange), Color.red, 1);
 
                         }
                         else ///We hit an obstacle first, our view is blocked
@@ -105,7 +105,8 @@ namespace AI
             }
             if(numHits==0)
             {
-                Debug.DrawLine(ourPos, ourPos + (facingDir * DetectionRange/10), Color.blue, 1);
+                ///Have to normalize facingDir to match Physics2D.RayCast which is normalizing under the hood
+                Debug.DrawLine(ourPos, ourPos + (facingDir.normalized * DetectionRange), Color.blue, 1);
             }
 
             return numHits;

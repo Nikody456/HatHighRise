@@ -115,7 +115,6 @@ public class CharacterView : ActorView
         _animator.ResetTrigger(ATTACK);
         SetIsInteracting(false);
         //Debug.Log("WE CALLED ONATKFINISH");
-
     }
 
     public void ImHit()

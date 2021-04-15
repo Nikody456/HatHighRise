@@ -132,6 +132,11 @@ namespace Statistics
 
         /*********PUBLIC METHODS******************************************************************************************************/
 
+        public void PrintMods()
+        {
+
+        }
+
         public void ImDeadHack()
         {
             if (_isPlayer)
@@ -159,6 +164,11 @@ namespace Statistics
         {
             yield return new WaitForSecondsRealtime(1f);
             OnPlayerResetHack?.Invoke(this.gameObject);
+            if (_currentHealth <= 0)
+            {
+                _currentHealth = 0;
+                IncreaseHealthHack(1);
+            }
         }
 
         IEnumerator DeathDelay()

@@ -15,16 +15,14 @@ public class CharacterCollider : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Debug.Log($"{this.gameObject.name} Trigger2D with {collision.gameObject.name} ");
-        Hat hat = collision.gameObject.GetComponent<Hat>();
-        if(hat)
+        PickUpHat( collision.gameObject.GetComponent<Hat>());
+    }
+
+    public void PickUpHat(Hat hat)
+    {
+        if (hat)
         {
             hat.OnPickup(_characterStats, _characterView);
         }
-
-        ///Let the death script handle this, less hidden coupling without string tags       
-        //if(collision.transform.tag == "Death")
-        //{
-        //    GetComponent<CharMovement>().onDeath();
-        //}
     }
 }

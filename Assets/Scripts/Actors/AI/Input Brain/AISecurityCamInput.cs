@@ -61,13 +61,24 @@ namespace AI
         {
             var pixelDir = PixelDetector.DetectFirstPixel(_spriteRenderer.sprite, Color.black, false);
 
-
-            var ourPos = transform.position + _scanPositionOffset;
             var facingDir = new Vector3(pixelDir.x, pixelDir.y, 0);
 
+            if(RaycastViaDir (facingDir) == 0)
+            {
+                var slightOffset = new Vector3(0.25f, 0, 0);
+                if (RaycastViaDir(facingDir + slightOffset) ==0)
+                    RaycastViaDir(facingDir - slightOffset);
+            }
+
+            //PixelDetector.PrintAllPixels(_spriteRenderer.sprite);
+        }
+
+        private int RaycastViaDir(Vector3 facingDir)
+        {
+            var ourPos = transform.position + _scanPositionOffset;
+
+
             List<RaycastHit2D> results = new List<RaycastHit2D>();
-            //Need to figure out how to scan thicker radius or cone
-            //  int numHits = Physics2D.CircleCast(ourPos, scanRadius, facingDir, DetectionInfo, results, DetectionRange);
             int numHits = Physics2D.Raycast(ourPos, facingDir, DetectionInfo, results, DetectionRange);
             for (int i = 0; i < numHits; i++)
             {
@@ -92,8 +103,12 @@ namespace AI
                     }
                 }
             }
+            if(numHits==0)
+            {
+                Debug.DrawLine(ourPos, ourPos + (facingDir * DetectionRange/10), Color.blue, 1);
+            }
 
-            //PixelDetector.PrintAllPixels(_spriteRenderer.sprite);
+            return numHits;
         }
 
 
@@ -172,14 +187,6 @@ namespace AI
                 }
             }
             return count;
-        }
-
-        protected override void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-                RayCastScanDirection();
-
-            base.Update();
         }
     }
 }

@@ -43,8 +43,9 @@ public class LevelInfo : MonoBehaviour
     }
     public void StartLevel()
     {
+        AudioManager.Instance.PlayBackgroundMusic("MainLevel");
         ///Instantiate the player at the Starting Position?
-        _activePlayer= Instantiate(_playerPreFab, PlayerStart, Quaternion.identity);
+        _activePlayer = Instantiate(_playerPreFab, PlayerStart, Quaternion.identity);
         ///TOTAL HACK
         Stats stats = _activePlayer.GetComponent<Stats>();
         stats.OnPlayerResetHack += ResetPlayer;

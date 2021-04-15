@@ -22,9 +22,12 @@ namespace TurnBased
 
 		public void GoBack()
 		{
-			_default.SetActive(true);
-			_options.SetActive(false);
-			_credits.SetActive(false);
+			if (_default)
+				_default.SetActive(true);
+			if (_options)
+				_options.SetActive(false);
+			if(_credits)
+				_credits.SetActive(false);
 			PlayButtonSound();
 
 		}
@@ -34,7 +37,6 @@ namespace TurnBased
 			_credits.SetActive(true);
 			_default.SetActive(false);
 			PlayButtonSound();
-
 		}
 
 		public void Quit()
@@ -46,7 +48,6 @@ namespace TurnBased
 		public void Restart()
 		{
 			var levelInfoHack = (LevelInfo)FindObjectOfType(typeof(LevelInfo));
-			Debug.Log($"levelInfoHack= {levelInfoHack}");
 			if (levelInfoHack)
 			{
 				levelInfoHack.ResetPlayer();

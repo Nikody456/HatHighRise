@@ -104,6 +104,6 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     public void StopWalkingSounds()
     {
-        _audioWalkingSrc.Play();
+        _audioWalkingSrc.Stop();
     }
 }

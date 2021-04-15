@@ -14,6 +14,7 @@ public class HatManager : MonoBehaviour
     private Vector2 _lastOffsetVector;
     [SerializeField] SpriteRenderer _characterSpriteHACK;
     Stats _statsHack;
+    private bool _isPlayer;
 
     private int _lastMeleeIndex = -1;
     private int _lastRangedIndex = -1;
@@ -34,6 +35,7 @@ public class HatManager : MonoBehaviour
     {
         _lastOffsetVector = GetCharacterAnimOffset();
         _statsHack.OnHealthChanged += OnPlayerHit;
+        _isPlayer = this.GetComponent<PlayerInput>() != null;
     }
 
     /***********TICK**************************************************************************************************/
@@ -74,7 +76,14 @@ public class HatManager : MonoBehaviour
         hat.transform.parent = _hatStack;
         hat.transform.localPosition = new Vector3(0, GetHeight(_hats.Count), 0);
         hat.SetOrderInSortingLayer(_hats.Count);
-        hat.gameObject.layer = GameConstants.PLAYER_LAYER; //AI also does this?
+        if (_isPlayer)
+        {
+            hat.gameObject.layer = GameConstants.PLAYER_LAYER;
+        }
+        else
+        {
+            hat.gameObject.layer = GameConstants.IGNORE_LAYER;
+        }
         _hats.Add(hat);
         ///This is another hack 
         if (this.GetComponent<PlayerInput>())
@@ -91,7 +100,11 @@ public class HatManager : MonoBehaviour
         hat.OnPutDown();
         _hats.Remove(hat);
         //hat.gameObject.layer = GameConstants.HAT_LAYER;
-        var rb = hat.gameObject.AddComponent<Rigidbody2D>();
+        Rigidbody2D rb = hat.GetComponent<Rigidbody2D>();
+        if (!rb)
+        {
+            rb = hat.gameObject.AddComponent<Rigidbody2D>();
+        }
         rb.AddForce(new Vector2(0, 50));
         StartCoroutine(DestroyHat(rb));
         ///Need to send it flying or make it so it cant be picked up again?

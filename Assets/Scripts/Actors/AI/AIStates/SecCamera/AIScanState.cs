@@ -44,13 +44,11 @@ namespace AI
         {
             if (target != null)
             {
-                _ai.SetState(eAIStates.ATTACK);
-                return true;
+                return  _ai.SetState(eAIStates.ATTACK);
             }
             else if (!_secCamInputAi.IsScanning)
             {
-                _ai.SetState(eAIStates.IDLE);
-                return true;
+                return  _ai.SetState(eAIStates.IDLE);
             }
 
             return false;

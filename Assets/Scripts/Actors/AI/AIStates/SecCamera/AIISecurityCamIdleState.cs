@@ -46,14 +46,11 @@ namespace AI
         {
             if(target!=null)
             {
-                _ai.SetState(eAIStates.ATTACK);
-                return true;
+                return _ai.SetState(eAIStates.ATTACK);
             }
             else if (CheckTime())
             {
-                _ai.SetState(eAIStates.MOVE);
-                return true;
-
+                return _ai.SetState(eAIStates.MOVE);
             }
 
             return false;

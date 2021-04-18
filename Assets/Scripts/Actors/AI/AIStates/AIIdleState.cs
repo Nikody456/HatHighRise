@@ -10,7 +10,12 @@ namespace AI
         AIInput _ai;
 
         float _timeInState = 0f;
-        float _timeToFlipDir = 10f;
+        float _timeToFlipDir = 6f;
+        float _timesFlipped = 0;
+        float _timeToWander = 3;
+        float _turningTime = 0.25f;
+        bool _isTurning = false;
+
         /***********INIT**************************************************************************************************/
 
         public AIIdleState(AIInput ai)
@@ -30,6 +35,8 @@ namespace AI
         public override void OnEnable(Transform target)
         {
             _timeInState = 0;
+            _timesFlipped = 0;
+            _isTurning = false;
             _ai.SetMovement(0);
         }
         /*************************************************************************************************************/
@@ -41,6 +48,7 @@ namespace AI
                 _ai.SetMovement(0);
             }
             _timeInState += Time.deltaTime;
+            //Debug.Log($"_timeInState= {_timeInState}");
         }
         /*************************************************************************************************************/
 
@@ -53,19 +61,34 @@ namespace AI
                 {
                     SwitchFacingDir();
                     ///Return true to give us one frame of movement the other dir
-                    ///otherwise we get set to 0 immediately after returning false
-                    ///If we want AI to try to patrol, we can set another timer for how long they
-                    ///go this DIR. or create a new patrol class
-                    return true; 
+                    return true;
+                }
+                else if (_timesFlipped > _timeToWander)
+                {
+                    //This is like a mega hack to get ourselves unstuck on walls
+                    //since simply setting the _aiMoveDir doesnt work in 1 frame to switch dir.
+                    System.Random rng = new System.Random();
+                    if (rng.Next() % 2 == 0)
+                    {
+                        //Debug.Log($"<color=green> go wander</color>");
+                        SwitchFacingDir();
+                        --_timesFlipped;
+                        return true;
+                    }
+                    return _ai.SetState(eAIStates.MOVE);
+                }
+                else if (_isTurning)
+                {
+                    if (_timeInState > _turningTime)
+                        _isTurning = false;
+                    return true;
                 }
                 return TryFindTarget();
             }
             if (Mathf.Abs(Vector3.Distance(_ai.transform.position, target.position)) < _ai.DetectionRange)
             {
-                _ai.SetState(eAIStates.MOVE);
-                return true;
+                return _ai.SetState(eAIStates.MOVE);
             }
-
             return false;
         }
 
@@ -75,7 +98,7 @@ namespace AI
             var ourPos = _ai.transform.position;
             Vector3 facingDir = _ai.FacingDir;
             List<RaycastHit2D> results = new List<RaycastHit2D>();
-               //Something in here is slightly off, raycast range is slightly farther than detectionRange like 15.3 vs 15
+            //Something in here is slightly off, raycast range is slightly farther than detectionRange like 15.3 vs 15
             int numHits = Physics2D.Raycast(ourPos, facingDir, _ai.DetectionInfo, results, _ai.DetectionRange);
             for (int i = 0; i < numHits; i++)
             {
@@ -107,6 +130,7 @@ namespace AI
 
         protected void SwitchFacingDir()
         {
+            //Debug.Log($"<color=red> SWITCHFACING DIR</color>");
             if (_ai.FacingDir == Vector3.right)
             {
                 _ai.SetMovement(-1);
@@ -115,7 +139,9 @@ namespace AI
             {
                 _ai.SetMovement(1);
             }
+            _isTurning = true;
             _timeInState = 0;
+            ++_timesFlipped;
         }
     }
 }

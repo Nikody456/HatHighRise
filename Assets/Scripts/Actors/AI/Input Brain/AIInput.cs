@@ -52,7 +52,7 @@ namespace AI
         public float AttackRange => _atkRange;
         public ContactFilter2D DetectionInfo => _detectionInfo.DetectionInfo;
         public Vector3 FacingDir => _movement.isFacingRight() ? transform.right : -transform.right;
-        public void SetState(AIState.eAIStates state)
+        public bool SetState(AIState.eAIStates state)
         {
             if(_currentState.CanExit(state))
             {
@@ -63,7 +63,9 @@ namespace AI
                     _currentState = nextState;
                     _currentState.OnEnable(_target);
                 }
+                return true;
             }
+            return false;
         }
         public void SetTarget(Transform newTarget)
         {

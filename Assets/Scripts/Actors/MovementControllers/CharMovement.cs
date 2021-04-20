@@ -201,4 +201,9 @@ public class CharMovement : ActorMovement
     {
         AudioManager.Instance.PlaySFX("stepSound");
     }
+
+    private void GuardFootStep()
+    {
+        AudioManager.Instance.PlaySFX("guardStepSound");
+    }
 }

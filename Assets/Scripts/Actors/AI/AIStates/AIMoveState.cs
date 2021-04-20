@@ -107,6 +107,17 @@ namespace AI
 
         private bool CheckIfObstacleToJumpOver()
         {
+            bool hitSomething = false;
+            Vector3 posInFront = (_ai.transform.position + _ai.FacingDir);
+            Vector2 origin2D = new Vector2(posInFront.x, posInFront.y);
+
+            if (Physics2D.Raycast(origin2D, _ai.FacingDir, _howFarToCheckDown, _groundLayer))
+            {
+                hitSomething = true;
+                //Debug.DrawRay(posInFront, direction2D, Color.blue, 2);
+                var direction2DUp = Vector2.up;
+            }
+
             return false;
         }
 

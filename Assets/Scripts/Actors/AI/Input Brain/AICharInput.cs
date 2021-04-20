@@ -25,8 +25,6 @@ namespace AI
             _attackState = new AIAttackState(this, _charMovement.TryMeleeAttack);
             _jumpState = new AIJumpState(this, _charMovement.TryJump);
             _currentState = _idleState;
-            ///Todo make jump state
-
         }
         /*************************************************************************************************************/
 

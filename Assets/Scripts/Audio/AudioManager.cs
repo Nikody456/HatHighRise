@@ -55,6 +55,9 @@ public class AudioManager : MonoSingleton<AudioManager>
                 case "alarmSound":
                     _audioSFXSrc.PlayOneShot(_sounds[10]);
                     break;
+                case "guardStepSound":
+                    _audioSFXSrc.PlayOneShot(_sounds[11]);
+                    break;
                 default:
                     Debug.LogError("There is no sound with the given name:" + sound);
                     break;

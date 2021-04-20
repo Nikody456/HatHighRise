@@ -172,9 +172,4 @@ public class PlayerMovement : CharMovement
         Gizmos.DrawCube(boxPositionL, new Vector3(.125f, transform.GetComponent<BoxCollider2D>().size.y - .25f, 1));
     }
 
-    private void FootStep()
-    {
-        AudioManager.Instance.PlaySFX("stepSound");
-    }
-
 }

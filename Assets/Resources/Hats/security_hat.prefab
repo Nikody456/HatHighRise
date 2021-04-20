@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6459596953143065348}
   - component: {fileID: 6459596953143065344}
   m_Layer: 10
-  m_Name: yellow_hat
+  m_Name: security_hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6459596953143065349}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.1864552, y: -2.292983, z: 0}
+  m_LocalPosition: {x: -6.2000003, y: 23.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

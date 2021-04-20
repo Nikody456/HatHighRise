@@ -10,6 +10,7 @@ public class ScoringDummyMovement : MonoBehaviour
     [SerializeField] ScoreIncriminator _scoreCounter;
     [SerializeField] Transform _endGoal = default;
     [SerializeField] bool _isFinalLevel = false;
+    [SerializeField] GameObject _quitMenuHack = default;
     private CharMovement _dummy;
     private List<GameObject> _hatsToScore = new List<GameObject>();
 
@@ -76,6 +77,8 @@ public class ScoringDummyMovement : MonoBehaviour
             else
             {
                 ///Show quit Menu?
+               if(_quitMenuHack)
+                    _quitMenuHack.SetActive(true);
             }
         }
     }

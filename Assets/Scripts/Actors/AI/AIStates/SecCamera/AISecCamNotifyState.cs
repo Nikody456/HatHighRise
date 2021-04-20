@@ -42,6 +42,7 @@ namespace AI
             if (!CheckExitConditions(target))
             {
                 DoAttack();
+                AudioManager.Instance.PlaySFX("alarmSound");
             }
         }
 

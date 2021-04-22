@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6459596953143065348}
   - component: {fileID: 6459596953143065344}
   m_Layer: 10
-  m_Name: yellow_hat
+  m_Name: security_hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,6 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hatData: {fileID: 11400000, guid: 133d47eec17e519469a96bf5568dfb93, type: 2}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!50 &6459596953143065344
 Rigidbody2D:
   serializedVersion: 4

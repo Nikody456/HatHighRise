@@ -8,6 +8,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] bool clampCameraPosition;
     [SerializeField] Vector3 minClamp;
     [SerializeField] Vector3 maxClamp;
+
+    private Vector3 currentMin;
+    private Vector3 currentMax;
+
     public ClampArea clampArea;
     private Vector3 initialOffset;
     [SerializeField] Rigidbody2D charRigidbody;
@@ -17,15 +21,16 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         initialOffset = transform.localPosition;
+        currentMin = minClamp;
+        currentMax = maxClamp;
     }
 
     private void Update()
     {
-        if(clampArea == null)
-        {
-            clampCameraPosition = false;
-        }
-        else
+        currentMin = Vector3.Lerp(currentMin, minClamp, lerpSpeed * 3 * Time.deltaTime);
+        currentMax = Vector3.Lerp(currentMax, maxClamp, lerpSpeed * 3 * Time.deltaTime);
+
+        if (clampArea != null && !clampCameraPosition)
         {
             clampCameraPosition = true;
         }
@@ -49,9 +54,9 @@ public class CameraController : MonoBehaviour
 
     Vector3 VectorClamp(Vector3 vector)
     {
-        return new Vector3(Mathf.Clamp(vector.x, minClamp.x, maxClamp.x),
-                           Mathf.Clamp(vector.y, minClamp.y, maxClamp.y),
-                           Mathf.Clamp(vector.z, minClamp.z, maxClamp.z));
+        return new Vector3(Mathf.Clamp(vector.x, currentMin.x, currentMax.x),
+                           Mathf.Clamp(vector.y, currentMin.y, currentMax.y),
+                           Mathf.Clamp(vector.z, currentMin.z, currentMax.z));
     }
 
     public void SetClamps(Vector3 minClamp, Vector3 maxClamp)

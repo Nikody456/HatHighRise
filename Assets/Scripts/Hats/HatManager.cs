@@ -54,7 +54,18 @@ public class HatManager : MonoBehaviour
             }
            
         }
-  
+
+        if (_hats.Count > 0)
+        {
+            var mostRecentHat = _hats.ToArray()[_hats.Count - 1];
+
+            if (mostRecentHat.CheckForIntersect())
+            {
+                OnPlayerHit(0);
+            }
+
+        }
+
     }
 
 

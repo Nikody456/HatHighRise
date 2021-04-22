@@ -7,6 +7,7 @@ namespace AI
     [RequireComponent(typeof(CharMovement))]
     public class AICharInput : AIInput
     {
+       
         [SerializeField] LayerMask _groundLayer = default;
         private AIState _jumpState;
         private CharMovement _charMovement;
@@ -21,7 +22,7 @@ namespace AI
         protected override void CreateStates()
         {
             _idleState = new AIIdleState(this);
-            _moveState = new AIMoveState(this, _groundLayer);
+            _moveState = new AIMoveState(this, _groundLayer, _detectionInfo.DetectionInfo);
             _attackState = new AIAttackState(this, _charMovement.TryMeleeAttack);
             _jumpState = new AIJumpState(this, _charMovement.TryJump);
             _currentState = _idleState;
@@ -31,6 +32,7 @@ namespace AI
         protected override AIState GetAIState(AIState.eAIStates nextState)
         {
             AIState state = null;
+            ///Could put enums into an array 
             switch (nextState)
             {
                 case AIState.eAIStates.IDLE:

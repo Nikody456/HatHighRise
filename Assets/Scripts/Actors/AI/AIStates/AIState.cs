@@ -7,6 +7,9 @@ namespace AI
 {
     public abstract class AIState
     {
+        protected float _howFarToCheckInFront = 1f;
+        protected float _howFarToCheckDown = 2f;
+        protected ContactFilter2D _contactFilter;///HACK
         protected AIInput _ai;
         public enum eAIStates { IDLE, MOVE, ATTACK, JUMP, DEATH }
 
@@ -28,6 +31,30 @@ namespace AI
 
 
 
+        protected bool GoingToHitWall()
+        {
+            Vector3 posInFront = (_ai.transform.position + _ai.FacingDir);
+            Vector2 origin2D = new Vector2(posInFront.x, posInFront.y);
+            Vector2 dir2D = new Vector2(_ai.FacingDir.x, 0);
+            var howFarToCheckHoriz = _howFarToCheckDown / 2;
+            List<RaycastHit2D> results = new List<RaycastHit2D>();
+            Debug.DrawRay(origin2D, _ai.FacingDir * howFarToCheckHoriz, Color.green, 1);
+            var hits = Physics2D.Raycast(origin2D, dir2D, _contactFilter, results, howFarToCheckHoriz);
+
+            return hits > 1;
+        }
+        protected bool GoingToHitWallBehind()
+        {
+            Vector3 posInFront = (_ai.transform.position - _ai.FacingDir);
+            Vector2 origin2D = new Vector2(posInFront.x, posInFront.y);
+            Vector2 dir2D = new Vector2(-_ai.FacingDir.x, 0);
+            var howFarToCheckHoriz = _howFarToCheckDown * 2;
+            List<RaycastHit2D> results = new List<RaycastHit2D>();
+            Debug.DrawRay(origin2D, -_ai.FacingDir * howFarToCheckHoriz, Color.magenta, 1);
+            var hits = Physics2D.Raycast(origin2D, dir2D, _contactFilter, results, howFarToCheckHoriz);
+
+            return hits > 1;
+        }
         protected virtual float PickADirection(Vector3 pos)
         {
             ///MOVE TOWARDS

@@ -9,9 +9,6 @@ namespace AI
     {
 
         LayerMask _groundLayer;
-        ContactFilter2D _contactFilter;
-        float _howFarToCheckInFront = 1f;
-        float _howFarToCheckDown = 2f;
 
         bool _isWandering = false;
         float _timeInState = 0f;
@@ -110,7 +107,9 @@ namespace AI
                     _ai.SetMovement(_moveDir);
                     return _ai.SetState(eAIStates.JUMP);
                 }
-                SwitchFacingDir();
+                //SwitchFacingDir();
+                _randomMoveDir = 0;
+                Debug.Log($"Move 1");
                 return _ai.SetState(eAIStates.IDLE);
             }
 
@@ -128,7 +127,7 @@ namespace AI
             //if (Physics2D.Raycast(origin2D, _ai.FacingDir, howFarToCheckHoriz, _groundLayer))
             //RaycastHit2D[] results;
             List<RaycastHit2D> results = new List<RaycastHit2D>();
-            //Debug.DrawRay(origin2D, _ai.FacingDir * howFarToCheckHoriz, Color.blue, 2);
+            Debug.DrawRay(origin2D, _ai.FacingDir * howFarToCheckHoriz, Color.blue, 2);
             var hits = Physics2D.Raycast(origin2D, dir2D, _contactFilter, results, howFarToCheckHoriz);
             ///This might be problematic as canJumpverOver can get set to true once and never undo?
             foreach (var hit in results)
@@ -188,6 +187,11 @@ namespace AI
                         _randomMoveDir = 0;
                     else
                         _randomMoveDir = even % 2 == 0 ? -1 : 1;
+
+                    if(randDirWillHitWall())
+                    {
+                        _randomMoveDir = 0;
+                    }
                 }
             }
             else
@@ -196,18 +200,21 @@ namespace AI
             }
         }
 
-        private bool GoingToHitWall()
+        private bool randDirWillHitWall()
         {
-            Vector3 posInFront = (_ai.transform.position + _ai.FacingDir);
+            ///MY BRAIN IS FRIED 
+            Vector3 ranDir = new Vector3(_randomMoveDir, 0, 0);
+            Vector3 posInFront = (_ai.transform.position + ranDir);
             Vector2 origin2D = new Vector2(posInFront.x, posInFront.y);
-            Vector2 dir2D = new Vector2(_ai.FacingDir.x, 0);
-            var howFarToCheckHoriz = _howFarToCheckDown /2 ;
+            Vector2 dir2D = new Vector2(_randomMoveDir, 0);
+            var howFarToCheckHoriz = _howFarToCheckDown / 2;
             List<RaycastHit2D> results = new List<RaycastHit2D>();
-            Debug.DrawRay(origin2D, _ai.FacingDir * howFarToCheckHoriz, Color.green, 1);
+            Debug.DrawRay(origin2D, ranDir * howFarToCheckHoriz, Color.green, 1);
             var hits = Physics2D.Raycast(origin2D, dir2D, _contactFilter, results, howFarToCheckHoriz);
 
-            return hits > 1;
-        }
 
+
+            return hits!=0;
+        }
     }
 }

@@ -17,9 +17,10 @@ namespace AI
 
         /***********INIT**************************************************************************************************/
 
-        public AIIdleState(AIInput ai)
+        public AIIdleState(AIInput ai, ContactFilter2D contactFilter)
         {
             _ai = ai;
+            _contactFilter = contactFilter;
         }
         /*************************************************************************************************************/
 
@@ -47,9 +48,14 @@ namespace AI
         {
             if (target == null)
             {
-                if (_timeInState > _timeToFlipDir )
+                bool canFlipAround = (!GoingToHitWall() && !GoingToHitWallBehind());
+                if (_timeInState > _timeToFlipDir)
                 {
-                    SwitchFacingDir();
+                    if (canFlipAround)
+                    {
+                        SwitchFacingDir();
+                        Debug.Log("1");
+                    }
                     ///Return true to give us one frame of movement the other dir
                     return true;
                 }
@@ -57,15 +63,24 @@ namespace AI
                 {
                     //This is like a mega hack to get ourselves unstuck on walls
                     //since simply setting the _aiMoveDir doesnt work in 1 frame to switch dir.
-                    System.Random rng = new System.Random();
-                    if (rng.Next() % 2 == 0)
+                    if (canFlipAround)
                     {
-                        //Debug.Log($"<color=green> go wander</color>");
-                        SwitchFacingDir();
-                        --_timesFlipped;
-                        return true;
+                        System.Random rng = new System.Random();
+                        if (rng.Next() % 2 == 0)
+                        {
+                            //Debug.Log($"<color=green> go wander</color>");
+
+                            SwitchFacingDir();
+                            Debug.Log("2");
+
+                            --_timesFlipped;
+                            return true;
+                        }
+
+                        Debug.Log("3");
+                        return _ai.SetState(eAIStates.MOVE);
+
                     }
-                    return _ai.SetState(eAIStates.MOVE);
                 }
                 else if (_isTurning)
                 {
@@ -73,7 +88,7 @@ namespace AI
                         _isTurning = false;
                     return true;
                 }
-                else if (MultipleGuardsOnTopOfMe())
+                else if (MultipleGuardsOnTopOfMe() && !GoingToHitWall() && !GoingToHitWallBehind())
                 {
                     System.Random rng = new System.Random();
                     if (rng.Next() % 2 == 0)
@@ -88,11 +103,13 @@ namespace AI
             {
                 if (TargetIsBehindMe(target))
                 {
+                    Debug.Log("5");
                     SwitchFacingDir();
                     return true;
                 }
                 if (Mathf.Abs(Vector3.Distance(_ai.transform.position, target.position)) < _ai.DetectionRange)
                 {
+                    Debug.Log("6");
                     return _ai.SetState(eAIStates.MOVE);
                 }
             }

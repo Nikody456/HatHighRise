@@ -196,7 +196,6 @@ namespace Statistics
         {
             GetListForModifier(modifier.Stat).Add(modifier);
             ///xfer the modifier to us and reset
-
             HandleModifierExpections(modifier, true);
         }
 

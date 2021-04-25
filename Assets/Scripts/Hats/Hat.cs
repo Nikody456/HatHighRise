@@ -61,7 +61,10 @@ public class Hat : MonoBehaviour
 
     public void OnPutDown()
     {
-        _myStats.RemoveModifier(Modifier);
+        if (_myStats)
+        {
+            _myStats.RemoveModifier(Modifier);
+        }
         /// tell the characterView to remove this
         IsPickedUp = false;
         _myStats = null;

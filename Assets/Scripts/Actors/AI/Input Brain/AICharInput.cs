@@ -66,8 +66,19 @@ namespace AI
 
         /*************************************************************************************************************/
 
+        public void AttemptDelayedDoubleJump()
+        {
+            StartCoroutine(TryDoubleJump());
+        }
         /*************************************************************************************************************/
 
-
+        IEnumerator TryDoubleJump()
+        {
+            ///Not sure why this doesnt prock sometimes but kinda have to spam it w 2 inputs
+            ///depsite the inital call setting this, so it shud be three attempts..
+            _charMovement.TryJump();
+            yield return new WaitForSeconds(0.25f);
+            _charMovement.TryJump();
+        }
     }
 }

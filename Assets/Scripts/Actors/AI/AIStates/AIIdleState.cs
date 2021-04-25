@@ -48,13 +48,12 @@ namespace AI
         {
             if (target == null)
             {
-                bool canFlipAround = (!GoingToHitWall() && !GoingToHitWallBehind());
+                bool canFlipAround = !GoingToHitWallBehind();
                 if (_timeInState > _timeToFlipDir)
                 {
                     if (canFlipAround)
                     {
                         SwitchFacingDir();
-                        Debug.Log("1");
                     }
                     ///Return true to give us one frame of movement the other dir
                     return true;
@@ -63,6 +62,7 @@ namespace AI
                 {
                     //This is like a mega hack to get ourselves unstuck on walls
                     //since simply setting the _aiMoveDir doesnt work in 1 frame to switch dir.
+
                     if (canFlipAround)
                     {
                         System.Random rng = new System.Random();
@@ -71,13 +71,10 @@ namespace AI
                             //Debug.Log($"<color=green> go wander</color>");
 
                             SwitchFacingDir();
-                            Debug.Log("2");
-
                             --_timesFlipped;
                             return true;
                         }
 
-                        Debug.Log("3");
                         return _ai.SetState(eAIStates.MOVE);
 
                     }
@@ -103,13 +100,12 @@ namespace AI
             {
                 if (TargetIsBehindMe(target))
                 {
-                    Debug.Log("5");
                     SwitchFacingDir();
                     return true;
                 }
                 if (Mathf.Abs(Vector3.Distance(_ai.transform.position, target.position)) < _ai.DetectionRange)
                 {
-                    Debug.Log("6");
+
                     return _ai.SetState(eAIStates.MOVE);
                 }
             }

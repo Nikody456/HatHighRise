@@ -14,7 +14,7 @@ namespace AI
         float _timeInState = 0f;
         float _timeToStopWander = 2f;
         float _timeAboveMeVertically = 0;
-        float _timeToGiveUpVertically = 2;
+        float _timeToGiveUpVertically = 15;
 
         float _moveDir = 1;
         float _randomMoveDir = 0;
@@ -61,7 +61,6 @@ namespace AI
                         float randTime = ((float)new System.Random().Next(1, 100)) / 10;
                         _randomMoveTime += _timeInState + randTime;
                         _ai.SetMovement(_randomMoveDir);
-
                     }
                     else
                     {
@@ -88,12 +87,12 @@ namespace AI
                     _timeAboveMeVertically += Time.deltaTime;
                     if (_timeAboveMeVertically > _timeToGiveUpVertically)
                     {
+                        _ai.SetTarget(null);
                         return _ai.SetState(eAIStates.IDLE);
                     }
                 }
                 else
                     _timeAboveMeVertically = 0;
-
             }
 
             if (GoingToFallOffEdge())
@@ -109,7 +108,6 @@ namespace AI
                 }
                 //SwitchFacingDir();
                 _randomMoveDir = 0;
-                Debug.Log($"Move 1");
                 return _ai.SetState(eAIStates.IDLE);
             }
 
@@ -141,7 +139,7 @@ namespace AI
                 Debug.DrawRay(origin2D, displacementDir * howFarToCheckHoriz, Color.yellow, 2);
                 if (!Physics2D.Raycast(origin2D, displacementDir, howFarToCheckHoriz, _groundLayer))
                 {
-                    Debug.Log($"The guard HIT {hit.collider.gameObject} .. trying to jump over it:");
+                    //Debug.Log($"The guard HIT {hit.collider.gameObject} .. trying to jump over it:");
                     canJumpOver = true;
                 }
             }

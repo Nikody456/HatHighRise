@@ -189,5 +189,15 @@ namespace AI
             }
             return count;
         }
+
+        protected override void Update()
+        {
+            base.Update();
+            if(Input.GetKeyDown(KeyCode.P))
+            {
+                _securityDoor.SpawnGuard();
+            }
+        }
+
     }
 }

@@ -41,19 +41,19 @@ namespace AI
             Debug.DrawRay(origin2D, _ai.FacingDir * howFarToCheckHoriz, Color.green, 1);
             var hits = Physics2D.Raycast(origin2D, dir2D, _contactFilter, results, howFarToCheckHoriz);
 
-            return hits > 1;
+            return hits > 0;
         }
         protected bool GoingToHitWallBehind()
         {
-            Vector3 posInFront = (_ai.transform.position - _ai.FacingDir);
-            Vector2 origin2D = new Vector2(posInFront.x, posInFront.y);
+            Vector3 posBehind = (_ai.transform.position - _ai.FacingDir);
+            Vector2 origin2D = new Vector2(posBehind.x, posBehind.y);
             Vector2 dir2D = new Vector2(-_ai.FacingDir.x, 0);
-            var howFarToCheckHoriz = _howFarToCheckDown * 2;
+            var howFarToCheckHoriz = _howFarToCheckDown /2 ;
             List<RaycastHit2D> results = new List<RaycastHit2D>();
             Debug.DrawRay(origin2D, -_ai.FacingDir * howFarToCheckHoriz, Color.magenta, 1);
             var hits = Physics2D.Raycast(origin2D, dir2D, _contactFilter, results, howFarToCheckHoriz);
 
-            return hits > 1;
+            return hits > 0;
         }
         protected virtual float PickADirection(Vector3 pos)
         {

@@ -1,4 +1,5 @@
 ﻿#pragma warning disable CS0649 // Ignore : "Field is never assigned to, and will always have its default value"
+using Statistics;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,8 +26,13 @@ namespace AI
             ///TRY DO JUMP
             if (!CheckExitConditions(target) && _doJump())
             {
-                _aiChar.SetState(eAIStates.IDLE);
+                //If can Jump Again... try it after short delay?
+                if (_aiChar.GetComponent<Stats>().CurrentJumpLimit > 1)
+                {
+                    _aiChar.AttemptDelayedDoubleJump();
+                }
             }
+                    _aiChar.SetState(eAIStates.IDLE);
         }
         /*************************************************************************************************************/
 

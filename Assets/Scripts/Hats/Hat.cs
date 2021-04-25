@@ -9,6 +9,7 @@ using Statistics;
 public class Hat : MonoBehaviour
 {
     [SerializeField] HatData _hatData = default;
+    [SerializeField] LayerMask _layerMask = default;
     public Modifier Modifier { get; private set; }
     public bool IsPickedUp { get; private set; }
 
@@ -79,6 +80,17 @@ public class Hat : MonoBehaviour
     }
 
     public void SetOrderInSortingLayer(int order){ _spriteRenderer.sortingOrder = order; }
+
+    public bool CheckForIntersect()
+    {
+        _collider.enabled = false;
+
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, new Vector3(transform.localScale.x / 2, transform.localScale.y / 2,100), 0, _layerMask);
+
+        return (hitColliders.Length > 0);
+
+    }
+
     /***************************************************************************************************************/
 
     private void EnforcePhysics()
@@ -88,6 +100,12 @@ public class Hat : MonoBehaviour
         if(_rb)
             _rb.isKinematic = false;
         
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, transform.localScale);
     }
 
 

@@ -25,7 +25,7 @@ public class SecDoor : MonoBehaviour
         _animator.SetTrigger(_triggerName);
         var guard = Instantiate(_secGuardPREFAB);
         guard.transform.position = this.transform.position;
-
+        AudioManager.Instance.PlaySFX("alarmSound");
     }
 
 }

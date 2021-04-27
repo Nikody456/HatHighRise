@@ -123,6 +123,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hatData: {fileID: 11400000, guid: 726c8d556f6be554b891e5bdf1e3562a, type: 2}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  canPickup: 1
+  maxCollisionTime: 0.25
 --- !u!50 &5169782544901731219
 Rigidbody2D:
   serializedVersion: 4

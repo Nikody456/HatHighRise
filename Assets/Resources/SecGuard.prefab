@@ -248,11 +248,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1551c538ef02fd548bafb8959d202fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aiLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   _target: {fileID: 0}
   _detectionRange: 15
   _atkRange: 6.5
   _detectionInfo: {fileID: 11400000, guid: 3f50a49a8d310e143879c5665e633483, type: 2}
   _debuggCurrState: 
+  _contactFilterGround: {fileID: 11400000, guid: 2653e37fe850a924fa9bdc8c7866efad,
+    type: 2}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 4097

@@ -53,7 +53,6 @@ public class CharMovement : ActorMovement
         //Determine if the player is grounded each frame
         _isGrounded = isGrounded();
         _view.SetIsGrounded(_isGrounded);
-
         if (_isGrounded)
         {
             _moveDirection = Mathf.Lerp(_moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
@@ -96,17 +95,10 @@ public class CharMovement : ActorMovement
 
     public void TrySprint()
     {
-        if (isGrounded())
+        if (isGrounded() && Mathf.Abs(_input) > .25f)
         {
             _currentSpeed = _playerStats.CurrentSprintSpeed; //set player speed to sprint speed
-            if (Mathf.Abs(_input) > .25f) //if the character is moving enough, use particles
-            {
-                sprintParticles.Play();
-            }
-            else
-            {
-                sprintParticles.Stop();
-            }
+            sprintParticles.Play();
         }
         else
         {

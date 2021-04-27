@@ -121,7 +121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3581617202464624830}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.937, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3581617203901105273}
@@ -202,7 +202,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -4823,8 +4823,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1302541211
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_RenderMode: 0
   m_SortMode: 0
@@ -4950,10 +4950,6 @@ MonoBehaviour:
   clampCameraPosition: 0
   minClamp: {x: -4.57, y: -34.1, z: -10}
   maxClamp: {x: 145.64, y: 6.91, z: -10}
-  size: {x: 33.46, y: 18.32}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 1
   clampArea: {fileID: 0}
   charRigidbody: {fileID: 3581617203901105270}
   lerpSpeed: 2

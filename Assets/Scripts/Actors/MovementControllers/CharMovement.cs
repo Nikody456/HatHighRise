@@ -49,7 +49,7 @@ public class CharMovement : ActorMovement
 
     protected override void DoMovement()
     {
-        _currentSpeed = _playerStats.CurrentMoveSpeed; ///Need to get every frame, not just at start
+        _currentSpeed = sprintParticles.isPlaying? _playerStats.CurrentSprintSpeed : _playerStats.CurrentMoveSpeed; ///Need to get every frame, not just at start
         //Determine if the player is grounded each frame
         _isGrounded = isGrounded();
         _view.SetIsGrounded(_isGrounded);
@@ -58,7 +58,7 @@ public class CharMovement : ActorMovement
 
         if (GetComponent<HatManager>())
         {
-            useSpeed = Mathf.Clamp(_currentSpeed - (GetComponent<HatManager>().getNumHats()), _currentSpeed / 2, _currentSpeed);
+            useSpeed = Mathf.Clamp(_currentSpeed - .5f * (GetComponent<HatManager>().getNumHats()), _currentSpeed / 2, _currentSpeed);
         }
 
         if (_isGrounded)

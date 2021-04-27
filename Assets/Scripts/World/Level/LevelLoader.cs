@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LevelLoader : MonoSingleton<LevelLoader>
 {
-    string _firstLevelName = "Level_0";
+    string _firstLevelName = "Level_intro";
     int _scoringSceneIndex = 1;
     int _currentSceneIndex = 0;
     Scene _currentScene;
@@ -15,21 +15,31 @@ public class LevelLoader : MonoSingleton<LevelLoader>
 
     private void Start()
     {
-       
+
     }
 
-    public void LoadFirstLevel()
+    /// <summary>
+    /// Called from Button
+    /// </summary>
+    public void LoadIntroLevel()
     {
         var parameters = new LoadSceneParameters(LoadSceneMode.Single);
         if (_firstLevelName.Equals(""))
         {
-             _currentScene = SceneManager.LoadScene(_scoringSceneIndex+1, parameters);
+            _currentScene = SceneManager.LoadScene(_scoringSceneIndex + 1, parameters);
         }
         else
         {
             _currentScene = SceneManager.LoadScene(_firstLevelName, parameters);
         }
         _currentSceneIndex = _currentScene.buildIndex;
+
+    }
+
+    public void LoadFirstLevel()
+    {
+        var parameters = new LoadSceneParameters(LoadSceneMode.Single);
+        _currentScene = SceneManager.LoadScene(++_currentSceneIndex, parameters);
         //Init our score prefs
         PlayerPrefs.SetInt(GameConstants.HAT_SCORE_KEY, 0);
         Instantiate(Resources.Load<GameObject>("UI/GameCanvas"));

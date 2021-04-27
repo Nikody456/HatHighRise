@@ -126,6 +126,8 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 1
+  canPickup: 1
+  maxCollisionTime: 0.25
 --- !u!50 &7438333112177768538
 Rigidbody2D:
   serializedVersion: 4

@@ -11,6 +11,7 @@ public class ComicScroller : MonoBehaviour
 
     float _extraScrollSpeed;
     private bool _enabled = false;
+    private bool _paused;
 
     private void Start()
     {
@@ -22,6 +23,9 @@ public class ComicScroller : MonoBehaviour
 
         if (_enabled)
         {
+            if (CheckPaused())
+                return;
+
             CalculateExtraScrollSpeed();
             var myPos = transform.localPosition;
             if (myPos.x != Mathf.Infinity)
@@ -42,13 +46,22 @@ public class ComicScroller : MonoBehaviour
         _extraScrollSpeed = _extraScrollSpeed / 2;
     }
 
+    private bool CheckPaused()
+    {
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            _paused = !_paused;
+        }
+        return _paused;
+    }
+
     private void CalculateExtraScrollSpeed()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             _extraScrollSpeed += -_posToScrollToX / 4 * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             _extraScrollSpeed += _posToScrollToX / 4 * Time.deltaTime;
         }

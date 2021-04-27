@@ -58,7 +58,7 @@ public class CharMovement : ActorMovement
 
         if (GetComponent<HatManager>())
         {
-            useSpeed = Mathf.Clamp(_currentSpeed - (GetComponent<HatManager>().getNumHats()), _currentSpeed / 2, _currentSpeed);
+            useSpeed = Mathf.Clamp(_currentSpeed - .5f * (GetComponent<HatManager>().getNumHats()), _currentSpeed / 2, _currentSpeed);
         }
 
         if (_isGrounded)

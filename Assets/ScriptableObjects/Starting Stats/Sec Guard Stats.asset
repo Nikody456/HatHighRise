@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sec Guard Stats
   m_EditorClassIdentifier: 
   _hpMax: 1
-  _baseJump: 4
-  _baseMove: 3
+  _baseJump: 8
+  _baseMove: 4
   _baseSprint: 5
   _attack: 1
   _defense: 1

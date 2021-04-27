@@ -7,6 +7,9 @@ namespace AI
     [RequireComponent(typeof(ActorMovement))]
     public abstract class AIInput : MonoBehaviour
     {
+        ///A HACK To smash in a feature at the end
+        public LayerMask _aiLayerMask = default;
+
         [SerializeField] protected Transform _target = default;
         ///THESE STATS MAY WANT TO BE READ OFF A SCRIPTABLE OBJ FOR A TYPE OF ENEMY
         [SerializeField] protected float _detectionRange = default;

@@ -51,21 +51,20 @@ namespace AI
          
             if (target==null)
             {
-                return true;
+                return _ai.SetState(eAIStates.IDLE);
             }
             ///Obv refactor this
             else if (Vector3.Distance(_ai.transform.position, target.position) > _ai.DetectionRange)
             {
-                _ai.SetState(eAIStates.IDLE);
-                return true;
+                return _ai.SetState(eAIStates.IDLE);
             }
             else if(Vector3.Distance(_ai.transform.position, target.position) > _ai.AttackRange)
             {
-                _ai.SetState(eAIStates.MOVE);
-                return true;
+                return  _ai.SetState(eAIStates.MOVE);
             }
             if(_attackDelay < _attackDelayMax)
             {
+                FaceTarget(target);
                 _attackDelay += Time.deltaTime;
                 _ai.SetMovement(0);
                 return true;
@@ -74,6 +73,16 @@ namespace AI
             return false;
         }
 
+        protected void FaceTarget(Transform target)
+        {
+            bool dir = (_ai.transform.position.x > target.position.x);
+            var faceDir = dir ? -1 : 1;
+            if (_ai.FacingDir.x != faceDir)
+            {
+                _ai.SetMovement(faceDir);
+            }
+        }
+        
 
         protected virtual void DoAttack()
         {

@@ -45,11 +45,11 @@ public class CharMovement : ActorMovement
     protected override void Start()
     {
         base.Start();
-        _currentSpeed = _playerStats.CurrentMoveSpeed;
     }
 
     protected override void DoMovement()
     {
+        _currentSpeed = _playerStats.CurrentMoveSpeed; ///Need to get every frame, not just at start
         //Determine if the player is grounded each frame
         _isGrounded = isGrounded();
         _view.SetIsGrounded(_isGrounded);

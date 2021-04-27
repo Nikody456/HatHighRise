@@ -86,6 +86,11 @@ public class HatManager : MonoBehaviour
         OnPutDownHat(mostRecentHat);
     }
 
+    public int getNumHats()
+    {
+        return _hats.Count;
+    }
+
     public void OnPickUpHat(Hat hat)
     {
 

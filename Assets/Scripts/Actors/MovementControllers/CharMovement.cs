@@ -53,9 +53,17 @@ public class CharMovement : ActorMovement
         //Determine if the player is grounded each frame
         _isGrounded = isGrounded();
         _view.SetIsGrounded(_isGrounded);
+
+        float useSpeed = _currentSpeed;
+
+        if (GetComponent<HatManager>())
+        {
+            useSpeed = Mathf.Clamp(_currentSpeed - (GetComponent<HatManager>().getNumHats()), _currentSpeed / 2, _currentSpeed);
+        }
+
         if (_isGrounded)
         {
-            _moveDirection = Mathf.Lerp(_moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
+            _moveDirection = Mathf.Lerp(_moveDirection, _input * useSpeed, friction * Time.deltaTime);
 
             //Reset Jumps
             if (_controller.velocity.y <= 0)
@@ -65,7 +73,7 @@ public class CharMovement : ActorMovement
         }
         else
         {
-            _moveDirection = Mathf.Lerp(_moveDirection, _input * _currentSpeed, airFriction * Time.deltaTime);
+            _moveDirection = Mathf.Lerp(_moveDirection, _input * useSpeed, airFriction * Time.deltaTime);
         }
 
         //set velocity of the character

@@ -55,9 +55,14 @@ public class HatManager : MonoBehaviour
            
         }
 
-        if (_hats.Count > 0)
+        if (_hats.Count > 0 && _isPlayer)
         {
             var mostRecentHat = _hats.ToArray()[_hats.Count - 1];
+
+            for (int i = 0; i < _hats.Count - 1; i++)
+            {
+                _hats.ToArray()[i].GetComponent<Collider2D>().enabled = false;
+            }
 
             if (mostRecentHat.CheckForIntersect())
             {
@@ -83,6 +88,7 @@ public class HatManager : MonoBehaviour
 
     public void OnPickUpHat(Hat hat)
     {
+
         //Debug.Log("I am picking up a hat");
         hat.transform.parent = _hatStack;
         hat.transform.localPosition = new Vector3(0, GetHeight(_hats.Count), 0);

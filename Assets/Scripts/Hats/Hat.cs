@@ -9,9 +9,12 @@ using Statistics;
 public class Hat : MonoBehaviour
 {
     [SerializeField] HatData _hatData = default;
+    [SerializeField] LayerMask _layerMask = default;
     public Modifier Modifier { get; private set; }
     public bool IsPickedUp { get; private set; }
 
+    public bool canPickup = true;
+    private PlayerMovement _player;
 
     SpriteRenderer _spriteRenderer;
     Collider2D _collider;
@@ -42,6 +45,11 @@ public class Hat : MonoBehaviour
     }
 
     /***************************************************************************************************************/
+    IEnumerator PickupDelay()
+    {
+        yield return new WaitForSeconds(1);
+        canPickup = true;
+    }
 
     public bool IsMeleeHat => _hatData.IsMeleeHat;
     public bool IsRangedHat => _hatData.IsRangedHat;
@@ -49,6 +57,7 @@ public class Hat : MonoBehaviour
 
     public void OnPickup(Stats stats, CharacterView view)
     {
+        _player = GameObject.FindObjectOfType<PlayerMovement>();
         _myStats = stats;
         _myStats.AddModifier(Modifier);
         /// tell the characterView to wear this
@@ -64,6 +73,12 @@ public class Hat : MonoBehaviour
         {
             _myStats.RemoveModifier(Modifier);
         }
+
+        canPickup = false;
+        EnforcePhysics();
+        StartCoroutine("PickupDelay");
+        _myStats.RemoveModifier(Modifier);
+
         /// tell the characterView to remove this
         IsPickedUp = false;
         _myStats = null;
@@ -82,15 +97,41 @@ public class Hat : MonoBehaviour
     }
 
     public void SetOrderInSortingLayer(int order){ _spriteRenderer.sortingOrder = order; }
+
+    public bool CheckForIntersect()
+    {
+        _collider.enabled = false;
+
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, new Vector3(transform.localScale.x / 2, transform.localScale.y / 2,100), 0, _layerMask);
+
+        if (!_player.getIsGrounded())
+        {
+            _collider.enabled = true;
+        }
+
+        return (hitColliders.Length > 0 && _player.getIsGrounded());
+
+    }
+
     /***************************************************************************************************************/
 
     private void EnforcePhysics()
     {
         ///CANT SET UNTIL WE FIX LEVEL COLLIDERS to be 2D:
         _collider.isTrigger = false;
-        if(_rb)
+        _collider.enabled = true;
+        if (_rb)
+        {
+            _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb.isKinematic = false;
-        
+            _rb.gravityScale = 1;
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, transform.localScale);
     }
 
 

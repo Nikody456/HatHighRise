@@ -15,7 +15,12 @@ public class CharacterCollider : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //Debug.Log($"{this.gameObject.name} Trigger2D with {collision.gameObject.name} ");
-        PickUpHat( collision.gameObject.GetComponent<Hat>());
+        Hat hat = collision.gameObject.GetComponent<Hat>();
+
+        if(hat && hat.canPickup) {
+            PickUpHat(hat);
+        }
+        
     }
 
     public void PickUpHat(Hat hat)

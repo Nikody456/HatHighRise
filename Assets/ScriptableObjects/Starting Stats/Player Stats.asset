@@ -15,7 +15,7 @@ MonoBehaviour:
   _hpMax: 3
   _baseJump: 9
   _baseMove: 6
-  _baseSprint: 15
+  _baseSprint: 10
   _attack: 10
   _defense: 1
   _jumpLimit: 1

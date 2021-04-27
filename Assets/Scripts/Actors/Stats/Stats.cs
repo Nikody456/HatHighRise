@@ -183,6 +183,13 @@ namespace Statistics
             OnHealthChanged?.Invoke(_currentHealth);
         }
 
+        public void DecreaseHealthHack(int amount)
+        {
+            _currentHealth -= amount;
+            OnHealthChanged?.Invoke(_currentHealth);
+            ModifyHealth(0);
+        }
+
         public int TakeDamage(int incommingDamage)
         {
             int rawDamage = CalculateDefense(incommingDamage);

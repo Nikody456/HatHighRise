@@ -61,7 +61,7 @@ public class HatManager : MonoBehaviour
 
             if (mostRecentHat.CheckForIntersect())
             {
-                OnPlayerHit(0);
+                OnPutDownActive(mostRecentHat);
             }
 
         }
@@ -95,7 +95,16 @@ public class HatManager : MonoBehaviour
         {
             hat.gameObject.layer = GameConstants.IGNORE_LAYER;
         }
+
+        Rigidbody2D rb = hat.GetComponent<Rigidbody2D>();
+        if (rb)
+        {
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.freezeRotation = true;
+        }
+
         _hats.Add(hat);
+
         ///This is another hack 
         if (this.GetComponent<PlayerInput>())
         {
@@ -104,6 +113,35 @@ public class HatManager : MonoBehaviour
 
         AudioManager.Instance.PlaySFX("hatPickUpSound");
     }
+
+    public void OnPutDownActive(Hat hat)
+    {
+
+        if (this.GetComponent<PlayerInput>())
+        {
+            _statsHack.DecreaseHealthHack(1);
+        }
+
+        hat.gameObject.layer = 10;
+        hat.transform.parent = null;
+        hat.OnPutDown();
+        _hats.Remove(hat);
+        //hat.gameObject.layer = GameConstants.HAT_LAYER;
+        Rigidbody2D rb = hat.GetComponent<Rigidbody2D>();
+        if (!rb)
+        {
+            rb = hat.gameObject.AddComponent<Rigidbody2D>();
+        }
+
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.freezeRotation = true;
+
+        rb.AddForce(new Vector2(0, 50));
+        ///Need to send it flying or make it so it cant be picked up again?
+        ReOrderHats();
+        ValidateCombatHats();
+    }
+
     public void OnPutDownHat(Hat hat)
     {
         hat.gameObject.layer = GameConstants.IGNORE_LAYER;
@@ -116,8 +154,12 @@ public class HatManager : MonoBehaviour
         {
             rb = hat.gameObject.AddComponent<Rigidbody2D>();
         }
+
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.freezeRotation = true;
+
         rb.AddForce(new Vector2(0, 50));
-        StartCoroutine(DestroyHat(rb));
+        //StartCoroutine(DestroyHat(rb));
         ///Need to send it flying or make it so it cant be picked up again?
         ReOrderHats();
         ValidateCombatHats();

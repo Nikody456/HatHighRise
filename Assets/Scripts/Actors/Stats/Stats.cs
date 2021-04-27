@@ -183,6 +183,13 @@ namespace Statistics
             OnHealthChanged?.Invoke(_currentHealth);
         }
 
+        public void DecreaseHealthHack(int amount)
+        {
+            _currentHealth -= amount;
+            OnHealthChanged?.Invoke(_currentHealth);
+            ModifyHealth(0);
+        }
+
         public int TakeDamage(int incommingDamage)
         {
             int rawDamage = CalculateDefense(incommingDamage);
@@ -196,7 +203,6 @@ namespace Statistics
         {
             GetListForModifier(modifier.Stat).Add(modifier);
             ///xfer the modifier to us and reset
-
             HandleModifierExpections(modifier, true);
         }
 

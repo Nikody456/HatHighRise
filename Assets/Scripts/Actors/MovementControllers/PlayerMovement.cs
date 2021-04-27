@@ -57,6 +57,11 @@ public class PlayerMovement : CharMovement
         }
     }
 
+    public bool getIsGrounded()
+    {
+        return _isGrounded;
+    }
+
     private void WallJumping() //Wall jump logic
     {
         if (isOnWall() != 0 && _controller.velocity.y <= 0) //if player is on a wall, and is also not jumping off of a wall

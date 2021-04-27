@@ -53,7 +53,10 @@ namespace TurnBased
 				levelInfoHack.ResetPlayer();
 				GameCanvas.Instance.FlipPause();
 			}
+
 			PlayButtonSound();
+
+			Application.LoadLevel(Application.loadedLevel);
 		}
 
 		public void PlayButtonSound()

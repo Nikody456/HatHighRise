@@ -77,7 +77,6 @@ public class Hat : MonoBehaviour
         canPickup = false;
         EnforcePhysics();
         StartCoroutine("PickupDelay");
-        _myStats.RemoveModifier(Modifier);
 
         /// tell the characterView to remove this
         IsPickedUp = false;

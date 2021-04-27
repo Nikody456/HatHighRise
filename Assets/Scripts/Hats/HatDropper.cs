@@ -36,7 +36,7 @@ public class HatDropper : MonoBehaviour
         yield return new WaitForEndOfFrame();
         while (hatQueue.Count > 0)
         {
-            Debug.Log($"hatQueue count = {hatQueue.Count}");
+            //Debug.Log($"hatQueue count = {hatQueue.Count}");
             DropRandomHat(hatQueue);
             yield return new WaitForEndOfFrame();
         }

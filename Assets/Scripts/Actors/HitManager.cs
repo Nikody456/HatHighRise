@@ -18,6 +18,7 @@ public static class HitManager
         if( healthRemaining <= 0)
         {
            receiver.ImDeadHack();
+           AudioManager.Instance.PlaySFX("deathSound");
         }
         AudioManager.Instance.PlaySFX("hitSound");
         // Debug.Log(healthRemaining);

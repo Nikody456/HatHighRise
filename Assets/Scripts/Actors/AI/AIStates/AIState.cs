@@ -66,7 +66,6 @@ namespace AI
 
         protected virtual void SwitchFacingDir()
         {
-            //Debug.Log($"<color=red> SWITCHFACING DIR</color>");
             if (_ai.FacingDir == Vector3.right)
             {
                 _ai.SetMovement(-1);

@@ -49,14 +49,21 @@ public class CharMovement : ActorMovement
 
     protected override void DoMovement()
     {
-        _currentSpeed = _playerStats.CurrentMoveSpeed; ///Need to get every frame, not just at start
+        _currentSpeed = sprintParticles.isPlaying? _playerStats.CurrentSprintSpeed : _playerStats.CurrentMoveSpeed; ///Need to get every frame, not just at start
         //Determine if the player is grounded each frame
         _isGrounded = isGrounded();
         _view.SetIsGrounded(_isGrounded);
 
+        float useSpeed = _currentSpeed;
+
+        if (GetComponent<HatManager>())
+        {
+            useSpeed = Mathf.Clamp(_currentSpeed - .5f * (GetComponent<HatManager>().getNumHats()), _currentSpeed / 2, _currentSpeed);
+        }
+
         if (_isGrounded)
         {
-            _moveDirection = Mathf.Lerp(_moveDirection, _input * _currentSpeed, friction * Time.deltaTime);
+            _moveDirection = Mathf.Lerp(_moveDirection, _input * useSpeed, friction * Time.deltaTime);
 
             //Reset Jumps
             if (_controller.velocity.y <= 0)
@@ -66,7 +73,7 @@ public class CharMovement : ActorMovement
         }
         else
         {
-            _moveDirection = Mathf.Lerp(_moveDirection, _input * _currentSpeed, airFriction * Time.deltaTime);
+            _moveDirection = Mathf.Lerp(_moveDirection, _input * useSpeed, airFriction * Time.deltaTime);
         }
 
         //set velocity of the character
@@ -96,17 +103,10 @@ public class CharMovement : ActorMovement
 
     public void TrySprint()
     {
-        if (isGrounded())
+        if (isGrounded() && Mathf.Abs(_input) > .25f)
         {
             _currentSpeed = _playerStats.CurrentSprintSpeed; //set player speed to sprint speed
-            if (Mathf.Abs(_input) > .25f) //if the character is moving enough, use particles
-            {
-                sprintParticles.Play();
-            }
-            else
-            {
-                sprintParticles.Stop();
-            }
+            sprintParticles.Play();
         }
         else
         {

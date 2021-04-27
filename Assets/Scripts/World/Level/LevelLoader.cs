@@ -38,6 +38,8 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         //Init our score prefs
         PlayerPrefs.SetInt(GameConstants.HAT_SCORE_KEY, 0);
         Instantiate(Resources.Load<GameObject>("UI/GameCanvas"));
+        //A Hack to skip thru
+        _isScoringScene = true;
     }
     public void LoadNextLevel()
     {

@@ -104,6 +104,11 @@ public class Hat : MonoBehaviour
 
         Collider2D[] hitColliders = Physics2D.OverlapBoxAll(transform.position, new Vector3(transform.localScale.x / 2, transform.localScale.y / 2,100), 0, _layerMask);
 
+        if (!_player.getIsGrounded())
+        {
+            _collider.enabled = true;
+        }
+
         return (hitColliders.Length > 0 && _player.getIsGrounded());
 
     }

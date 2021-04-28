@@ -7,6 +7,8 @@ public class Fade : MonoBehaviour
     [SerializeField] Vector3 fadeOutSize;
     [SerializeField] float fadeDuration;
 
+    Vector3 _ogScale;
+
     private void Start()
     {
         StartCoroutine(FadeOut());
@@ -14,11 +16,12 @@ public class Fade : MonoBehaviour
 
     public IEnumerator FadeOut()
     {
+        _ogScale = transform.localScale;
         float timeElapsed = 0;
 
         while (timeElapsed < fadeDuration)
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, fadeOutSize, timeElapsed / fadeDuration);
+            transform.localScale = Vector3.Lerp(_ogScale, fadeOutSize, timeElapsed / fadeDuration);
             timeElapsed += Time.deltaTime;
 
             yield return null;

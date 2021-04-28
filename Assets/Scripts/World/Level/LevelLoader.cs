@@ -28,11 +28,11 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             _currentScene = SceneManager.LoadScene(_firstLevelName, parameters);
         }
         _currentSceneIndex = _currentScene.buildIndex;
-
     }
 
     public void LoadFirstLevel()
     {
+
         var parameters = new LoadSceneParameters(LoadSceneMode.Single);
         _currentScene = SceneManager.LoadScene(++_currentSceneIndex, parameters);
         //Init our score prefs

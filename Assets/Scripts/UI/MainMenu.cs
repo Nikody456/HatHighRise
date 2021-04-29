@@ -42,7 +42,8 @@ namespace TurnBased
 		public void Quit()
 		{
 			PlayButtonSound();
-			Application.Quit();
+			//DISABLED FOR HTML BUILD
+			//Application.Quit();
 		}
 
 		public void Restart()

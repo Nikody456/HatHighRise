@@ -28,23 +28,24 @@ public class LevelLoader : MonoSingleton<LevelLoader>
             _currentScene = SceneManager.LoadScene(_firstLevelName, parameters);
         }
         _currentSceneIndex = _currentScene.buildIndex;
+       // Debug.Log($"Load INTRO(!) scene  : {_currentSceneIndex} is scoring= {_isScoringScene} ");
     }
 
     public void LoadFirstLevel()
     {
-
+       // Debug.Log($"Load First(!) scene  : {_currentSceneIndex} is scoring= {_isScoringScene} ");
         var parameters = new LoadSceneParameters(LoadSceneMode.Single);
         _currentScene = SceneManager.LoadScene(++_currentSceneIndex, parameters);
         //Init our score prefs
         PlayerPrefs.SetInt(GameConstants.HAT_SCORE_KEY, 0);
         Instantiate(Resources.Load<GameObject>("UI/GameCanvas"));
-        //A Hack to skip thru
-        _isScoringScene = true;
+        //A Hack to skip thru (shouldnt matter anymore but not deleting it)
+        _isScoringScene = false;
     }
     public void LoadNextLevel()
     {
         OnSceneIsLoading?.Invoke(true);
-        Debug.Log($"Trying to load : {_currentSceneIndex} is scoring= {_isScoringScene} ");
+        //Debug.Log($"Trying to load : {_currentSceneIndex} is scoring= {_isScoringScene} ");
         if (!_isScoringScene)
         {
             _isScoringScene = true;

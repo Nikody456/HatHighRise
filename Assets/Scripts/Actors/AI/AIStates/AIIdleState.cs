@@ -40,7 +40,7 @@ namespace AI
                 _ai.SetMovement(0);
             }
             _timeInState += Time.deltaTime;
-            //Debug.Log($"_timeInState= {_timeInState}");
+           // Debug.Log($"_timeInState= {_timeInState} ... timeFlip={_timesFlipped}");
         }
         /*************************************************************************************************************/
 
@@ -54,9 +54,13 @@ namespace AI
                     if (canFlipAround)
                     {
                         SwitchFacingDir();
+                        return true; ///Return true to give us one frame of movement the other dir
                     }
-                    ///Return true to give us one frame of movement the other dir
-                    return true;
+                    else
+                    {
+                        //Debug.Log($"{_ai.gameObject.name} cant flip");
+                        return TryFindTarget();
+                    }
                 }
                 else if (_timesFlipped > _timeToWander)
                 {
@@ -72,11 +76,16 @@ namespace AI
 
                             SwitchFacingDir();
                             --_timesFlipped;
-                            return true;
+                            return true; ///Return true to give us one frame of movement the other dir
                         }
 
                         return _ai.SetState(eAIStates.MOVE);
 
+                    }
+                    else
+                    {
+                        //Debug.Log($"{_ai.gameObject.name} cant flip");
+                        TryFindTarget();
                     }
                 }
                 else if (_isTurning)

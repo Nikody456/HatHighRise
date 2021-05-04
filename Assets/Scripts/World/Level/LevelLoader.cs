@@ -13,14 +13,9 @@ public class LevelLoader : MonoSingleton<LevelLoader>
 
     private bool _isScoringScene = false;
 
-    private void Start()
-    {
 
-    }
 
-    /// <summary>
-    /// Called from Button
-    /// </summary>
+    /// <summary>Called from Button </summary>
     public void LoadIntroLevel()
     {
         var parameters = new LoadSceneParameters(LoadSceneMode.Single);
@@ -43,10 +38,13 @@ public class LevelLoader : MonoSingleton<LevelLoader>
         //Init our score prefs
         PlayerPrefs.SetInt(GameConstants.HAT_SCORE_KEY, 0);
         Instantiate(Resources.Load<GameObject>("UI/GameCanvas"));
+        //A Hack to skip thru
+        _isScoringScene = true;
     }
     public void LoadNextLevel()
     {
         OnSceneIsLoading?.Invoke(true);
+        Debug.Log($"Trying to load : {_currentSceneIndex} is scoring= {_isScoringScene} ");
         if (!_isScoringScene)
         {
             _isScoringScene = true;
